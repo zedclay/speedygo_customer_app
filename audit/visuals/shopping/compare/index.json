@@ -1,0 +1,130 @@
+[
+  {
+    "slug": "categories-ready",
+    "viewport": "se-375x667",
+    "artifact": "categories-ready-se-375x667",
+    "status": "compared",
+    "path": "categories-ready-se-375x667-side-by-side.jpg",
+    "bytes": 149400
+  },
+  {
+    "slug": "categories-ready",
+    "viewport": "iphone17pro-402x874",
+    "artifact": "categories-ready-iphone17pro-402x874",
+    "status": "compared",
+    "path": "categories-ready-iphone17pro-402x874-side-by-side.jpg",
+    "bytes": 401275
+  },
+  {
+    "slug": "category-results-ready",
+    "viewport": "se-375x667",
+    "artifact": "category-results-ready-se-375x667",
+    "status": "compared",
+    "path": "category-results-ready-se-375x667-side-by-side.jpg",
+    "bytes": 230580
+  },
+  {
+    "slug": "category-results-ready",
+    "viewport": "iphone17pro-402x874",
+    "artifact": "category-results-ready-iphone17pro-402x874",
+    "status": "compared",
+    "path": "category-results-ready-iphone17pro-402x874-side-by-side.jpg",
+    "bytes": 558281
+  },
+  {
+    "slug": "storefront-ready",
+    "viewport": "se-375x667",
+    "artifact": "storefront-ready-se-375x667",
+    "status": "compared",
+    "path": "storefront-ready-se-375x667-side-by-side.jpg",
+    "bytes": 281399
+  },
+  {
+    "slug": "storefront-ready",
+    "viewport": "iphone17pro-402x874",
+    "artifact": "storefront-ready-iphone17pro-402x874",
+    "status": "compared",
+    "path": "storefront-ready-iphone17pro-402x874-side-by-side.jpg",
+    "bytes": 593534
+  },
+  {
+    "slug": "search-results-ready",
+    "viewport": "se-375x667",
+    "artifact": "search-results-ready-se-375x667",
+    "status": "compared",
+    "path": "search-results-ready-se-375x667-side-by-side.jpg",
+    "bytes": 231928
+  },
+  {
+    "slug": "search-results-ready",
+    "viewport": "iphone17pro-402x874",
+    "artifact": "search-results-ready-iphone17pro-402x874",
+    "status": "compared",
+    "path": "search-results-ready-iphone17pro-402x874-side-by-side.jpg",
+    "bytes": 540913
+  },
+  {
+    "slug": "product-options-ready",
+    "viewport": "se-375x667",
+    "artifact": "product-options-ready-se-375x667",
+    "status": "compared",
+    "path": "product-options-ready-se-375x667-side-by-side.jpg",
+    "bytes": 203820
+  },
+  {
+    "slug": "product-options-ready",
+    "viewport": "iphone17pro-402x874",
+    "artifact": "product-options-ready-iphone17pro-402x874",
+    "status": "compared",
+    "path": "product-options-ready-iphone17pro-402x874-side-by-side.jpg",
+    "bytes": 460398
+  },
+  {
+    "slug": "cart-ready",
+    "viewport": "se-375x667",
+    "artifact": "cart-ready-se-375x667",
+    "status": "compared",
+    "path": "cart-ready-se-375x667-side-by-side.jpg",
+    "bytes": 221358
+  },
+  {
+    "slug": "cart-ready",
+    "viewport": "iphone17pro-402x874",
+    "artifact": "cart-ready-iphone17pro-402x874",
+    "status": "compared",
+    "path": "cart-ready-iphone17pro-402x874-side-by-side.jpg",
+    "bytes": 463251
+  },
+  {
+    "slug": "checkout-address-ready",
+    "viewport": "se-375x667",
+    "artifact": "checkout-address-ready-se-375x667",
+    "status": "compared",
+    "path": "checkout-address-ready-se-375x667-side-by-side.jpg",
+    "bytes": 166250
+  },
+  {
+    "slug": "checkout-address-ready",
+    "viewport": "iphone17pro-402x874",
+    "artifact": "checkout-address-ready-iphone17pro-402x874",
+    "status": "compared",
+    "path": "checkout-address-ready-iphone17pro-402x874-side-by-side.jpg",
+    "bytes": 375587
+  },
+  {
+    "slug": "checkout-review-ready",
+    "viewport": "se-375x667",
+    "artifact": "checkout-review-ready-se-375x667",
+    "status": "compared",
+    "path": "checkout-review-ready-se-375x667-side-by-side.jpg",
+    "bytes": 192853
+  },
+  {
+    "slug": "checkout-review-ready",
+    "viewport": "iphone17pro-402x874",
+    "artifact": "checkout-review-ready-iphone17pro-402x874",
+    "status": "compared",
+    "path": "checkout-review-ready-iphone17pro-402x874-side-by-side.jpg",
+    "bytes": 539453
+  }
+]

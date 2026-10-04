@@ -39,6 +39,60 @@ void main() {
       });
       expect(me.profileComplete, isFalse);
       expect(me.addressReady, isFalse);
+      expect(me.addresses, isEmpty);
+      expect(me.deliverToLabel, isNull);
+    });
+
+    test('parses customer addresses and prefers the default label', () {
+      final me = CustomerMe.fromJson({
+        'customerProfileExists': true,
+        'profileComplete': true,
+        'addressReady': true,
+        'profile': {'id': 'p1', 'fullName': 'Amel Benali'},
+        'defaultAddressId': 'addr-home',
+        'addresses': [
+          {
+            'id': 'addr-work',
+            'label': 'Bureau',
+            'addressText': 'Rue du Travail',
+            'isDefault': false,
+            'latitude': 36.76,
+            'longitude': 3.06,
+          },
+          {
+            'id': 'addr-home',
+            'label': 'Domicile',
+            'addressText': 'Cité 120 logements',
+            'isDefault': true,
+            'latitude': 36.7538,
+            'longitude': 3.0588,
+          },
+        ],
+      });
+      expect(me.addressReady, isTrue);
+      expect(me.deliveryAddress?.id, 'addr-home');
+      expect(me.deliverToLabel, 'Domicile');
+      expect(me.deliveryAddress?.latitude, 36.7538);
+      expect(me.deliveryAddress?.longitude, 3.0588);
+    });
+
+    test('falls back to addressText when the label is empty', () {
+      final me = CustomerMe.fromJson({
+        'customerProfileExists': true,
+        'profileComplete': true,
+        'addressReady': true,
+        'profile': {'id': 'p1', 'fullName': 'Amel Benali'},
+        'defaultAddressId': 'addr-1',
+        'addresses': [
+          {
+            'id': 'addr-1',
+            'label': '  ',
+            'addressText': '12 rue Didouche, Alger',
+            'isDefault': true,
+          },
+        ],
+      });
+      expect(me.deliverToLabel, '12 rue Didouche, Alger');
     });
 
     test('otp bodies use backend field names', () {

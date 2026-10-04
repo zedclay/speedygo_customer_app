@@ -1,0 +1,38 @@
+[
+  {
+    "slug": "home-ready-se-375x667",
+    "status": "compared",
+    "path": "home-ready-se-375x667-side-by-side.jpg",
+    "bytes": 199304
+  },
+  {
+    "slug": "profile-setup-ready-se-375x667",
+    "status": "compared",
+    "path": "profile-setup-ready-se-375x667-side-by-side.jpg",
+    "bytes": 162942
+  },
+  {
+    "slug": "order-confirmation-ready-se-375x667",
+    "status": "compared",
+    "path": "order-confirmation-ready-se-375x667-side-by-side.jpg",
+    "bytes": 180549
+  },
+  {
+    "slug": "product-ready-se-375x667",
+    "status": "compared",
+    "path": "product-ready-se-375x667-side-by-side.jpg",
+    "bytes": 259722
+  },
+  {
+    "slug": "support-create-keyboard-se-375x667",
+    "status": "compared",
+    "path": "support-create-keyboard-se-375x667-side-by-side.jpg",
+    "bytes": 191141
+  },
+  {
+    "slug": "payment-success-to-confirmation-se-375x667",
+    "status": "compared",
+    "path": "payment-success-to-confirmation-se-375x667-side-by-side.jpg",
+    "bytes": 179370
+  }
+]

@@ -1,0 +1,38 @@
+{
+  "phase": "completed_ui_verified",
+  "verdict": "PASS_API_OPS_AND_CUSTOMER_UI_READONLY",
+  "orderId": "01a0a2d5-70c9-76a9-8a6d-a6a77b54645d",
+  "publicReference": "sgo_01a0a2d570c97b46834e0c23e071634c",
+  "customerPhone": "+213550000072",
+  "expectedPayableMinor": "240500",
+  "expectedDzdDisplay": "2 405,00 DZD",
+  "environment": {
+    "database": "speedygo_dev",
+    "databaseUrlHostPort": "localhost:5433",
+    "api": "http://127.0.0.1:3000/api/v1",
+    "redis": "localhost:6381"
+  },
+  "finalState": {
+    "orderStatus": "COMPLETED",
+    "fulfillmentStatus": "READY",
+    "paymentStatus": "SUCCEEDED",
+    "paymentMethod": "COD",
+    "paymentAmountMinor": "240500",
+    "deliveryStatus": "DELIVERED",
+    "codCollectionStatus": "COLLECTED"
+  },
+  "defectClose": {
+    "bullmqJobIds": "hyphen strategy via bull-job-id.ts",
+    "soukOpenNow": "not_a_sql_defect_live_returns_both",
+    "completedStatusLabel": "activeOrderStatusLabel handles COMPLETED/DELIVERED"
+  },
+  "customerUiReadOnly": {
+    "mode": "LIVE_UI_GESTURE",
+    "evidence": "audit/cod-lifecycle-acceptance/logs/completed-order-ui-evidence.json",
+    "log": "audit/cod-lifecycle-acceptance/logs/completed-order-ui3.log",
+    "result": "PASS"
+  },
+  "report": "audit/cod-lifecycle-acceptance/ACCEPTANCE_REPORT.md",
+  "updatedAt": "2026-09-15T03:12:00.000Z",
+  "createdSecondCodOrder": false
+}

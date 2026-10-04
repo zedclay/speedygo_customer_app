@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -8,6 +6,8 @@ import 'package:speedygo_customer_app/app/app.dart';
 import 'package:speedygo_customer_app/core/constants/app_strings.dart';
 import 'package:speedygo_customer_app/core/storage/session_store.dart';
 import 'package:speedygo_customer_app/features/auth/application/session_providers.dart';
+
+import 'support/dev_otp_file.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -18,11 +18,24 @@ void main() {
 
     await tester.pumpWidget(
       ProviderScope(
-        overrides: [sessionStoreProvider.overrideWithValue(store)],
+        overrides: [
+          sessionStoreProvider.overrideWithValue(store),
+          splashMinDurationProvider.overrideWithValue(Duration.zero),
+          splashAnimateProvider.overrideWithValue(false),
+        ],
         child: const SpeedyGoApp(),
       ),
     );
     await tester.pumpAndSettle();
+    for (var i = 0; i < 40; i++) {
+      if (find.text(AppStrings.languageTitle).evaluate().isNotEmpty ||
+          find.text(AppStrings.welcomeDiscoverTitle).evaluate().isNotEmpty ||
+          find.text(AppStrings.phoneTitle).evaluate().isNotEmpty ||
+          find.text(AppStrings.searchHint).evaluate().isNotEmpty) {
+        break;
+      }
+      await tester.pump(const Duration(milliseconds: 100));
+    }
     if (find.text(AppStrings.languageTitle).evaluate().isNotEmpty) {
       await tester.tap(
         find.widgetWithText(FilledButton, AppStrings.continueLabel),
@@ -37,6 +50,9 @@ void main() {
 
     await tester.enterText(find.byType(TextField), '550667788');
     await tester.pump();
+    await tester.ensureVisible(
+      find.widgetWithText(FilledButton, AppStrings.continueLabel),
+    );
     await tester.tap(
       find.widgetWithText(FilledButton, AppStrings.continueLabel),
     );
@@ -53,7 +69,7 @@ void main() {
       findsOneWidget,
     );
 
-    final otpFile = File('/tmp/speedygo-dev-otp-last');
+    final otpFile = speedyGoDevOtpFile();
     expect(otpFile.existsSync(), isTrue);
     final code = otpFile.readAsStringSync().trim();
     expect(code.length, 6);
@@ -69,8 +85,7 @@ void main() {
       await tester.pumpAndSettle();
     }
 
-    if (find.text(AppStrings.fullNameLabel).evaluate().isNotEmpty ||
-        find.text(AppStrings.profileTitle).evaluate().isNotEmpty) {
+    if (find.textContaining(AppStrings.fullNameLabel).evaluate().isNotEmpty) {
       await tester.enterText(find.byType(TextField), 'Review User');
       await tester.pump();
       await tester.tap(
@@ -85,11 +100,11 @@ void main() {
     await tester.tap(find.byIcon(Icons.person_outline));
     await tester.pumpAndSettle();
     await tester.scrollUntilVisible(
-      find.widgetWithText(FilledButton, AppStrings.logout),
+      find.byKey(const Key('account-logout')),
       240,
       scrollable: find.byType(Scrollable).first,
     );
-    await tester.tap(find.widgetWithText(FilledButton, AppStrings.logout));
+    await tester.tap(find.byKey(const Key('account-logout')));
     await tester.pumpAndSettle();
     expect(find.text(AppStrings.logoutConfirmTitle), findsOneWidget);
     await tester.tap(

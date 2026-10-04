@@ -1,0 +1,1051 @@
+{
+  "alignment": [
+    {
+      "folder": "d_tails_du_produit_speedygo",
+      "slug": "product-detail-ready",
+      "html": true,
+      "viewports": [
+        {
+          "viewport": "se-375x667",
+          "status": "rendered",
+          "bytes": 483210,
+          "failedResources": [],
+          "failedCount": 0,
+          "metrics": {
+            "innerWidth": 375,
+            "scrollWidth": 375,
+            "clientWidth": 375,
+            "mainScrollWidth": 375,
+            "overflowX": false,
+            "clippedControls": []
+          },
+          "htmlDefects": [],
+          "path": "product-detail-ready-se-375x667.png"
+        },
+        {
+          "viewport": "iphone17pro-402x874",
+          "status": "rendered",
+          "bytes": 1142977,
+          "failedResources": [],
+          "failedCount": 0,
+          "metrics": {
+            "innerWidth": 402,
+            "scrollWidth": 402,
+            "clientWidth": 402,
+            "mainScrollWidth": 402,
+            "overflowX": false,
+            "clippedControls": []
+          },
+          "htmlDefects": [],
+          "path": "product-detail-ready-iphone17pro-402x874.png"
+        }
+      ],
+      "status": "rendered"
+    },
+    {
+      "folder": "configuration_du_produit_speedygo",
+      "slug": "product-options-ready",
+      "html": true,
+      "viewports": [
+        {
+          "viewport": "se-375x667",
+          "status": "rendered",
+          "bytes": 160846,
+          "failedResources": [],
+          "failedCount": 0,
+          "metrics": {
+            "innerWidth": 375,
+            "scrollWidth": 375,
+            "clientWidth": 375,
+            "mainScrollWidth": 375,
+            "overflowX": false,
+            "clippedControls": []
+          },
+          "htmlDefects": [],
+          "path": "product-options-ready-se-375x667.png"
+        },
+        {
+          "viewport": "iphone17pro-402x874",
+          "status": "rendered",
+          "bytes": 325387,
+          "failedResources": [],
+          "failedCount": 0,
+          "metrics": {
+            "innerWidth": 402,
+            "scrollWidth": 402,
+            "clientWidth": 402,
+            "mainScrollWidth": 402,
+            "overflowX": false,
+            "clippedControls": []
+          },
+          "htmlDefects": [],
+          "path": "product-options-ready-iphone17pro-402x874.png"
+        }
+      ],
+      "status": "rendered"
+    },
+    {
+      "folder": "d_tails_du_marchand_speedygo",
+      "slug": "storefront-ready",
+      "html": true,
+      "viewports": [
+        {
+          "viewport": "se-375x667",
+          "status": "rendered",
+          "bytes": 674589,
+          "failedResources": [],
+          "failedCount": 0,
+          "metrics": {
+            "innerWidth": 375,
+            "scrollWidth": 375,
+            "clientWidth": 375,
+            "mainScrollWidth": 375,
+            "overflowX": false,
+            "clippedControls": [
+              {
+                "tag": "button",
+                "right": 391,
+                "width": 61,
+                "clipped": true
+              }
+            ]
+          },
+          "htmlDefects": [
+            "intentional_horizontal_chip_overflow:1_chip_buttons_clip_at_right_edge"
+          ],
+          "path": "storefront-ready-se-375x667.png"
+        },
+        {
+          "viewport": "iphone17pro-402x874",
+          "status": "rendered",
+          "bytes": 1408373,
+          "failedResources": [],
+          "failedCount": 0,
+          "metrics": {
+            "innerWidth": 402,
+            "scrollWidth": 402,
+            "clientWidth": 402,
+            "mainScrollWidth": 402,
+            "overflowX": false,
+            "clippedControls": []
+          },
+          "htmlDefects": [],
+          "path": "storefront-ready-iphone17pro-402x874.png"
+        }
+      ],
+      "status": "rendered"
+    },
+    {
+      "folder": "toutes_les_cat_gories_speedygo_c_012",
+      "slug": "categories-ready",
+      "html": true,
+      "viewports": [
+        {
+          "viewport": "se-375x667",
+          "status": "rendered",
+          "bytes": 407441,
+          "failedResources": [],
+          "failedCount": 0,
+          "metrics": {
+            "innerWidth": 375,
+            "scrollWidth": 375,
+            "clientWidth": 375,
+            "mainScrollWidth": 375,
+            "overflowX": false,
+            "clippedControls": []
+          },
+          "htmlDefects": [],
+          "path": "categories-ready-se-375x667.png"
+        },
+        {
+          "viewport": "iphone17pro-402x874",
+          "status": "rendered",
+          "bytes": 830298,
+          "failedResources": [],
+          "failedCount": 0,
+          "metrics": {
+            "innerWidth": 402,
+            "scrollWidth": 402,
+            "clientWidth": 402,
+            "mainScrollWidth": 402,
+            "overflowX": false,
+            "clippedControls": []
+          },
+          "htmlDefects": [],
+          "path": "categories-ready-iphone17pro-402x874.png"
+        }
+      ],
+      "status": "rendered"
+    },
+    {
+      "folder": "panier_speedygo_c_025",
+      "slug": "cart-ready",
+      "html": true,
+      "viewports": [
+        {
+          "viewport": "se-375x667",
+          "status": "rendered",
+          "bytes": 197569,
+          "failedResources": [],
+          "failedCount": 0,
+          "metrics": {
+            "innerWidth": 375,
+            "scrollWidth": 375,
+            "clientWidth": 375,
+            "mainScrollWidth": 375,
+            "overflowX": false,
+            "clippedControls": []
+          },
+          "htmlDefects": [],
+          "path": "cart-ready-se-375x667.png"
+        },
+        {
+          "viewport": "iphone17pro-402x874",
+          "status": "rendered",
+          "bytes": 395742,
+          "failedResources": [],
+          "failedCount": 0,
+          "metrics": {
+            "innerWidth": 402,
+            "scrollWidth": 402,
+            "clientWidth": 402,
+            "mainScrollWidth": 402,
+            "overflowX": false,
+            "clippedControls": []
+          },
+          "htmlDefects": [],
+          "path": "cart-ready-iphone17pro-402x874.png"
+        }
+      ],
+      "status": "rendered"
+    },
+    {
+      "folder": "accueil_speedygo",
+      "slug": "home-ready",
+      "html": true,
+      "viewports": [
+        {
+          "viewport": "se-375x667",
+          "status": "rendered",
+          "bytes": 182522,
+          "failedResources": [],
+          "failedCount": 0,
+          "metrics": {
+            "innerWidth": 375,
+            "scrollWidth": 375,
+            "clientWidth": 375,
+            "mainScrollWidth": 375,
+            "overflowX": false,
+            "clippedControls": []
+          },
+          "htmlDefects": [],
+          "path": "home-ready-se-375x667.png"
+        },
+        {
+          "viewport": "iphone17pro-402x874",
+          "status": "rendered",
+          "bytes": 756865,
+          "failedResources": [],
+          "failedCount": 0,
+          "metrics": {
+            "innerWidth": 402,
+            "scrollWidth": 402,
+            "clientWidth": 402,
+            "mainScrollWidth": 402,
+            "overflowX": false,
+            "clippedControls": []
+          },
+          "htmlDefects": [],
+          "path": "home-ready-iphone17pro-402x874.png"
+        }
+      ],
+      "status": "rendered"
+    },
+    {
+      "folder": "avis_speedygo",
+      "slug": "merchant-reviews-ready",
+      "html": true,
+      "viewports": [
+        {
+          "viewport": "se-375x667",
+          "status": "rendered",
+          "bytes": 118343,
+          "failedResources": [],
+          "failedCount": 0,
+          "metrics": {
+            "innerWidth": 375,
+            "scrollWidth": 375,
+            "clientWidth": 375,
+            "mainScrollWidth": 375,
+            "overflowX": false,
+            "clippedControls": [
+              {
+                "tag": "button",
+                "right": 398,
+                "width": 105,
+                "clipped": true
+              },
+              {
+                "tag": "button",
+                "right": 546,
+                "width": 140,
+                "clipped": true
+              }
+            ]
+          },
+          "htmlDefects": [
+            "intentional_horizontal_chip_overflow:2_chip_buttons_clip_at_right_edge"
+          ],
+          "path": "merchant-reviews-ready-se-375x667.png"
+        },
+        {
+          "viewport": "iphone17pro-402x874",
+          "status": "rendered",
+          "bytes": 239456,
+          "failedResources": [],
+          "failedCount": 0,
+          "metrics": {
+            "innerWidth": 402,
+            "scrollWidth": 402,
+            "clientWidth": 402,
+            "mainScrollWidth": 402,
+            "overflowX": false,
+            "clippedControls": [
+              {
+                "tag": "button",
+                "right": 546,
+                "width": 140,
+                "clipped": true
+              }
+            ]
+          },
+          "htmlDefects": [
+            "intentional_horizontal_chip_overflow:1_chip_buttons_clip_at_right_edge"
+          ],
+          "path": "merchant-reviews-ready-iphone17pro-402x874.png"
+        }
+      ],
+      "status": "rendered"
+    },
+    {
+      "folder": "infos_sur_le_marchand_speedygo",
+      "slug": "merchant-info-ready",
+      "html": true,
+      "viewports": [
+        {
+          "viewport": "se-375x667",
+          "status": "rendered",
+          "bytes": 275868,
+          "failedResources": [],
+          "failedCount": 0,
+          "metrics": {
+            "innerWidth": 375,
+            "scrollWidth": 375,
+            "clientWidth": 375,
+            "mainScrollWidth": 375,
+            "overflowX": false,
+            "clippedControls": []
+          },
+          "htmlDefects": [],
+          "path": "merchant-info-ready-se-375x667.png"
+        },
+        {
+          "viewport": "iphone17pro-402x874",
+          "status": "rendered",
+          "bytes": 574112,
+          "failedResources": [],
+          "failedCount": 0,
+          "metrics": {
+            "innerWidth": 402,
+            "scrollWidth": 402,
+            "clientWidth": 402,
+            "mainScrollWidth": 402,
+            "overflowX": false,
+            "clippedControls": []
+          },
+          "htmlDefects": [],
+          "path": "merchant-info-ready-iphone17pro-402x874.png"
+        }
+      ],
+      "status": "rendered"
+    },
+    {
+      "folder": "noter_la_commande_speedygo",
+      "slug": "order-rate-ready",
+      "html": true,
+      "viewports": [
+        {
+          "viewport": "se-375x667",
+          "status": "rendered",
+          "bytes": 108416,
+          "failedResources": [],
+          "failedCount": 0,
+          "metrics": {
+            "innerWidth": 375,
+            "scrollWidth": 375,
+            "clientWidth": 375,
+            "mainScrollWidth": 375,
+            "overflowX": false,
+            "clippedControls": []
+          },
+          "htmlDefects": [],
+          "path": "order-rate-ready-se-375x667.png"
+        },
+        {
+          "viewport": "iphone17pro-402x874",
+          "status": "rendered",
+          "bytes": 226273,
+          "failedResources": [],
+          "failedCount": 0,
+          "metrics": {
+            "innerWidth": 402,
+            "scrollWidth": 402,
+            "clientWidth": 402,
+            "mainScrollWidth": 402,
+            "overflowX": false,
+            "clippedControls": []
+          },
+          "htmlDefects": [],
+          "path": "order-rate-ready-iphone17pro-402x874.png"
+        }
+      ],
+      "status": "rendered"
+    },
+    {
+      "folder": "r_diger_un_avis_speedygo",
+      "slug": "order-write-review-ready",
+      "html": true,
+      "viewports": [
+        {
+          "viewport": "se-375x667",
+          "status": "rendered",
+          "bytes": 108181,
+          "failedResources": [],
+          "failedCount": 0,
+          "metrics": {
+            "innerWidth": 375,
+            "scrollWidth": 375,
+            "clientWidth": 375,
+            "mainScrollWidth": 375,
+            "overflowX": false,
+            "clippedControls": []
+          },
+          "htmlDefects": [],
+          "path": "order-write-review-ready-se-375x667.png"
+        },
+        {
+          "viewport": "iphone17pro-402x874",
+          "status": "rendered",
+          "bytes": 235887,
+          "failedResources": [],
+          "failedCount": 0,
+          "metrics": {
+            "innerWidth": 402,
+            "scrollWidth": 402,
+            "clientWidth": 402,
+            "mainScrollWidth": 402,
+            "overflowX": false,
+            "clippedControls": []
+          },
+          "htmlDefects": [],
+          "path": "order-write-review-ready-iphone17pro-402x874.png"
+        }
+      ],
+      "status": "rendered"
+    },
+    {
+      "folder": "signaler_un_probl_me_speedygo",
+      "slug": "support-create-ready",
+      "html": true,
+      "viewports": [
+        {
+          "viewport": "se-375x667",
+          "status": "rendered",
+          "bytes": 105108,
+          "failedResources": [],
+          "failedCount": 0,
+          "metrics": {
+            "innerWidth": 375,
+            "scrollWidth": 375,
+            "clientWidth": 375,
+            "mainScrollWidth": 375,
+            "overflowX": false,
+            "clippedControls": [
+              {
+                "tag": "button",
+                "right": 401,
+                "width": 82,
+                "clipped": true
+              },
+              {
+                "tag": "button",
+                "right": 505,
+                "width": 96,
+                "clipped": true
+              },
+              {
+                "tag": "button",
+                "right": 610,
+                "width": 97,
+                "clipped": true
+              },
+              {
+                "tag": "button",
+                "right": 699,
+                "width": 81,
+                "clipped": true
+              },
+              {
+                "tag": "button",
+                "right": 778,
+                "width": 71,
+                "clipped": true
+              },
+              {
+                "tag": "button",
+                "right": 925,
+                "width": 139,
+                "clipped": true
+              }
+            ]
+          },
+          "htmlDefects": [
+            "intentional_horizontal_chip_overflow:6_chip_buttons_clip_at_right_edge"
+          ],
+          "path": "support-create-ready-se-375x667.png"
+        },
+        {
+          "viewport": "iphone17pro-402x874",
+          "status": "rendered",
+          "bytes": 334333,
+          "failedResources": [],
+          "failedCount": 0,
+          "metrics": {
+            "innerWidth": 402,
+            "scrollWidth": 402,
+            "clientWidth": 402,
+            "mainScrollWidth": 402,
+            "overflowX": false,
+            "clippedControls": [
+              {
+                "tag": "button",
+                "right": 505,
+                "width": 96,
+                "clipped": true
+              },
+              {
+                "tag": "button",
+                "right": 610,
+                "width": 97,
+                "clipped": true
+              },
+              {
+                "tag": "button",
+                "right": 699,
+                "width": 81,
+                "clipped": true
+              },
+              {
+                "tag": "button",
+                "right": 778,
+                "width": 71,
+                "clipped": true
+              },
+              {
+                "tag": "button",
+                "right": 925,
+                "width": 139,
+                "clipped": true
+              }
+            ]
+          },
+          "htmlDefects": [
+            "intentional_horizontal_chip_overflow:5_chip_buttons_clip_at_right_edge"
+          ],
+          "path": "support-create-ready-iphone17pro-402x874.png"
+        }
+      ],
+      "status": "rendered"
+    },
+    {
+      "folder": "d_tails_du_ticket_support_speedygo",
+      "slug": "support-detail-ready",
+      "html": true,
+      "viewports": [
+        {
+          "viewport": "se-375x667",
+          "status": "rendered",
+          "bytes": 236955,
+          "failedResources": [],
+          "failedCount": 0,
+          "metrics": {
+            "innerWidth": 375,
+            "scrollWidth": 375,
+            "clientWidth": 375,
+            "mainScrollWidth": 375,
+            "overflowX": false,
+            "clippedControls": []
+          },
+          "htmlDefects": [],
+          "path": "support-detail-ready-se-375x667.png"
+        },
+        {
+          "viewport": "iphone17pro-402x874",
+          "status": "rendered",
+          "bytes": 587615,
+          "failedResources": [],
+          "failedCount": 0,
+          "metrics": {
+            "innerWidth": 402,
+            "scrollWidth": 402,
+            "clientWidth": 402,
+            "mainScrollWidth": 402,
+            "overflowX": false,
+            "clippedControls": []
+          },
+          "htmlDefects": [],
+          "path": "support-detail-ready-iphone17pro-402x874.png"
+        }
+      ],
+      "status": "rendered"
+    },
+    {
+      "folder": "historique_des_commandes_speedygo",
+      "slug": "orders-in-progress-ready",
+      "html": true,
+      "viewports": [
+        {
+          "viewport": "se-375x667",
+          "status": "rendered",
+          "bytes": 140364,
+          "failedResources": [],
+          "failedCount": 0,
+          "metrics": {
+            "innerWidth": 375,
+            "scrollWidth": 375,
+            "clientWidth": 375,
+            "mainScrollWidth": 375,
+            "overflowX": false,
+            "clippedControls": []
+          },
+          "htmlDefects": [],
+          "path": "orders-in-progress-ready-se-375x667.png"
+        },
+        {
+          "viewport": "iphone17pro-402x874",
+          "status": "rendered",
+          "bytes": 334145,
+          "failedResources": [],
+          "failedCount": 0,
+          "metrics": {
+            "innerWidth": 402,
+            "scrollWidth": 402,
+            "clientWidth": 402,
+            "mainScrollWidth": 402,
+            "overflowX": false,
+            "clippedControls": []
+          },
+          "htmlDefects": [],
+          "path": "orders-in-progress-ready-iphone17pro-402x874.png"
+        }
+      ],
+      "status": "rendered"
+    },
+    {
+      "folder": "d_tails_de_la_commande_speedygo",
+      "slug": "order-detail-ready",
+      "html": true,
+      "viewports": [
+        {
+          "viewport": "se-375x667",
+          "status": "rendered",
+          "bytes": 120919,
+          "failedResources": [],
+          "failedCount": 0,
+          "metrics": {
+            "innerWidth": 375,
+            "scrollWidth": 375,
+            "clientWidth": 375,
+            "mainScrollWidth": 375,
+            "overflowX": false,
+            "clippedControls": []
+          },
+          "htmlDefects": [],
+          "path": "order-detail-ready-se-375x667.png"
+        },
+        {
+          "viewport": "iphone17pro-402x874",
+          "status": "rendered",
+          "bytes": 271321,
+          "failedResources": [],
+          "failedCount": 0,
+          "metrics": {
+            "innerWidth": 402,
+            "scrollWidth": 402,
+            "clientWidth": 402,
+            "mainScrollWidth": 402,
+            "overflowX": false,
+            "clippedControls": []
+          },
+          "htmlDefects": [],
+          "path": "order-detail-ready-iphone17pro-402x874.png"
+        }
+      ],
+      "status": "rendered"
+    },
+    {
+      "folder": "profil_speedygo_1",
+      "slug": "account-hub-ready",
+      "html": true,
+      "viewports": [
+        {
+          "viewport": "se-375x667",
+          "status": "rendered",
+          "bytes": 99915,
+          "failedResources": [],
+          "failedCount": 0,
+          "metrics": {
+            "innerWidth": 375,
+            "scrollWidth": 375,
+            "clientWidth": 375,
+            "mainScrollWidth": 375,
+            "overflowX": false,
+            "clippedControls": []
+          },
+          "htmlDefects": [],
+          "path": "account-hub-ready-se-375x667.png"
+        },
+        {
+          "viewport": "iphone17pro-402x874",
+          "status": "rendered",
+          "bytes": 196371,
+          "failedResources": [],
+          "failedCount": 0,
+          "metrics": {
+            "innerWidth": 402,
+            "scrollWidth": 402,
+            "clientWidth": 402,
+            "mainScrollWidth": 402,
+            "overflowX": false,
+            "clippedControls": []
+          },
+          "htmlDefects": [],
+          "path": "account-hub-ready-iphone17pro-402x874.png"
+        }
+      ],
+      "status": "rendered"
+    },
+    {
+      "folder": "param_tres_de_la_langue_speedygo",
+      "slug": "account-language-ready",
+      "html": true,
+      "viewports": [
+        {
+          "viewport": "se-375x667",
+          "status": "rendered",
+          "bytes": 83805,
+          "failedResources": [],
+          "failedCount": 0,
+          "metrics": {
+            "innerWidth": 375,
+            "scrollWidth": 375,
+            "clientWidth": 375,
+            "mainScrollWidth": 375,
+            "overflowX": false,
+            "clippedControls": []
+          },
+          "htmlDefects": [],
+          "path": "account-language-ready-se-375x667.png"
+        },
+        {
+          "viewport": "iphone17pro-402x874",
+          "status": "rendered",
+          "bytes": 183617,
+          "failedResources": [],
+          "failedCount": 0,
+          "metrics": {
+            "innerWidth": 402,
+            "scrollWidth": 402,
+            "clientWidth": 402,
+            "mainScrollWidth": 402,
+            "overflowX": false,
+            "clippedControls": []
+          },
+          "htmlDefects": [],
+          "path": "account-language-ready-iphone17pro-402x874.png"
+        }
+      ],
+      "status": "rendered"
+    },
+    {
+      "folder": "s_curit_et_sessions_actives_speedygo",
+      "slug": "sessions-ready",
+      "html": true,
+      "viewports": [
+        {
+          "viewport": "se-375x667",
+          "status": "rendered",
+          "bytes": 123376,
+          "failedResources": [],
+          "failedCount": 0,
+          "metrics": {
+            "innerWidth": 375,
+            "scrollWidth": 375,
+            "clientWidth": 375,
+            "mainScrollWidth": 375,
+            "overflowX": false,
+            "clippedControls": []
+          },
+          "htmlDefects": [],
+          "path": "sessions-ready-se-375x667.png"
+        },
+        {
+          "viewport": "iphone17pro-402x874",
+          "status": "rendered",
+          "bytes": 229703,
+          "failedResources": [],
+          "failedCount": 0,
+          "metrics": {
+            "innerWidth": 402,
+            "scrollWidth": 402,
+            "clientWidth": 402,
+            "mainScrollWidth": 402,
+            "overflowX": false,
+            "clippedControls": []
+          },
+          "htmlDefects": [],
+          "path": "sessions-ready-iphone17pro-402x874.png"
+        }
+      ],
+      "status": "rendered"
+    },
+    {
+      "folder": "promotions_speedygo",
+      "slug": "promotions-ready",
+      "html": true,
+      "viewports": [
+        {
+          "viewport": "se-375x667",
+          "status": "rendered",
+          "bytes": 435872,
+          "failedResources": [],
+          "failedCount": 0,
+          "metrics": {
+            "innerWidth": 375,
+            "scrollWidth": 375,
+            "clientWidth": 375,
+            "mainScrollWidth": 375,
+            "overflowX": false,
+            "clippedControls": [
+              {
+                "tag": "button",
+                "right": 432,
+                "width": 123,
+                "clipped": true
+              }
+            ]
+          },
+          "htmlDefects": [
+            "intentional_horizontal_chip_overflow:1_chip_buttons_clip_at_right_edge"
+          ],
+          "path": "promotions-ready-se-375x667.png"
+        },
+        {
+          "viewport": "iphone17pro-402x874",
+          "status": "rendered",
+          "bytes": 1070311,
+          "failedResources": [],
+          "failedCount": 0,
+          "metrics": {
+            "innerWidth": 402,
+            "scrollWidth": 402,
+            "clientWidth": 402,
+            "mainScrollWidth": 402,
+            "overflowX": false,
+            "clippedControls": [
+              {
+                "tag": "button",
+                "right": 432,
+                "width": 123,
+                "clipped": true
+              }
+            ]
+          },
+          "htmlDefects": [
+            "intentional_horizontal_chip_overflow:1_chip_buttons_clip_at_right_edge"
+          ],
+          "path": "promotions-ready-iphone17pro-402x874.png"
+        }
+      ],
+      "status": "rendered"
+    },
+    {
+      "folder": "adresses_enregistr_es_speedygo",
+      "slug": "addresses-ready",
+      "html": true,
+      "viewports": [
+        {
+          "viewport": "se-375x667",
+          "status": "rendered",
+          "bytes": 97210,
+          "failedResources": [],
+          "failedCount": 0,
+          "metrics": {
+            "innerWidth": 375,
+            "scrollWidth": 375,
+            "clientWidth": 375,
+            "mainScrollWidth": 375,
+            "overflowX": false,
+            "clippedControls": []
+          },
+          "htmlDefects": [],
+          "path": "addresses-ready-se-375x667.png"
+        },
+        {
+          "viewport": "iphone17pro-402x874",
+          "status": "rendered",
+          "bytes": 157271,
+          "failedResources": [],
+          "failedCount": 0,
+          "metrics": {
+            "innerWidth": 402,
+            "scrollWidth": 402,
+            "clientWidth": 402,
+            "mainScrollWidth": 402,
+            "overflowX": false,
+            "clippedControls": []
+          },
+          "htmlDefects": [],
+          "path": "addresses-ready-iphone17pro-402x874.png"
+        }
+      ],
+      "status": "rendered"
+    },
+    {
+      "folder": "confirmation_de_l_emplacement_speedygo",
+      "slug": "location-confirm-ready",
+      "html": true,
+      "viewports": [
+        {
+          "viewport": "se-375x667",
+          "status": "rendered",
+          "bytes": 514462,
+          "failedResources": [],
+          "failedCount": 0,
+          "metrics": {
+            "innerWidth": 375,
+            "scrollWidth": 375,
+            "clientWidth": 375,
+            "mainScrollWidth": 375,
+            "overflowX": false,
+            "clippedControls": []
+          },
+          "htmlDefects": [],
+          "path": "location-confirm-ready-se-375x667.png"
+        },
+        {
+          "viewport": "iphone17pro-402x874",
+          "status": "rendered",
+          "bytes": 1586633,
+          "failedResources": [],
+          "failedCount": 0,
+          "metrics": {
+            "innerWidth": 402,
+            "scrollWidth": 402,
+            "clientWidth": 402,
+            "mainScrollWidth": 402,
+            "overflowX": false,
+            "clippedControls": []
+          },
+          "htmlDefects": [],
+          "path": "location-confirm-ready-iphone17pro-402x874.png"
+        }
+      ],
+      "status": "rendered"
+    },
+    {
+      "folder": "mode_de_paiement_speedygo",
+      "slug": "checkout-method-ready",
+      "html": true,
+      "viewports": [
+        {
+          "viewport": "se-375x667",
+          "status": "rendered",
+          "bytes": 102584,
+          "failedResources": [],
+          "failedCount": 0,
+          "metrics": {
+            "innerWidth": 375,
+            "scrollWidth": 375,
+            "clientWidth": 375,
+            "mainScrollWidth": 375,
+            "overflowX": false,
+            "clippedControls": []
+          },
+          "htmlDefects": [],
+          "path": "checkout-method-ready-se-375x667.png"
+        },
+        {
+          "viewport": "iphone17pro-402x874",
+          "status": "rendered",
+          "bytes": 190592,
+          "failedResources": [],
+          "failedCount": 0,
+          "metrics": {
+            "innerWidth": 402,
+            "scrollWidth": 402,
+            "clientWidth": 402,
+            "mainScrollWidth": 402,
+            "overflowX": false,
+            "clippedControls": []
+          },
+          "htmlDefects": [],
+          "path": "checkout-method-ready-iphone17pro-402x874.png"
+        }
+      ],
+      "status": "rendered"
+    },
+    {
+      "folder": "suivi_de_commande_speedygo",
+      "slug": "tracking-waiting-ready",
+      "html": true,
+      "viewports": [
+        {
+          "viewport": "se-375x667",
+          "status": "rendered",
+          "bytes": 107756,
+          "failedResources": [],
+          "failedCount": 0,
+          "metrics": {
+            "innerWidth": 375,
+            "scrollWidth": 375,
+            "clientWidth": 375,
+            "mainScrollWidth": 375,
+            "overflowX": false,
+            "clippedControls": []
+          },
+          "htmlDefects": [],
+          "path": "tracking-waiting-ready-se-375x667.png"
+        },
+        {
+          "viewport": "iphone17pro-402x874",
+          "status": "rendered",
+          "bytes": 218240,
+          "failedResources": [],
+          "failedCount": 0,
+          "metrics": {
+            "innerWidth": 402,
+            "scrollWidth": 402,
+            "clientWidth": 402,
+            "mainScrollWidth": 402,
+            "overflowX": false,
+            "clippedControls": []
+          },
+          "htmlDefects": [],
+          "path": "tracking-waiting-ready-iphone17pro-402x874.png"
+        }
+      ],
+      "status": "rendered"
+    }
+  ]
+}

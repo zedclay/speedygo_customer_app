@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -5,11 +7,23 @@ import 'package:speedygo_customer_app/app/app.dart';
 import 'package:speedygo_customer_app/core/constants/app_strings.dart';
 import 'package:speedygo_customer_app/core/storage/session_store.dart';
 import 'package:speedygo_customer_app/core/navigation/nav_preview.dart';
+import 'package:speedygo_customer_app/features/addresses/application/address_controller.dart';
+import 'package:speedygo_customer_app/features/addresses/data/address_selection_store.dart';
 import 'package:speedygo_customer_app/features/auth/application/session_controller.dart';
 import 'package:speedygo_customer_app/features/auth/application/session_providers.dart';
 import 'package:speedygo_customer_app/features/auth/data/models.dart';
+import 'package:speedygo_customer_app/features/cart/application/cart_controller.dart';
+import 'package:speedygo_customer_app/features/catalog/application/catalog_providers.dart';
+import 'package:speedygo_customer_app/features/catalog/presentation/widgets/authenticated_cover_image.dart';
+import 'package:speedygo_customer_app/features/checkout/application/checkout_controller.dart';
+import 'package:speedygo_customer_app/features/notifications/application/notification_inbox_controller.dart';
+import 'package:speedygo_customer_app/features/orders/application/active_order.dart';
+import 'package:speedygo_customer_app/features/promotions/application/promotion_providers.dart';
+import 'package:speedygo_customer_app/features/ratings/application/rating_providers.dart';
+import 'package:speedygo_customer_app/features/support/application/support_list_controller.dart';
 
 import 'helpers/fakes.dart';
+import 'helpers/notification_support_fakes.dart';
 
 Widget app({
   required FakeAuthClient auth,
@@ -19,9 +33,25 @@ Widget app({
   bool? languageSeen,
   bool navPreview = false,
   MemoryLaunchStore? launch,
+  FakeCatalogClient? catalog,
+  FakeOrdersClient? orders,
+  FakeRatingsClient? ratings,
+  FakePromotionsClient? promotions,
+  FakeCartClient? cart,
+  FakeCheckoutClient? checkout,
+  FakeAddressClient? addresses,
+  MemoryAddressSelectionStore? addressSelection,
+  FakeLocationClient? location,
+  FakeNotificationsClient? notifications,
+  FakeSupportClient? support,
+  Future<Uint8List?> Function(String path)? coverImageBytes,
 }) {
   return ProviderScope(
     overrides: [
+      if (coverImageBytes != null)
+        coverImageBytesProvider.overrideWith((ref, path) async {
+          return coverImageBytes(path);
+        }),
       sessionStoreProvider.overrideWithValue(store ?? MemorySessionStore()),
       launchStoreProvider.overrideWithValue(
         launch ??
@@ -31,8 +61,30 @@ Widget app({
             ),
       ),
       splashMinDurationProvider.overrideWithValue(Duration.zero),
+      splashAnimateProvider.overrideWithValue(false),
       authApiProvider.overrideWithValue(auth),
       customerApiProvider.overrideWithValue(customer),
+      catalogApiProvider.overrideWithValue(catalog ?? FakeCatalogClient()),
+      ordersApiProvider.overrideWithValue(orders ?? FakeOrdersClient()),
+      ratingsApiProvider.overrideWithValue(ratings ?? FakeRatingsClient()),
+      promotionsApiProvider.overrideWithValue(
+        promotions ?? FakePromotionsClient(),
+      ),
+      cartApiProvider.overrideWithValue(cart ?? FakeCartClient()),
+      checkoutApiProvider.overrideWithValue(checkout ?? FakeCheckoutClient()),
+      addressApiProvider.overrideWithValue(
+        addresses ?? FakeAddressClient(addresses: customer.meResult.addresses),
+      ),
+      addressSelectionStoreProvider.overrideWithValue(
+        addressSelection ?? MemoryAddressSelectionStore(),
+      ),
+      locationClientProvider.overrideWithValue(
+        location ?? FakeLocationClient(),
+      ),
+      notificationsApiProvider.overrideWithValue(
+        notifications ?? FakeNotificationsClient(),
+      ),
+      supportApiProvider.overrideWithValue(support ?? FakeSupportClient()),
       navPreviewEnabledProvider.overrideWith(
         () => NavPreviewFlag(initial: navPreview),
       ),
@@ -84,7 +136,10 @@ void main() {
     await tester.pumpAndSettle();
     final button = tester.widget<FilledButton>(find.byType(FilledButton));
     expect(button.onPressed, isNull);
-    await tester.enterText(find.byType(TextField), '555123456');
+    await tester.enterText(
+      find.byKey(const Key('phone-number-field')),
+      '555123456',
+    );
     await tester.pump();
     expect(
       tester.widget<FilledButton>(find.byType(FilledButton)).onPressed,
@@ -97,7 +152,10 @@ void main() {
       app(auth: FakeAuthClient(), customer: FakeCustomerClient()),
     );
     await tester.pumpAndSettle();
-    await tester.enterText(find.byType(TextField), '555123456');
+    await tester.enterText(
+      find.byKey(const Key('phone-number-field')),
+      '555123456',
+    );
     await tester.pump();
     await tester.tap(find.byType(FilledButton));
     await tester.pumpAndSettle();
@@ -111,7 +169,10 @@ void main() {
       app(auth: FakeAuthClient(), customer: FakeCustomerClient()),
     );
     await tester.pumpAndSettle();
-    await tester.enterText(find.byType(TextField), '555123456');
+    await tester.enterText(
+      find.byKey(const Key('phone-number-field')),
+      '555123456',
+    );
     await tester.pump();
     await tester.tap(find.byType(FilledButton));
     await tester.pumpAndSettle();
@@ -121,10 +182,11 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text(AppStrings.phoneTitle), findsOneWidget);
     expect(find.text('555 12 34 56'), findsWidgets);
+    expect(find.byKey(const Key('phone-otp-cooldown')), findsOneWidget);
     await tester.tap(find.byType(FilledButton));
     await tester.pumpAndSettle();
-    expect(find.text(AppStrings.otpTitle), findsOneWidget);
-    expect(find.textContaining('Renvoyer le code dans'), findsOneWidget);
+    expect(find.text(AppStrings.phoneTitle), findsOneWidget);
+    expect(find.text(AppStrings.otpTitle), findsNothing);
   });
 
   testWidgets('completed profile restore lands on temporary home', (
@@ -150,14 +212,15 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text(AppStrings.homeGreeting('Amel Benali')), findsOneWidget);
     expect(find.text(AppStrings.searchHint), findsOneWidget);
+    expect(find.byKey(const Key('home-search-field')), findsOneWidget);
     expect(find.text(AppStrings.landingTitle), findsNothing);
     await tester.tap(find.byIcon(Icons.person_outline));
     await tester.pumpAndSettle();
     await tester.scrollUntilVisible(
-      find.text(AppStrings.logout),
+      find.text(AppStrings.logoutConfirmAction),
       240,
       scrollable: find.byType(Scrollable).first,
     );
-    expect(find.text(AppStrings.logout), findsOneWidget);
+    expect(find.text(AppStrings.logoutConfirmAction), findsOneWidget);
   });
 }

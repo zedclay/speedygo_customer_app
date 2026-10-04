@@ -81,21 +81,31 @@ class AuthInterceptor extends QueuedInterceptor {
     final status = err.response?.statusCode;
     final alreadyRetried = err.requestOptions.extra[_retryExtra] == true;
     if (status != 401 || alreadyRetried || _isPublic(err.requestOptions.path)) {
+      // Timeouts and transport errors are not retried. A 401 retry re-sends
+      // the original request once after refresh; the first attempt was not
+      // authorized, so an additive POST was not applied.
       handler.next(err);
       return;
     }
 
+    final failedAccess = _accessTokenOf(err.requestOptions);
     final session = await readSession();
-    final refreshToken = session?.refreshToken;
-    if (refreshToken == null || refreshToken.isEmpty) {
+    if (session == null || session.refreshToken.isEmpty) {
       handler.next(err);
       return;
     }
 
     try {
-      final rotated = await refresher.refresh(refreshToken);
+      final TokenPair usable;
+      if (failedAccess != null &&
+          failedAccess.isNotEmpty &&
+          session.accessToken != failedAccess) {
+        usable = session;
+      } else {
+        usable = await refresher.ensureFresh(failedAccessToken: failedAccess);
+      }
       final request = err.requestOptions;
-      request.headers['Authorization'] = 'Bearer ${rotated.accessToken}';
+      request.headers['Authorization'] = 'Bearer ${usable.accessToken}';
       request.extra[_retryExtra] = true;
       final response = await _dio.fetch<dynamic>(request);
       handler.resolve(response);
@@ -110,6 +120,14 @@ class AuthInterceptor extends QueuedInterceptor {
     } catch (_) {
       handler.next(err);
     }
+  }
+
+  String? _accessTokenOf(RequestOptions options) {
+    final raw = options.headers['Authorization']?.toString();
+    if (raw == null || !raw.startsWith('Bearer ')) {
+      return null;
+    }
+    return raw.substring(7);
   }
 
   bool _isPublic(String path) {

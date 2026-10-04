@@ -1,0 +1,414 @@
+Resolving dependencies...
+Downloading packages...
+  _fe_analyzer_shared 103.0.0 (108.0.0 available)
+  analyzer 13.3.0 (14.4.0 available)
+  build 4.0.7 (4.0.11 available)
+  build_config 1.3.2 (1.3.3 available)
+  build_daemon 4.1.2 (4.1.6 available)
+  build_runner 2.15.1 (2.16.1 available)
+  built_value 8.12.7 (8.13.0 available)
+  clock 1.1.2 (1.1.3 available)
+  dio 5.11.0 (5.11.1 available)
+  dio_web_adapter 2.2.1 (2.2.2 available)
+  flutter_riverpod 3.4.2 (3.4.3 available)
+  flutter_secure_storage 11.0.0 (11.1.1 available)
+  flutter_secure_storage_darwin 0.4.0 (0.4.2 available)
+  flutter_secure_storage_linux 3.0.2 (3.0.3 available)
+  flutter_secure_storage_platform_interface 2.0.3 (2.1.0 available)
+  go_router 17.5.0 (18.0.1 available)
+  material_color_utilities 0.13.0 (0.13.1 available)
+  package_config 2.2.0 (3.0.0 available)
+  riverpod 3.4.2 (3.4.3 available)
+  riverpod_analyzer_utils 1.0.0-dev.11 (1.0.0-dev.12 available)
+  riverpod_annotation 4.0.6 (4.0.7 available)
+  riverpod_generator 4.0.8 (4.0.9 available)
+  source_gen 4.2.4 (4.3.0 available)
+  stack_trace 1.12.1 (1.12.2 available)
+  test 1.31.1 (1.32.0 available)
+  test_api 0.7.12 (0.7.14 available)
+  test_core 0.6.18 (0.6.20 available)
+  webdriver 3.1.0 (3.2.0 available)
+Got dependencies!
+28 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+00:00 +0: loading /Users/mac/Downloads/speedygo_project/apps/customer_app/test/live_screen_classify_test.dart
+00:00 +0: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/live_screen_classify_test.dart: live probe treats Home search key as Home, not a miss
+00:00 +1: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/live_screen_classify_test.dart: live probe treats Home search key as Home, not a miss
+00:00 +2: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/live_screen_classify_test.dart: live probe treats Home search key as Home, not a miss
+00:00 +3: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/live_screen_classify_test.dart: live probe treats Home search key as Home, not a miss
+00:00 +4: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/live_screen_classify_test.dart: live probe treats Home search key as Home, not a miss
+00:00 +5: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/live_screen_classify_test.dart: live probe treats Home search key as Home, not a miss
+00:00 +6: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/live_screen_classify_test.dart: live probe treats Home search key as Home, not a miss
+00:00 +7: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/live_screen_classify_test.dart: live probe treats Home search key as Home, not a miss
+00:00 +8: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/live_screen_classify_test.dart: live probe treats Home search key as Home, not a miss
+00:00 +9: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/live_screen_classify_test.dart: live probe treats Home search key as Home, not a miss
+00:00 +10: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/live_screen_classify_test.dart: live probe treats Home search key as Home, not a miss
+00:00 +11: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/live_screen_classify_test.dart: live probe treats Home search key as Home, not a miss
+00:00 +12: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/live_screen_classify_test.dart: live probe treats Home search key as Home, not a miss
+00:00 +13: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/live_screen_classify_test.dart: live probe treats Home search key as Home, not a miss
+00:00 +14: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/live_screen_classify_test.dart: live probe treats Home search key as Home, not a miss
+00:00 +15: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/live_screen_classify_test.dart: live probe treats Home search key as Home, not a miss
+00:00 +16: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/live_screen_classify_test.dart: live probe distinguishes phone from Home
+00:01 +17: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/live_screen_classify_test.dart: live probe prefers restore over Home while Session restaurée shows
+00:01 +18: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/core/phone_and_mapping_test.dart: PhoneInput formats and builds a national identifier
+00:01 +19: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/core/nav_preview_test.dart: live order confirmation is not a preview path
+00:01 +20: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/core/nav_preview_test.dart: live order confirmation is not a preview path
+00:01 +21: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/core/nav_preview_test.dart: live order confirmation is not a preview path
+00:01 +22: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/core/phone_and_mapping_test.dart: contracts parses customer addresses and prefers the default label
+00:01 +23: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/core/nav_preview_test.dart: fixture order confirmation remains a preview path
+00:01 +24: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/core/phone_and_mapping_test.dart: contracts falls back to addressText when the label is empty
+00:01 +25: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/core/phone_and_mapping_test.dart: contracts otp bodies use backend field names
+00:01 +26: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/core/phone_and_mapping_test.dart: contracts maps error envelope codes
+00:01 +27: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/core/phone_and_mapping_test.dart: contracts health origin strips /api/v1 once
+00:01 +28: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/core/money_format_test.dart: formats DZD from 100-centime minor units without double conversion
+00:01 +29: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/core/money_format_test.dart: rejects non exact decimal strings
+00:02 +30: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/core/widgets/sg_snackbar_test.dart: success add-to-cart shows action and navigates on tap
+00:02 +31: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/core/widgets/sg_snackbar_test.dart: success add-to-cart shows action and navigates on tap
+00:03 +32: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/core/widgets/sg_snackbar_test.dart: success add-to-cart shows action and navigates on tap
+00:03 +33: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/core/widgets/sg_snackbar_test.dart: success add-to-cart shows action and navigates on tap
+00:03 +34: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/home/home_live_contract_test.dart: live Home shows the default address label from me()
+00:03 +35: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/home/home_live_contract_test.dart: live Home shows the default address label from me()
+00:03 +36: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/home/home_live_contract_test.dart: live Home shows the default address label from me()
+00:04 +37: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/home/home_live_contract_test.dart: live Home shows the default address label from me()
+00:04 +38: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/home/home_live_contract_test.dart: live Home shows the default address label from me()
+00:04 +39: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/home/home_live_contract_test.dart: live Home shows the default address label from me()
+00:04 +40: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/home/home_live_contract_test.dart: live Home shows the default address label from me()
+00:04 +41: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/home/home_promo_banner_test.dart: fixed banner uses API code and money format
+00:04 +42: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/home/home_promo_banner_test.dart: fixed banner uses API code and money format
+00:04 +43: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/home/commerce_verticals_screen_test.dart: Tout voir opens redesigned categories inside tab shell
+00:04 +44: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/home/commerce_verticals_screen_test.dart: Tout voir opens redesigned categories inside tab shell
+00:04 +45: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/home/commerce_verticals_screen_test.dart: Tout voir opens redesigned categories inside tab shell
+00:04 +46: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/home/commerce_verticals_screen_test.dart: Tout voir opens redesigned categories inside tab shell
+00:04 +47: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/home/commerce_verticals_screen_test.dart: Tout voir opens redesigned categories inside tab shell
+00:04 +48: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/home/commerce_verticals_screen_test.dart: Tout voir opens redesigned categories inside tab shell
+00:05 +49: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/home/commerce_verticals_screen_test.dart: Tout voir opens redesigned categories inside tab shell
+00:05 +50: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/home/commerce_verticals_screen_test.dart: Tout voir opens redesigned categories inside tab shell
+00:05 +51: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/home/home_layout_test.dart: category strip scrolls long labels on iPhone SE
+00:05 +52: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/home/home_promo_banner_test.dart: copy writes the real code and does not claim apply
+00:05 +53: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/home/home_promo_banner_test.dart: copy writes the real code and does not claim apply
+00:05 +54: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/home/home_promo_banner_test.dart: copy writes the real code and does not claim apply
+00:05 +55: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/home/home_promo_banner_test.dart: copy writes the real code and does not claim apply
+00:05 +56: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/home/home_promo_banner_test.dart: copy writes the real code and does not claim apply
+00:05 +57: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/home/home_promo_banner_test.dart: copy writes the real code and does not claim apply
+00:05 +58: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/home/home_promo_banner_test.dart: copy writes the real code and does not claim apply
+00:05 +59: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/home/commerce_verticals_screen_test.dart: category search filters locally
+00:05 +60: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/home/commerce_verticals_screen_test.dart: category search filters locally
+00:05 +61: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/home/commerce_verticals_screen_test.dart: category search filters locally
+00:05 +62: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/home/commerce_verticals_screen_test.dart: category search filters locally
+00:05 +63: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/auth/active_sessions_controller_test.dart: revoke dialog cancel does not call API
+00:05 +64: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/auth/active_sessions_controller_test.dart: revoke dialog cancel does not call API
+00:06 +65: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/auth/active_sessions_controller_test.dart: revoke dialog cancel does not call API
+00:06 +66: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/home/commerce_verticals_screen_test.dart: back from results restores categories search state
+00:06 +67: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/home/commerce_verticals_screen_test.dart: back from results restores categories search state
+00:06 +68: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/home/commerce_verticals_screen_test.dart: back from results restores categories search state
+00:06 +69: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/home/commerce_verticals_screen_test.dart: back from results restores categories search state
+00:06 +70: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/home/commerce_verticals_screen_test.dart: back from results restores categories search state
+00:06 +71: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/catalog/catalog_screens_test.dart: home loads storefronts only and shows empty state
+00:06 +72: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/catalog/catalog_screens_test.dart: home loads storefronts only and shows empty state
+00:07 +73: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/catalog/catalog_screens_test.dart: home loads storefronts only and shows empty state
+00:07 +74: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/catalog/catalog_screens_test.dart: home loads storefronts only and shows empty state
+00:07 +75: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/catalog/catalog_screens_test.dart: home loads storefronts only and shows empty state
+00:07 +76: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/catalog/catalog_screens_test.dart: home loads storefronts only and shows empty state
+00:07 +77: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/catalog/catalog_screens_test.dart: home loads storefronts only and shows empty state
+00:07 +78: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/catalog/catalog_screens_test.dart: home loads storefronts only and shows empty state
+00:07 +79: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/catalog/catalog_screens_test.dart: home loads storefronts only and shows empty state
+00:07 +80: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/catalog/catalog_screens_test.dart: home loads storefronts only and shows empty state
+00:07 +81: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/catalog/catalog_screens_test.dart: home loads storefronts only and shows empty state
+00:07 +82: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/catalog/catalog_screens_test.dart: home loads storefronts only and shows empty state
+00:07 +83: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/catalog/catalog_screens_test.dart: home loads storefronts only and shows empty state
+00:07 +84: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/catalog/catalog_screens_test.dart: home loads storefronts only and shows empty state
+00:07 +85: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/catalog/catalog_screens_test.dart: home loads storefronts only and shows empty state
+00:08 +86: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/catalog/open_now_filter_test.dart: openNow toggle resets pagination and filters before page
+00:08 +87: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/catalog/catalog_screens_test.dart: home error can be retried
+00:08 +88: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/catalog/catalog_screens_test.dart: home error can be retried
+00:08 +89: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/catalog/catalog_screens_test.dart: home error can be retried
+00:08 +90: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/catalog/catalog_screens_test.dart: home error can be retried
+00:08 +91: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/catalog/open_now_filter_test.dart: category results empty action clears only openNow
+00:08 +92: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/catalog/open_now_filter_test.dart: category results empty action clears only openNow
+00:09 +93: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/catalog/open_now_filter_test.dart: category results empty action clears only openNow
+00:09 +94: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/catalog/catalog_screens_test.dart: home search storefront product and back keep branchId
+00:09 +95: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/catalog/catalog_screens_test.dart: home search storefront product and back keep branchId
+00:09 +96: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/catalog/catalog_screens_test.dart: home search storefront product and back keep branchId
+00:09 +97: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/catalog/catalog_screens_test.dart: home search storefront product and back keep branchId
+00:09 +98: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/catalog/catalog_screens_test.dart: home search storefront product and back keep branchId
+00:09 +99: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/catalog/catalog_screens_test.dart: home search storefront product and back keep branchId
+00:09 +100: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/catalog/catalog_screens_test.dart: home search storefront product and back keep branchId
+00:09 +101: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/catalog/catalog_screens_test.dart: home search storefront product and back keep branchId
+00:09 +102: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/catalog/catalog_screens_test.dart: home search storefront product and back keep branchId
+00:09 +103: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/catalog/catalog_screens_test.dart: home search storefront product and back keep branchId
+00:09 +104: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/catalog/catalog_screens_test.dart: home search storefront product and back keep branchId
+00:09 +105: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/catalog/catalog_screens_test.dart: home search storefront product and back keep branchId
+00:09 +106: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/catalog/catalog_screens_test.dart: home search storefront product and back keep branchId
+00:10 +107: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/catalog/authenticated_cover_image_test.dart: cover load error uses placeholder
+00:10 +108: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/catalog/catalog_screens_test.dart: home shows charger plus and keeps order after load more
+00:10 +109: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/catalog/catalog_screens_test.dart: home shows charger plus and keeps order after load more
+00:10 +110: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/catalog/catalog_screens_test.dart: home shows charger plus and keeps order after load more
+00:10 +111: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/catalog/catalog_screens_test.dart: nav product route stays local and does not call the API
+00:10 +112: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/catalog/catalog_screens_test.dart: empty storefront distinguishes unfiltered and category copy
+00:10 +113: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/catalog/catalog_screens_test.dart: hours badge moves below a long storefront name
+00:10 +114: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/session_controller_test.dart: first launch without credentials keeps onboarding unseen
+00:10 +115: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/checkout/order_submission_controller_test.dart: submit sends exact COD payload without promo
+00:10 +116: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/checkout/order_submission_controller_test.dart: submit sends exact COD payload without promo
+00:10 +117: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/checkout/order_submission_controller_test.dart: submit sends exact COD payload without promo
+00:11 +118: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/checkout/order_submission_controller_test.dart: submit sends exact COD payload without promo
+00:11 +119: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/checkout/order_submission_controller_test.dart: submit sends exact COD payload without promo
+00:11 +120: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/checkout/order_submission_controller_test.dart: submit sends exact COD payload without promo
+00:11 +121: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/checkout/order_submission_controller_test.dart: submit sends exact COD payload without promo
+00:11 +122: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/checkout/order_submission_controller_test.dart: submit sends exact COD payload without promo
+00:11 +123: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/checkout/order_submission_controller_test.dart: submit sends exact COD payload without promo
+00:11 +124: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/checkout/order_submission_controller_test.dart: submit sends exact COD payload without promo
+00:11 +125: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/session_controller_test.dart: OTP validation rejects a short code
+00:11 +126: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/session_controller_test.dart: OTP validation rejects a short code
+00:11 +127: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/checkout/order_submission_controller_test.dart: double submit is ignored while in flight
+00:11 +128: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/checkout/order_submission_controller_test.dart: double submit is ignored while in flight
+00:11 +129: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/checkout/order_submission_controller_test.dart: double submit is ignored while in flight
+00:11 +130: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/checkout/order_submission_controller_test.dart: double submit is ignored while in flight
+00:11 +131: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/checkout/order_submission_controller_test.dart: double submit is ignored while in flight
+00:11 +132: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/checkout/order_submission_controller_test.dart: double submit is ignored while in flight
+00:11 +133: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/checkout/order_submission_controller_test.dart: double submit is ignored while in flight
+00:11 +134: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/checkout/order_submission_controller_test.dart: double submit is ignored while in flight
+00:11 +135: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/checkout/order_submission_controller_test.dart: double submit is ignored while in flight
+00:11 +136: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/checkout/order_submission_controller_test.dart: double submit is ignored while in flight
+00:11 +137: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/checkout/order_submission_controller_test.dart: double submit is ignored while in flight
+00:11 +138: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/ratings/order_rating_controller_test.dart: stars submit confirmation gestures
+00:11 +139: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/ratings/order_rating_controller_test.dart: stars submit confirmation gestures
+00:11 +140: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/ratings/order_rating_controller_test.dart: stars submit confirmation gestures
+00:11 +141: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/ratings/order_rating_controller_test.dart: stars submit confirmation gestures
+00:11 +142: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/ratings/order_rating_controller_test.dart: stars submit confirmation gestures
+00:11 +143: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/ratings/order_rating_controller_test.dart: stars submit confirmation gestures
+00:11 +144: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/ratings/order_rating_controller_test.dart: stars submit confirmation gestures
+00:11 +145: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/ratings/order_rating_controller_test.dart: stars submit confirmation gestures
+00:11 +146: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/ratings/order_rating_controller_test.dart: stars submit confirmation gestures
+00:11 +147: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/ratings/order_rating_controller_test.dart: stars submit confirmation gestures
+00:12 +148: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/ratings/order_rating_controller_test.dart: stars submit confirmation gestures
+00:12 +149: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/ratings/order_rating_controller_test.dart: stars submit confirmation gestures
+00:12 +150: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/ratings/order_rating_controller_test.dart: stars submit confirmation gestures
+00:12 +151: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/ratings/order_rating_controller_test.dart: stars submit confirmation gestures
+00:12 +152: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/ratings/order_rating_controller_test.dart: stars submit confirmation gestures
+00:12 +153: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/ratings/order_rating_controller_test.dart: stars submit confirmation gestures
+00:12 +154: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/ratings/order_rating_controller_test.dart: stars submit confirmation gestures
+00:12 +155: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/checkout/electronic_payment_availability_test.dart: disabled electronic shows Bientôt disponible
+00:12 +156: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/checkout/electronic_payment_availability_test.dart: disabled electronic shows Bientôt disponible
+00:12 +157: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/checkout/electronic_payment_availability_test.dart: disabled electronic shows Bientôt disponible
+00:12 +158: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/checkout/checkout_flow_test.dart: cart CTA opens review with server totals
+00:12 +159: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/checkout/checkout_flow_test.dart: cart CTA opens review with server totals
+00:12 +160: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/checkout/checkout_flow_test.dart: cart CTA opens review with server totals
+00:12 +161: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/checkout/checkout_flow_test.dart: cart CTA opens review with server totals
+00:12 +162: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/checkout/checkout_flow_test.dart: cart CTA opens review with server totals
+00:13 +163: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/checkout/checkout_flow_test.dart: cart CTA opens review with server totals
+00:13 +164: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/checkout/checkout_flow_test.dart: cart CTA opens review with server totals
+00:13 +165: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/checkout/checkout_flow_test.dart: cart CTA opens review with server totals
+00:13 +166: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/checkout/checkout_flow_test.dart: cart CTA opens review with server totals
+00:13 +167: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/checkout/checkout_flow_test.dart: cart CTA opens review with server totals
+00:13 +168: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/checkout/checkout_flow_test.dart: cart CTA opens review with server totals
+00:13 +169: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/checkout/checkout_flow_test.dart: cart CTA opens review with server totals
+00:13 +170: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/checkout/checkout_flow_test.dart: cart CTA opens review with server totals
+00:13 +171: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/checkout/checkout_flow_test.dart: cart CTA opens review with server totals
+00:13 +172: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/checkout/checkout_flow_test.dart: cart CTA opens review with server totals
+00:13 +173: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/checkout/checkout_flow_test.dart: cart CTA opens review with server totals
+00:14 +174: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/checkout/checkout_flow_test.dart: cart CTA opens review with server totals
+00:14 +175: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/checkout/checkout_flow_test.dart: cart CTA opens review with server totals
+00:15 +176: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/auth_visual_layout_test.dart: welcome slides fit iPhone SE without overflow
+00:15 +177: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/support/support_draft_retention_test.dart: create draft survives leave/reopen via controller state
+00:15 +178: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/support/support_draft_retention_test.dart: create draft survives leave/reopen via controller state
+00:15 +179: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/checkout/checkout_flow_test.dart: address picker selection is sent and does not write default
+00:15 +180: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/checkout/checkout_flow_test.dart: address picker selection is sent and does not write default
+00:15 +181: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/checkout/checkout_flow_test.dart: address picker selection is sent and does not write default
+00:16 +182: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/checkout/checkout_flow_test.dart: address picker selection is sent and does not write default
+00:16 +183: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/support/support_create_linked_order_test.dart: linked support shows publicReference, not raw UUID
+00:16 +184: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/auth_visual_layout_test.dart: OTP incorrect code shows fixture error without leaking a code
+00:16 +185: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/checkout/checkout_flow_test.dart: promo apply/remove and method screen stay preview-only
+00:16 +186: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/checkout/checkout_flow_test.dart: promo apply/remove and method screen stay preview-only
+00:16 +187: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/checkout/checkout_flow_test.dart: promo apply/remove and method screen stay preview-only
+00:16 +188: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/checkout/checkout_flow_test.dart: promo apply/remove and method screen stay preview-only
+00:16 +189: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/checkout/checkout_flow_test.dart: promo apply/remove and method screen stay preview-only
+00:16 +190: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/addresses/address_flow_test.dart: empty list offers add and Home stays usable without an address
+00:16 +191: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/addresses/address_flow_test.dart: empty list offers add and Home stays usable without an address
+00:16 +192: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/addresses/address_flow_test.dart: empty list offers add and Home stays usable without an address
+00:17 +193: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/addresses/address_flow_test.dart: empty list offers add and Home stays usable without an address
+00:17 +194: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/addresses/address_flow_test.dart: empty list offers add and Home stays usable without an address
+00:17 +195: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/addresses/address_flow_test.dart: empty list offers add and Home stays usable without an address
+00:17 +196: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/addresses/address_flow_test.dart: empty list offers add and Home stays usable without an address
+00:17 +197: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/addresses/address_flow_test.dart: empty list offers add and Home stays usable without an address
+00:17 +198: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/addresses/address_flow_test.dart: empty list offers add and Home stays usable without an address
+00:17 +199: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/addresses/address_flow_test.dart: empty list offers add and Home stays usable without an address
+00:17 +200: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/checkout/checkout_flow_test.dart: need address when neither selection nor default exist
+00:17 +201: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/checkout/checkout_flow_test.dart: need address when neither selection nor default exist
+00:17 +202: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/checkout/checkout_flow_test.dart: need address when neither selection nor default exist
+00:17 +203: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/checkout/checkout_flow_test.dart: need address when neither selection nor default exist
+00:17 +204: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/checkout/checkout_flow_test.dart: need address when neither selection nor default exist
+00:17 +205: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/checkout/checkout_flow_test.dart: need address when neither selection nor default exist
+00:17 +206: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/checkout/checkout_flow_test.dart: need address when neither selection nor default exist
+00:17 +207: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/checkout/checkout_flow_test.dart: need address when neither selection nor default exist
+00:17 +208: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/checkout/checkout_flow_test.dart: need address when neither selection nor default exist
+00:17 +209: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/checkout/checkout_flow_test.dart: need address when neither selection nor default exist
+00:17 +210: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/addresses/address_flow_test.dart: list error can be retried
+00:18 +211: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/cart/cart_flow_test.dart: configure add cart quantity update and remove
+00:18 +212: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/cart/cart_flow_test.dart: configure add cart quantity update and remove
+00:19 +213: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/cart/cart_flow_test.dart: configure add cart quantity update and remove
+00:19 +214: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/cart/cart_flow_test.dart: configure add cart quantity update and remove
+00:19 +215: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/cart/cart_flow_test.dart: configure add cart quantity update and remove
+00:19 +216: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/cart/cart_flow_test.dart: configure add cart quantity update and remove
+00:19 +217: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/cart/cart_flow_test.dart: configure add cart quantity update and remove
+00:19 +218: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/cart/cart_flow_test.dart: configure add cart quantity update and remove
+00:19 +219: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/cart/cart_flow_test.dart: configure add cart quantity update and remove
+00:19 +220: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/cart/cart_flow_test.dart: configure add cart quantity update and remove
+00:19 +221: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/cart/cart_flow_test.dart: configure add cart quantity update and remove
+00:19 +222: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/cart/cart_flow_test.dart: configure add cart quantity update and remove
+00:20 +223: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/cart/cart_flow_test.dart: configure add cart quantity update and remove
+00:20 +224: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/customer_navigation_test.dart: signed-out user cannot open a protected discovery screen
+00:20 +225: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/customer_navigation_test.dart: signed-out user cannot open a protected discovery screen
+00:20 +226: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/customer_navigation_test.dart: signed-out user cannot open a protected discovery screen
+00:20 +227: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/customer_navigation_test.dart: signed-out user cannot open a protected discovery screen
+00:21 +228: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/customer_navigation_test.dart: signed-out user cannot open a protected discovery screen
+00:21 +229: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/splash_screen_test.dart: splash fits iPhone SE without overflow or loading copy
+00:21 +230: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/splash_screen_test.dart: splash fits iPhone SE without overflow or loading copy
+00:21 +231: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/splash_screen_test.dart: splash fits iPhone SE without overflow or loading copy
+00:21 +232: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/splash_screen_test.dart: splash fits iPhone SE without overflow or loading copy
+00:21 +233: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/splash_screen_test.dart: splash fits iPhone SE without overflow or loading copy
+00:21 +234: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/splash_screen_test.dart: splash fits iPhone SE without overflow or loading copy
+00:21 +235: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/splash_screen_test.dart: splash fits iPhone SE without overflow or loading copy
+00:21 +236: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/splash_screen_test.dart: splash fits iPhone SE without overflow or loading copy
+00:21 +237: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/splash_screen_test.dart: splash fits iPhone SE without overflow or loading copy
+00:21 +238: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/splash_screen_test.dart: splash fits iPhone SE without overflow or loading copy
+00:21 +239: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/splash_screen_test.dart: splash fits iPhone SE without overflow or loading copy
+00:21 +240: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/customer_navigation_test.dart: preview routes are inaccessible outside preview mode
+00:21 +241: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/addresses/address_flow_test.dart: confirming GPS fills the form and does not save an address
+00:21 +242: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/addresses/address_flow_test.dart: confirming GPS fills the form and does not save an address
+00:22 +243: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/addresses/address_flow_test.dart: confirming GPS fills the form and does not save an address
+00:22 +244: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/addresses/address_flow_test.dart: confirming GPS fills the form and does not save an address
+00:22 +245: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/addresses/address_flow_test.dart: confirming GPS fills the form and does not save an address
+00:22 +246: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/customer_navigation_test.dart: preview mode can open the full Home design composition
+00:22 +247: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/customer_navigation_test.dart: preview mode can open the full Home design composition
+00:22 +248: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/orders_tab_navigation_test.dart: Commandes tab switch from home has unique page keys
+00:22 +249: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/orders_tab_navigation_test.dart: Commandes tab switch from home has unique page keys
+00:22 +250: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/orders_tab_navigation_test.dart: Commandes tab switch from home has unique page keys
+00:23 +251: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/orders_tab_navigation_test.dart: Commandes tab switch from home has unique page keys
+00:23 +252: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/orders_tab_navigation_test.dart: Commandes tab switch from home has unique page keys
+00:23 +253: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/orders_tab_navigation_test.dart: Commandes tab switch from home has unique page keys
+00:23 +254: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/orders_tab_navigation_test.dart: Commandes tab switch from home has unique page keys
+00:23 +255: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/orders_tab_navigation_test.dart: Commandes tab switch from home has unique page keys
+00:23 +256: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/orders_tab_navigation_test.dart: Commandes tab switch from home has unique page keys
+00:23 +257: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/orders_tab_navigation_test.dart: Commandes tab switch from home has unique page keys
+00:23 +258: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/order_cancellation_flow_test.dart: detail offers cancel only while awaiting merchant
+00:23 +259: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/order_cancellation_flow_test.dart: detail offers cancel only while awaiting merchant
+00:23 +260: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/order_cancellation_flow_test.dart: detail offers cancel only while awaiting merchant
+00:23 +261: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/order_cancellation_flow_test.dart: detail offers cancel only while awaiting merchant
+00:24 +262: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/order_cancellation_flow_test.dart: detail offers cancel only while awaiting merchant
+00:24 +263: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/order_cancellation_flow_test.dart: detail offers cancel only while awaiting merchant
+00:24 +264: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/order_cancellation_flow_test.dart: detail offers cancel only while awaiting merchant
+00:24 +265: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/order_cancellation_flow_test.dart: detail offers cancel only while awaiting merchant
+00:24 +266: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/order_cancellation_flow_test.dart: detail offers cancel only while awaiting merchant
+00:24 +267: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/order_cancellation_flow_test.dart: detail offers cancel only while awaiting merchant
+00:24 +268: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/order_cancellation_flow_test.dart: detail offers cancel only while awaiting merchant
+00:24 +269: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/order_cancellation_flow_test.dart: detail offers cancel only while awaiting merchant
+00:24 +270: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/orders_tab_navigation_test.dart: Commandes after tracking push/pop has unique page keys
+00:24 +271: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/order_detail_ui_cleanup_test.dart: order detail AppBar uses Ma commande
+00:24 +272: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/order_detail_ui_cleanup_test.dart: order detail AppBar uses Ma commande
+00:24 +273: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/order_detail_ui_cleanup_test.dart: order detail AppBar uses Ma commande
+00:24 +274: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/order_detail_ui_cleanup_test.dart: order detail AppBar uses Ma commande
+00:25 +275: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/electronic_payment_controller_test.dart: payment screen shows pending copy for PROCESSING
+00:25 +276: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/orders_tab_navigation_test.dart: push order detail from Commandes then pop stays stable
+00:25 +277: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/orders_tab_navigation_test.dart: push order detail from Commandes then pop stays stable
+00:25 +278: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/orders_tab_navigation_test.dart: push order detail from Commandes then pop stays stable
+00:25 +279: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/order_detail_ui_cleanup_test.dart: payment totals fully visible above sticky on SE and Pro at textScale 1.3
+00:25 +280: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/orders_tab_navigation_test.dart: Commandes after pushing home categories has unique page keys
+00:25 +281: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/orders_tab_navigation_test.dart: Commandes tab uses go root and stays unique after revisit
+00:25 +282: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/order_recovery_flow_test.dart: orders tab lists API orders and opens detail
+00:26 +283: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/order_recovery_flow_test.dart: orders tab lists API orders and opens detail
+00:26 +284: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/order_recovery_flow_test.dart: orders tab lists API orders and opens detail
+00:26 +285: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/order_recovery_flow_test.dart: orders tab lists API orders and opens detail
+00:26 +286: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/order_recovery_flow_test.dart: orders tab lists API orders and opens detail
+00:26 +287: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/order_confirmation_payment_state_test.dart: COD: collection status + amount due at delivery
+00:26 +288: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/order_confirmation_payment_state_test.dart: COD: collection status + amount due at delivery
+00:26 +289: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/order_confirmation_payment_state_test.dart: COD: collection status + amount due at delivery
+00:26 +290: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/order_confirmation_payment_state_test.dart: COD: collection status + amount due at delivery
+00:26 +291: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/order_confirmation_payment_state_test.dart: COD: collection status + amount due at delivery
+00:26 +292: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/order_confirmation_payment_state_test.dart: COD: collection status + amount due at delivery
+00:26 +293: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/order_confirmation_payment_state_test.dart: COD: collection status + amount due at delivery
+00:26 +294: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/order_confirmation_payment_state_test.dart: COD: collection status + amount due at delivery
+00:26 +295: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/order_confirmation_payment_state_test.dart: COD: collection status + amount due at delivery
+00:26 +296: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/order_tracking_controller_test.dart: refresh loads order and treats missing delivery as pre-delivery
+00:26 +297: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/order_confirmation_payment_state_test.dart: ELECTRONIC SUCCEEDED: paid amount + confirmed status
+00:26 +298: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/order_tracking_controller_test.dart: cancelled order is terminal without inventing delivery search
+00:26 +299: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/order_confirmation_payment_state_test.dart: ELECTRONIC pending: no paid claim + continue CTA
+00:26 +300: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/order_tracking_controller_test.dart: cancelled tracking UI shows cancelled copy
+00:26 +301: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/order_tracking_controller_test.dart: cancelled tracking UI shows cancelled copy
+00:27 +302: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/order_tracking_controller_test.dart: cancelled tracking UI shows cancelled copy
+00:27 +303: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/order_tracking_controller_test.dart: cancelled tracking UI shows cancelled copy
+00:28 +304: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/order_tracking_controller_test.dart: cancelled tracking UI shows cancelled copy
+00:28 +305: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/orders_list_test.dart: orders tab pages and filters cancelled separately
+00:28 +306: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/orders_list_test.dart: orders tab pages and filters cancelled separately
+00:28 +307: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/orders_list_test.dart: orders tab pages and filters cancelled separately
+00:28 +308: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/orders_list_test.dart: orders tab pages and filters cancelled separately
+00:28 +309: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/orders_list_test.dart: orders tab pages and filters cancelled separately
+00:28 +310: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/orders_list_test.dart: orders tab pages and filters cancelled separately
+00:28 +311: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/orders_list_test.dart: orders tab pages and filters cancelled separately
+00:28 +312: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/orders_list_test.dart: orders tab pages and filters cancelled separately
+00:28 +313: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/orders_list_test.dart: orders tab pages and filters cancelled separately
+00:28 +314: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/orders/orders_list_test.dart: orders tab pages and filters cancelled separately
+00:28 +315: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/account/account_hub_flow_test.dart: profile payment methods do not open checkout method
+00:28 +316: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/account/account_hub_flow_test.dart: profile payment methods do not open checkout method
+00:29 +317: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/account/account_hub_flow_test.dart: profile payment methods do not open checkout method
+00:29 +318: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/features/account/account_hub_flow_test.dart: account delete has no password field and does not call API
+00:29 +319: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/widget_test.dart: first launch shows onboarding before phone entry
+00:30 +319 ~1: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/widget_test.dart: first launch shows onboarding before phone entry
+00:30 +319 ~2: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/widget_test.dart: first launch shows onboarding before phone entry
+00:30 +319 ~3: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/widget_test.dart: first launch shows onboarding before phone entry
+00:30 +319 ~4: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/widget_test.dart: first launch shows onboarding before phone entry
+00:30 +319 ~5: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/widget_test.dart: first launch shows onboarding before phone entry
+00:30 +319 ~6: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/widget_test.dart: first launch shows onboarding before phone entry
+00:30 +319 ~7: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/widget_test.dart: first launch shows onboarding before phone entry
+00:30 +319 ~8: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/widget_test.dart: first launch shows onboarding before phone entry
+00:30 +319 ~9: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/widget_test.dart: first launch shows onboarding before phone entry
+00:30 +319 ~10: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/widget_test.dart: first launch shows onboarding before phone entry
+00:30 +319 ~11: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/widget_test.dart: first launch shows onboarding before phone entry
+00:30 +319 ~12: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/widget_test.dart: first launch shows onboarding before phone entry
+00:30 +319 ~13: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/widget_test.dart: first launch shows onboarding before phone entry
+00:30 +320 ~13: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/widget_test.dart: first launch shows onboarding before phone entry
+00:30 +320 ~14: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/widget_test.dart: first launch shows onboarding before phone entry
+00:30 +320 ~15: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/widget_test.dart: first launch shows onboarding before phone entry
+00:30 +320 ~16: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/widget_test.dart: first launch shows onboarding before phone entry
+00:30 +320 ~17: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/widget_test.dart: first launch shows onboarding before phone entry
+00:30 +320 ~18: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/widget_test.dart: first launch shows onboarding before phone entry
+00:30 +321 ~18: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/widget_test.dart: first launch shows onboarding before phone entry
+00:31 +322 ~18: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/widget_test.dart: first launch shows onboarding before phone entry
+00:31 +322 ~19: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/widget_test.dart: first launch shows onboarding before phone entry
+00:31 +322 ~20: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/widget_test.dart: first launch shows onboarding before phone entry
+00:31 +322 ~21: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/widget_test.dart: first launch shows onboarding before phone entry
+00:31 +322 ~22: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/widget_test.dart: first launch shows onboarding before phone entry
+00:31 +322 ~23: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/widget_test.dart: first launch shows onboarding before phone entry
+00:31 +322 ~24: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/widget_test.dart: first launch shows onboarding before phone entry
+00:31 +322 ~25: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/widget_test.dart: first launch shows onboarding before phone entry
+00:31 +323 ~25: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/widget_test.dart: first launch shows onboarding before phone entry
+00:31 +324 ~25: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/widget_test.dart: first launch shows onboarding before phone entry
+00:31 +325 ~25: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/audit/sg_snackbar_capture_test.dart: after: uncertain warning sticky Pro
+00:31 +326 ~25: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/widget_test.dart: no credentials shows phone entry after splash restore
+00:31 +327 ~25: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/audit/sg_snackbar_capture_test.dart: before: stock Material snackbar SE
+00:31 +328 ~25: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/widget_test.dart: continue stays disabled until a valid phone is entered
+00:31 +328 ~26: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/widget_test.dart: continue stays disabled until a valid phone is entered
+00:31 +328 ~27: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/widget_test.dart: continue stays disabled until a valid phone is entered
+00:31 +328 ~28: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/widget_test.dart: continue stays disabled until a valid phone is entered
+00:31 +328 ~29: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/widget_test.dart: continue stays disabled until a valid phone is entered
+00:31 +328 ~30: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/widget_test.dart: continue stays disabled until a valid phone is entered
+00:31 +328 ~31: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/widget_test.dart: continue stays disabled until a valid phone is entered
+00:31 +328 ~32: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/widget_test.dart: continue stays disabled until a valid phone is entered
+00:31 +328 ~33: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/widget_test.dart: continue stays disabled until a valid phone is entered
+00:31 +328 ~34: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/widget_test.dart: continue stays disabled until a valid phone is entered
+00:31 +329 ~34: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/widget_test.dart: phone request navigates to OTP
+00:32 +329 ~35: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/widget_test.dart: phone request navigates to OTP
+00:32 +329 ~36: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/widget_test.dart: phone request navigates to OTP
+00:32 +329 ~37: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/widget_test.dart: phone request navigates to OTP
+00:32 +329 ~38: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/widget_test.dart: phone request navigates to OTP
+00:32 +329 ~39: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/widget_test.dart: phone request navigates to OTP
+00:32 +329 ~40: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/widget_test.dart: phone request navigates to OTP
+00:32 +329 ~41: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/widget_test.dart: phone request navigates to OTP
+00:32 +329 ~42: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/widget_test.dart: phone request navigates to OTP
+00:32 +329 ~43: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/widget_test.dart: phone request navigates to OTP
+00:32 +329 ~44: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/widget_test.dart: phone request navigates to OTP
+00:32 +330 ~44: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/widget_test.dart: OTP cooldown survives returning to the phone screen
+00:32 +331 ~44: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/audit/order_detail_ui_cleanup_capture_test.dart: capture: order detail Ma commande + item image SE
+00:33 +332 ~44: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/audit/order_detail_ui_cleanup_capture_test.dart: capture: order detail Ma commande + item image SE
+00:33 +333 ~44: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/audit/order_detail_ui_cleanup_capture_test.dart: capture: order detail payment above sticky Pro 1.3
+00:33 +334 ~44: /Users/mac/Downloads/speedygo_project/apps/customer_app/test/audit/order_detail_ui_cleanup_capture_test.dart: (tearDownAll)
+00:33 +334 ~44: All tests passed!

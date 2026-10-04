@@ -128,6 +128,35 @@ void main() {
     },
   );
 
+  test('stored tokens enter restoring before hydrate completes', () async {
+    final store = MemorySessionStore()
+      ..value = const TokenPair(
+        accessToken: 'access-1',
+        refreshToken: 'refresh-1-token-value',
+        expiresIn: 900,
+        tokenType: 'Bearer',
+      );
+    final auth = FakeAuthClient()..meDelay = const Duration(milliseconds: 80);
+    final customer = FakeCustomerClient()
+      ..meResult = const CustomerMe(
+        customerProfileExists: true,
+        profileComplete: true,
+        addressReady: true,
+      );
+    final container = containerOf(auth: auth, customer: customer, store: store);
+    addTearDown(container.dispose);
+    final controller = container.read(sessionControllerProvider.notifier);
+    final future = controller.restore();
+    await Future<void>.delayed(Duration.zero);
+    expect(
+      container.read(sessionControllerProvider).phase,
+      SessionPhase.restoring,
+    );
+    expect(store.value, isNotNull);
+    await future;
+    expect(container.read(sessionControllerProvider).phase, SessionPhase.ready);
+  });
+
   test('offline restore keeps credentials', () async {
     final store = MemorySessionStore()
       ..value = const TokenPair(
@@ -282,5 +311,37 @@ void main() {
       container.read(sessionControllerProvider).logoutServerConfirmed,
       isFalse,
     );
+  });
+
+  test('interceptor auth failure signs out a ready session', () async {
+    final store = MemorySessionStore()
+      ..value = const TokenPair(
+        accessToken: 'access-1',
+        refreshToken: 'refresh-1-token-value',
+        expiresIn: 900,
+        tokenType: 'Bearer',
+      );
+    final customer = FakeCustomerClient()
+      ..meResult = const CustomerMe(
+        customerProfileExists: true,
+        profileComplete: true,
+        addressReady: true,
+      );
+    final container = containerOf(
+      auth: FakeAuthClient(),
+      customer: customer,
+      store: store,
+    );
+    addTearDown(container.dispose);
+    final controller = container.read(sessionControllerProvider.notifier);
+    await controller.restore();
+    expect(container.read(sessionControllerProvider).phase, SessionPhase.ready);
+
+    await container.read(tokenCacheProvider).onAuthFailure?.call();
+    final state = container.read(sessionControllerProvider);
+    expect(state.phase, SessionPhase.signedOut);
+    expect(state.customer, isNull);
+    expect(store.value, isNull);
+    expect(state.errorMessage, AppStrings.reauthRequired);
   });
 }

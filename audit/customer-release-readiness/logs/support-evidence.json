@@ -1,0 +1,11 @@
+{
+  "fixtureTicketId": "01a0890a-c432-7703-9059-3d71d587d35e",
+  "followUpResent": false,
+  "createdNewTicket": false,
+  "login": "seeded_memory_session_same_app",
+  "draftTyped": true,
+  "draftRetainedAcrossBack": true,
+  "createFlow": "reused_prior_ui_create",
+  "createTicketId": "01a0a32d-a8fd-7f2f-b2bd-b0c83d4f8553",
+  "finishedAt": "2026-09-15T03:49:52.810249Z"
+}

@@ -1,0 +1,1 @@
+{"error":{"code":"VALIDATION_ERROR","message":"platform must be one of the following values: ios, android, web"}}

@@ -13,6 +13,13 @@ class NavParents {
     if (normalized == AppRoutes.directory) {
       return AppRoutes.home;
     }
+    if (normalized == AppRoutes.homeCategories ||
+        normalized.startsWith('${AppRoutes.homeCategories}/results')) {
+      return AppRoutes.home;
+    }
+    if (normalized == AppRoutes.homeDesignPreview) {
+      return AppRoutes.directory;
+    }
     if (normalized == AppRoutes.otp) {
       return AppRoutes.phone;
     }
@@ -23,6 +30,7 @@ class NavParents {
         normalized == AppRoutes.accountLegal ||
         normalized == AppRoutes.accountSecurity ||
         normalized == AppRoutes.accountNotifications ||
+        normalized == AppRoutes.accountPaymentMethods ||
         normalized == AppRoutes.accountAddresses ||
         normalized == AppRoutes.accountDelete) {
       return AppRoutes.account;
@@ -32,9 +40,11 @@ class NavParents {
         normalized == AppRoutes.locationPermission) {
       return AppRoutes.accountAddresses;
     }
-    if (normalized == AppRoutes.checkoutAddress ||
-        normalized == AppRoutes.checkoutAddressPicker) {
+    if (normalized == AppRoutes.checkoutAddress) {
       return AppRoutes.checkoutReview;
+    }
+    if (normalized == AppRoutes.checkoutAddressPicker) {
+      return AppRoutes.home;
     }
     if (normalized == AppRoutes.checkoutNotes) {
       return AppRoutes.cart;
@@ -59,17 +69,20 @@ class NavParents {
       return AppRoutes.accountLegal;
     }
     if (normalized == AppRoutes.supportNew) {
+      return AppRoutes.supportList;
+    }
+    if (normalized == AppRoutes.supportList) {
       return AppRoutes.account;
     }
     if (normalized.startsWith('/support/')) {
-      return AppRoutes.supportNew;
+      return AppRoutes.supportList;
     }
     if (normalized.startsWith('/merchants/')) {
       final parts = normalized.split('/');
       if (parts.length > 3) {
         return AppRoutes.merchant(parts[2]);
       }
-      return AppRoutes.restaurants;
+      return AppRoutes.homeCategories;
     }
     if (normalized.startsWith('/products/')) {
       final parts = normalized.split('/');
@@ -86,11 +99,13 @@ class NavParents {
       return AppRoutes.orders;
     }
     if (normalized == AppRoutes.categories ||
-        normalized == AppRoutes.restaurants ||
         normalized == AppRoutes.favorites ||
         normalized == AppRoutes.promotions ||
         normalized == AppRoutes.cart) {
       return AppRoutes.home;
+    }
+    if (normalized == AppRoutes.restaurants) {
+      return AppRoutes.homeCategories;
     }
     return AppRoutes.home;
   }

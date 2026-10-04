@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:speedygo_customer_app/core/constants/app_constants.dart';
 import 'package:speedygo_customer_app/core/network/api_client.dart';
@@ -13,18 +14,23 @@ class AuthInfrastructure {
     required this.customerApi,
     required this.refresher,
     required this.config,
+    required this.dio,
   });
 
   final AuthApi authApi;
   final CustomerApi customerApi;
   final TokenRefresher refresher;
   final ApiConfig config;
+  final Dio dio;
 }
 
 final apiConfigProvider = Provider<ApiConfig>((ref) {
   return const ApiConfig(apiBaseUrl: AppConstants.apiBaseUrl);
 });
 
+/// One session store, one Dio, one [TokenRefresher] for the whole app.
+/// Catalog, covers, ratings, promotions, orders and auth/customer clients
+/// must consume [AuthInfrastructure.dio] — never construct another client.
 final authInfrastructureProvider = Provider<AuthInfrastructure>((ref) {
   final config = ref.watch(apiConfigProvider);
   final store = ref.watch(sessionStoreProvider);
@@ -46,6 +52,7 @@ final authInfrastructureProvider = Provider<AuthInfrastructure>((ref) {
       cache.current = null;
       await store.clear();
       epoch.value += 1;
+      await cache.onAuthFailure?.call();
     },
   );
   return AuthInfrastructure(
@@ -53,5 +60,6 @@ final authInfrastructureProvider = Provider<AuthInfrastructure>((ref) {
     customerApi: CustomerApi(dio),
     refresher: refresher,
     config: config,
+    dio: dio,
   );
 });

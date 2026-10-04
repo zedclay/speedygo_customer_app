@@ -8,10 +8,15 @@ import 'package:speedygo_customer_app/core/constants/app_strings.dart';
 import 'package:speedygo_customer_app/core/navigation/app_routes.dart';
 import 'package:speedygo_customer_app/core/navigation/nav_preview.dart';
 import 'package:speedygo_customer_app/core/storage/session_store.dart';
+import 'package:speedygo_customer_app/features/addresses/application/address_controller.dart';
+import 'package:speedygo_customer_app/features/addresses/data/address_selection_store.dart';
 import 'package:speedygo_customer_app/features/auth/application/session_controller.dart';
 import 'package:speedygo_customer_app/features/auth/application/session_providers.dart';
 import 'package:speedygo_customer_app/features/auth/data/models.dart';
+import 'package:speedygo_customer_app/features/catalog/application/catalog_providers.dart';
 import 'package:speedygo_customer_app/features/home/presentation/home_screen.dart';
+import 'package:speedygo_customer_app/features/orders/application/active_order.dart';
+import 'package:speedygo_customer_app/features/ratings/application/rating_providers.dart';
 
 import '../test/helpers/fakes.dart';
 
@@ -33,8 +38,19 @@ Widget _app({
         ),
       ),
       splashMinDurationProvider.overrideWithValue(Duration.zero),
+      splashAnimateProvider.overrideWithValue(false),
       authApiProvider.overrideWithValue(auth),
       customerApiProvider.overrideWithValue(customer),
+      catalogApiProvider.overrideWithValue(FakeCatalogClient()),
+      ordersApiProvider.overrideWithValue(FakeOrdersClient()),
+      ratingsApiProvider.overrideWithValue(FakeRatingsClient()),
+      addressApiProvider.overrideWithValue(
+        FakeAddressClient(addresses: customer.meResult.addresses),
+      ),
+      addressSelectionStoreProvider.overrideWithValue(
+        MemoryAddressSelectionStore(),
+      ),
+      locationClientProvider.overrideWithValue(FakeLocationClient()),
       navPreviewEnabledProvider.overrideWith(
         () => NavPreviewFlag(initial: navPreview),
       ),
@@ -153,7 +169,7 @@ void main() {
     await tester.tap(find.byIcon(Icons.person_outline));
     await tester.pumpAndSettle();
     await tester.scrollUntilVisible(
-      find.widgetWithText(FilledButton, AppStrings.logout),
+      find.byKey(const Key('account-logout')),
       240,
       scrollable: find.byType(Scrollable).first,
     );
@@ -161,7 +177,7 @@ void main() {
     ScaffoldMessenger.of(tester.element(find.byType(Scaffold).first))
         .hideCurrentSnackBar();
     await tester.pumpAndSettle();
-    await tester.tap(find.widgetWithText(FilledButton, AppStrings.logout));
+    await tester.tap(find.byKey(const Key('account-logout')));
     await tester.pumpAndSettle();
     expect(find.text(AppStrings.logoutConfirmTitle), findsOneWidget);
     await _shot(binding, '08-logout-modal');
@@ -173,6 +189,6 @@ void main() {
     await tester.tap(find.text(AppStrings.cancel));
     await tester.pumpAndSettle();
     expect(find.text(AppStrings.logoutConfirmTitle), findsNothing);
-    expect(find.text(AppStrings.logout), findsOneWidget);
+    expect(find.byKey(const Key('account-logout')), findsOneWidget);
   });
 }

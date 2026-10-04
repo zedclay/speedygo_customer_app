@@ -9,6 +9,9 @@ import 'package:speedygo_customer_app/core/storage/session_store.dart';
 import 'package:speedygo_customer_app/features/auth/application/session_controller.dart';
 import 'package:speedygo_customer_app/features/auth/application/session_providers.dart';
 import 'package:speedygo_customer_app/features/auth/data/models.dart';
+import 'package:speedygo_customer_app/features/catalog/application/catalog_providers.dart';
+import 'package:speedygo_customer_app/features/orders/application/active_order.dart';
+import 'package:speedygo_customer_app/features/ratings/application/rating_providers.dart';
 
 import '../test/helpers/fakes.dart';
 
@@ -28,8 +31,12 @@ Widget _app({
         ),
       ),
       splashMinDurationProvider.overrideWithValue(Duration.zero),
+      splashAnimateProvider.overrideWithValue(false),
       authApiProvider.overrideWithValue(auth),
       customerApiProvider.overrideWithValue(customer),
+      catalogApiProvider.overrideWithValue(FakeCatalogClient()),
+      ordersApiProvider.overrideWithValue(FakeOrdersClient()),
+      ratingsApiProvider.overrideWithValue(FakeRatingsClient()),
     ],
     child: const SpeedyGoApp(),
   );
@@ -108,6 +115,20 @@ void main() {
     await tester.pumpAndSettle();
     await _shot(binding, '06-otp-keyboard-empty');
 
+    await tester.enterText(find.byType(TextField), '111111');
+    await tester.pump();
+    auth.verifyError = const ApiException(
+      'Code incorrect. Réessayez.',
+      code: 'AUTH_INVALID_OTP',
+    );
+    await tester.tap(find.widgetWithText(FilledButton, AppStrings.verify));
+    await tester.pumpAndSettle();
+    expect(
+      find.text(AppStrings.errorForCode('AUTH_INVALID_OTP')),
+      findsOneWidget,
+    );
+    await _shot(binding, '06b-otp-error');
+    auth.verifyError = null;
     await tester.enterText(find.byType(TextField), '000000');
     await tester.pump();
     await tester.ensureVisible(
@@ -134,11 +155,11 @@ void main() {
     await tester.tap(find.byIcon(Icons.person_outline));
     await tester.pumpAndSettle();
     await tester.scrollUntilVisible(
-      find.widgetWithText(FilledButton, AppStrings.logout),
+      find.byKey(const Key('account-logout')),
       240,
       scrollable: find.byType(Scrollable).first,
     );
-    await tester.tap(find.widgetWithText(FilledButton, AppStrings.logout));
+    await tester.tap(find.byKey(const Key('account-logout')));
     await tester.pumpAndSettle();
     expect(find.text(AppStrings.logoutConfirmTitle), findsOneWidget);
     await _shot(binding, '08-logout-sheet');

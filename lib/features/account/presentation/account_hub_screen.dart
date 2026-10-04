@@ -4,10 +4,18 @@ import 'package:go_router/go_router.dart';
 import 'package:speedygo_customer_app/app/theme/app_theme.dart';
 import 'package:speedygo_customer_app/core/constants/app_strings.dart';
 import 'package:speedygo_customer_app/core/navigation/app_routes.dart';
-import 'package:speedygo_customer_app/core/navigation/nav_actions.dart';
 import 'package:speedygo_customer_app/core/utils/phone_input.dart';
 import 'package:speedygo_customer_app/features/account/presentation/logout_sheet.dart';
 import 'package:speedygo_customer_app/features/auth/application/session_controller.dart';
+
+/// Visual tokens from Stitch `profil_speedygo_1` (list chrome only).
+const _kSecondaryContainer = Color(0xFF94A6FF);
+const _kOnSecondaryContainer = Color(0xFF24388B);
+const _kProfileCardShadow = BoxShadow(
+  color: Color(0x0A000000),
+  blurRadius: 8,
+  offset: Offset(0, 2),
+);
 
 class AccountHubScreen extends ConsumerWidget {
   const AccountHubScreen({super.key});
@@ -19,139 +27,209 @@ class AccountHubScreen extends ConsumerWidget {
     final phone = session.signedInPhone;
 
     return Scaffold(
+      backgroundColor: AppColors.surface,
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.fromLTRB(16, 16, 16, 32),
           children: [
             Text(
               AppStrings.tabProfile,
-              style: Theme.of(context).textTheme.headlineSmall
-                  ?.copyWith(fontWeight: FontWeight.w700),
-            ),
-            const SizedBox(height: 16),
-            Row(
-              children: [
-                CircleAvatar(
-                  radius: 32,
-                  backgroundColor: AppColors.primaryContainer,
-                  child: Text(
-                    LogoutSheet.initialsFor(name),
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      color: AppColors.onPrimaryContainer,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        name,
-                        style: Theme.of(context).textTheme.titleLarge
-                            ?.copyWith(fontWeight: FontWeight.w700),
-                      ),
-                      if (phone != null)
-                        Text(
-                          PhoneInput.maskInternational(phone),
-                          style: Theme.of(context).textTheme.bodyMedium
-                              ?.copyWith(color: AppColors.onSurfaceVariant),
-                        ),
-                    ],
-                  ),
-                ),
-              ],
+              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                fontWeight: FontWeight.w700,
+              ),
             ),
             const SizedBox(height: 24),
+            _ProfileHeaderCard(name: name, phone: phone),
+            const SizedBox(height: 24),
             _Section(
-              title: 'Compte',
+              title: AppStrings.accountSectionAccount,
               children: [
                 _Row(
                   icon: Icons.location_on_outlined,
-                  label: 'Adresses enregistrées',
+                  label: AppStrings.accountAddressesLabel,
                   onTap: () => context.push(AppRoutes.accountAddresses),
                 ),
                 _Row(
                   icon: Icons.payments_outlined,
-                  label: 'Méthodes de paiement',
-                  onTap: () => context.push(AppRoutes.checkoutMethod),
+                  label: AppStrings.accountPaymentMethodsTitle,
+                  onTap: () => context.push(AppRoutes.accountPaymentMethods),
+                  showDivider: false,
                 ),
               ],
             ),
             _Section(
-              title: 'Préférences',
+              title: AppStrings.accountSectionPreferences,
               children: [
                 _Row(
                   icon: Icons.notifications_outlined,
-                  label: 'Notifications',
+                  label: AppStrings.accountNotificationsSettingsTitle,
                   onTap: () => context.push(AppRoutes.accountNotifications),
                 ),
                 _Row(
                   icon: Icons.language,
-                  label: 'Langue',
+                  label: AppStrings.accountLanguageLabel,
                   subtitle: AppStrings.languageFrench,
                   onTap: () => context.push(AppRoutes.accountLanguage),
+                  showDivider: false,
                 ),
               ],
             ),
             _Section(
-              title: 'Support',
+              title: AppStrings.accountSectionSupport,
               children: [
                 _Row(
                   icon: Icons.help_outline,
-                  label: 'Centre d’aide',
+                  label: AppStrings.supportCentreAide,
                   onTap: () => context.push(AppRoutes.supportNew),
                 ),
                 _Row(
                   icon: Icons.confirmation_number_outlined,
-                  label: 'Tickets de support',
-                  onTap: () => context.push(AppRoutes.supportNew),
+                  label: AppStrings.supportTicketsLabel,
+                  onTap: () => context.push(AppRoutes.supportList),
+                  showDivider: false,
                 ),
               ],
             ),
             _Section(
-              title: 'Légal & Sécurité',
+              title: AppStrings.accountSectionLegal,
               children: [
                 _Row(
                   icon: Icons.privacy_tip_outlined,
-                  label: 'Politique de confidentialité',
+                  label: AppStrings.legalPrivacyTitle,
                   onTap: () => context.push(AppRoutes.legalPrivacy),
                 ),
                 _Row(
                   icon: Icons.gavel,
-                  label: 'Conditions d’utilisation',
+                  label: AppStrings.legalTermsTitle,
                   onTap: () => context.push(AppRoutes.legalTerms),
                 ),
                 _Row(
                   icon: Icons.security,
-                  label: 'Sécurité',
+                  label: AppStrings.accountSecurityLabel,
                   onTap: () => context.push(AppRoutes.accountSecurity),
+                  showDivider: false,
                 ),
               ],
             ),
-            const SizedBox(height: 16),
-            FilledButton.icon(
-              onPressed: () => confirmLogout(context, ref),
-              icon: const Icon(Icons.logout),
-              label: const Text(AppStrings.logout),
-              style: FilledButton.styleFrom(
-                backgroundColor: AppColors.error,
-                foregroundColor: Colors.white,
-                minimumSize: const Size.fromHeight(56),
+            const SizedBox(height: 8),
+            SizedBox(
+              height: 56,
+              child: OutlinedButton.icon(
+                key: const Key('account-logout'),
+                onPressed: () => confirmLogout(context, ref),
+                icon: const Icon(Icons.logout),
+                label: Text(
+                  AppStrings.logoutConfirmAction,
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    color: AppColors.error,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                style: OutlinedButton.styleFrom(
+                  foregroundColor: AppColors.error,
+                  backgroundColor: AppColors.surfaceContainerLowest,
+                  side: BorderSide(
+                    color: AppColors.outlineVariant.withValues(alpha: 0.3),
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
               ),
             ),
-            TextButton(
-              onPressed: () => context.push(AppRoutes.accountDelete),
-              child: const Text('Supprimer mon compte'),
+            const SizedBox(height: 12),
+            SizedBox(
+              height: 48,
+              child: TextButton.icon(
+                onPressed: () => context.push(AppRoutes.accountDelete),
+                icon: const Icon(Icons.delete_forever, size: 18),
+                label: const Text(AppStrings.accountDeleteTitle),
+                style: TextButton.styleFrom(
+                  foregroundColor: AppColors.outline,
+                  textStyle: Theme.of(context).textTheme.labelLarge,
+                ),
+              ),
             ),
-            if (session.errorMessage != null)
+            if (session.errorMessage != null) ...[
+              const SizedBox(height: 8),
               Text(
                 session.errorMessage!,
                 style: const TextStyle(color: AppColors.error),
               ),
+            ],
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _ProfileHeaderCard extends StatelessWidget {
+  const _ProfileHeaderCard({required this.name, this.phone});
+
+  final String name;
+  final String? phone;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: AppColors.surfaceContainerLowest,
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: const [_kProfileCardShadow],
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          CircleAvatar(
+            radius: 28,
+            backgroundColor: AppColors.primaryContainer,
+            child: Text(
+              LogoutSheet.initialsFor(name),
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                color: AppColors.onPrimaryContainer,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  name,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                if (phone != null) ...[
+                  const SizedBox(height: 4),
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.call_outlined,
+                        size: 18,
+                        color: AppColors.onSurfaceVariant,
+                      ),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          PhoneInput.maskInternational(phone!),
+                          style: Theme.of(context).textTheme.bodyMedium
+                              ?.copyWith(color: AppColors.onSurfaceVariant),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -170,15 +248,23 @@ class _Section extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title.toUpperCase(),
-            style: Theme.of(context).textTheme.labelLarge
-                ?.copyWith(color: AppColors.primary, letterSpacing: 0.8),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
+            child: Text(
+              title.toUpperCase(),
+              style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                color: AppColors.primary,
+                letterSpacing: 0.8,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
           ),
-          const SizedBox(height: 8),
-          Material(
-            color: AppColors.surfaceContainerLowest,
-            borderRadius: BorderRadius.circular(12),
+          DecoratedBox(
+            decoration: BoxDecoration(
+              color: AppColors.surfaceContainerLowest,
+              borderRadius: BorderRadius.circular(12),
+              boxShadow: const [_kProfileCardShadow],
+            ),
             child: Column(children: children),
           ),
         ],
@@ -193,139 +279,77 @@ class _Row extends StatelessWidget {
     required this.label,
     required this.onTap,
     this.subtitle,
+    this.showDivider = true,
   });
 
   final IconData icon;
   final String label;
   final String? subtitle;
   final VoidCallback onTap;
+  final bool showDivider;
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: CircleAvatar(
-        backgroundColor: AppColors.surfaceContainerHigh,
-        child: Icon(icon, color: AppColors.primary),
-      ),
-      title: Text(label),
-      subtitle: subtitle == null ? null : Text(subtitle!),
-      trailing: const Icon(Icons.chevron_right),
-      onTap: onTap,
-    );
-  }
-}
-
-class SearchTabScreen extends StatefulWidget {
-  const SearchTabScreen({super.key});
-
-  @override
-  State<SearchTabScreen> createState() => _SearchTabScreenState();
-}
-
-class _SearchTabScreenState extends State<SearchTabScreen> {
-  final _controller = TextEditingController();
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  void _openResults() {
-    final q = _controller.text.trim();
-    if (q.length < 2) {
-      showNavBlocked(context, AppStrings.navBlocked);
-      return;
-    }
-    context.push(AppRoutes.searchResultsQuery(q));
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text(AppStrings.tabSearch)),
-      body: ListView(
-        padding: const EdgeInsets.all(16),
-        children: [
-          TextField(
-            controller: _controller,
-            textInputAction: TextInputAction.search,
-            decoration: const InputDecoration(
-              hintText: AppStrings.searchHint,
-              prefixIcon: Icon(Icons.search),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Material(
+          color: Colors.transparent,
+          child: InkWell(
+            onTap: onTap,
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(minHeight: 56),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: _kSecondaryContainer.withValues(alpha: 0.2),
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(
+                        icon,
+                        color: _kOnSecondaryContainer,
+                        size: 22,
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            label,
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                          if (subtitle != null)
+                            Text(
+                              subtitle!,
+                              style: Theme.of(context).textTheme.labelSmall
+                                  ?.copyWith(color: AppColors.onSurfaceVariant),
+                            ),
+                        ],
+                      ),
+                    ),
+                    const Icon(Icons.chevron_right, color: AppColors.outline),
+                  ],
+                ),
+              ),
             ),
-            onSubmitted: (_) => _openResults(),
           ),
-          const SizedBox(height: 16),
-          Text(
-            'Recherches récentes vides. GET /customer/catalog/search n’est pas appelé.',
-            style: Theme.of(context).textTheme.bodyMedium
-                ?.copyWith(color: AppColors.onSurfaceVariant),
+        ),
+        if (showDivider)
+          Divider(
+            height: 1,
+            thickness: 1,
+            indent: 72,
+            color: AppColors.outlineVariant.withValues(alpha: 0.3),
           ),
-          const SizedBox(height: 16),
-          FilledButton(
-            onPressed: _openResults,
-            child: const Text('Voir les résultats (navigation)'),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class OrdersTabScreen extends StatelessWidget {
-  const OrdersTabScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text(AppStrings.tabOrders)),
-      body: ListView(
-        padding: const EdgeInsets.all(16),
-        children: [
-          Text(
-            AppStrings.ordersEmpty,
-            style: Theme.of(context).textTheme.bodyLarge,
-          ),
-          const SizedBox(height: 8),
-          Text(
-            'GET /customer/orders n’est pas appelé.',
-            style: Theme.of(context).textTheme.bodyMedium
-                ?.copyWith(color: AppColors.onSurfaceVariant),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class AlertsTabScreen extends StatelessWidget {
-  const AlertsTabScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text(AppStrings.tabAlerts)),
-      body: ListView(
-        padding: const EdgeInsets.all(16),
-        children: [
-          Text(
-            'Boîte de réception vide. Push serveur non configuré.',
-            style: Theme.of(context).textTheme.bodyLarge,
-          ),
-          const SizedBox(height: 16),
-          ListTile(
-            title: const Text('Autorisations'),
-            trailing: const Icon(Icons.chevron_right),
-            onTap: () => context.push(AppRoutes.alertsPermission),
-          ),
-          ListTile(
-            title: const Text('Préférences'),
-            trailing: const Icon(Icons.chevron_right),
-            onTap: () => context.push(AppRoutes.accountNotifications),
-          ),
-        ],
-      ),
+      ],
     );
   }
 }

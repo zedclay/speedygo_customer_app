@@ -11,6 +11,14 @@ abstract class SessionStore {
   Future<void> write(TokenPair pair);
 
   Future<void> clear();
+
+  /// True when a refresh HTTP call may already have reached the server.
+  /// A new isolate must not present the same refresh token again.
+  Future<bool> isRefreshPending();
+
+  Future<void> markRefreshPending();
+
+  Future<void> clearRefreshPending();
 }
 
 class SecureSessionStore implements SessionStore {
@@ -18,6 +26,7 @@ class SecureSessionStore implements SessionStore {
     : _storage = storage ?? const FlutterSecureStorage();
 
   static const _key = 'speedygo.customer.session.v1';
+  static const _pendingKey = 'speedygo.customer.refresh-pending.v1';
 
   final FlutterSecureStorage _storage;
 
@@ -49,7 +58,25 @@ class SecureSessionStore implements SessionStore {
   }
 
   @override
-  Future<void> clear() => _storage.delete(key: _key);
+  Future<void> clear() async {
+    await _storage.delete(key: _key);
+    await _storage.delete(key: _pendingKey);
+  }
+
+  @override
+  Future<bool> isRefreshPending() async {
+    return await _storage.read(key: _pendingKey) == '1';
+  }
+
+  @override
+  Future<void> markRefreshPending() {
+    return _storage.write(key: _pendingKey, value: '1');
+  }
+
+  @override
+  Future<void> clearRefreshPending() {
+    return _storage.delete(key: _pendingKey);
+  }
 }
 
 abstract class LaunchStore {
@@ -158,6 +185,7 @@ class MemoryLaunchStore implements LaunchStore {
 
 class MemorySessionStore implements SessionStore {
   TokenPair? value;
+  var refreshPending = false;
 
   @override
   Future<TokenPair?> read() async => value;
@@ -170,5 +198,19 @@ class MemorySessionStore implements SessionStore {
   @override
   Future<void> clear() async {
     value = null;
+    refreshPending = false;
+  }
+
+  @override
+  Future<bool> isRefreshPending() async => refreshPending;
+
+  @override
+  Future<void> markRefreshPending() async {
+    refreshPending = true;
+  }
+
+  @override
+  Future<void> clearRefreshPending() async {
+    refreshPending = false;
   }
 }

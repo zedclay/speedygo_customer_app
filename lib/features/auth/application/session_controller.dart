@@ -28,6 +28,18 @@ class SessionController extends Notifier<SessionState> {
     _launch = ref.read(launchStoreProvider);
     _authApi = ref.read(authApiProvider);
     _customerApi = ref.read(customerApiProvider);
+    ref.read(tokenCacheProvider).onAuthFailure = () async {
+      if (!ref.mounted) {
+        return;
+      }
+      final phase = state.phase;
+      if (phase != SessionPhase.ready &&
+          phase != SessionPhase.needsProfile &&
+          phase != SessionPhase.restoreRetryable) {
+        return;
+      }
+      await invalidateLocalSession();
+    };
     return SessionState.initial;
   }
 
@@ -52,6 +64,7 @@ class SessionController extends Notifier<SessionState> {
     }
     ref.read(tokenCacheProvider).current = stored;
     state = state.copyWith(
+      phase: SessionPhase.restoring,
       tokens: stored,
       onboardingSeen: true,
       languageSeen: true,
@@ -68,7 +81,17 @@ class SessionController extends Notifier<SessionState> {
 
   Future<void> retryRestore() => restore();
 
+  void dismissError() {
+    if (state.errorMessage == null) {
+      return;
+    }
+    state = state.copyWith(clearError: true);
+  }
+
   Future<void> requestOtp(String rawPhone) async {
+    if (state.busy) {
+      return;
+    }
     if (!PhoneInput.isValid(rawPhone)) {
       state = state.copyWith(errorMessage: AppStrings.phoneInvalid);
       return;
@@ -112,6 +135,9 @@ class SessionController extends Notifier<SessionState> {
   }
 
   Future<void> verifyOtp(String code) async {
+    if (state.busy) {
+      return;
+    }
     final identifier = state.pendingPhone;
     if (identifier == null) {
       state = state.copyWith(errorMessage: AppStrings.unexpected);
@@ -175,6 +201,9 @@ class SessionController extends Notifier<SessionState> {
   }
 
   Future<void> submitProfile(String fullName) async {
+    if (state.busy) {
+      return;
+    }
     final trimmed = fullName.trim();
     if (trimmed.isEmpty) {
       state = state.copyWith(errorMessage: AppStrings.fullNameRequired);
@@ -271,6 +300,32 @@ class SessionController extends Notifier<SessionState> {
     );
   }
 
+  /// Replaces the in-session address book after a confirmed list or mutation.
+  /// Does not change tokens, generation, or refresh-pending state.
+  void applyAddressBook(List<CustomerAddress> addresses) {
+    final current = state.customer;
+    if (current == null || state.phase != SessionPhase.ready) {
+      return;
+    }
+    String? defaultId;
+    for (final address in addresses) {
+      if (address.isDefault) {
+        defaultId = address.id;
+        break;
+      }
+    }
+    state = state.copyWith(
+      customer: CustomerMe(
+        customerProfileExists: current.customerProfileExists,
+        profileComplete: current.profileComplete,
+        addressReady: defaultId != null,
+        profile: current.profile,
+        addresses: List<CustomerAddress>.unmodifiable(addresses),
+        defaultAddressId: defaultId,
+      ),
+    );
+  }
+
   Future<void> invalidateLocalSession() async {
     final generation = state.generation + 1;
     ref.read(sessionEpochProvider).value = generation;
@@ -301,6 +356,10 @@ class SessionController extends Notifier<SessionState> {
         return;
       }
       ref.read(tokenCacheProvider).current = tokens;
+      await _store.clearRefreshPending();
+      if (!_isCurrent(generation)) {
+        return;
+      }
       state = state.copyWith(
         tokens: tokens,
         customer: customer,

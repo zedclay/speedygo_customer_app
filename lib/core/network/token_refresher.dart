@@ -8,7 +8,11 @@ import 'package:speedygo_customer_app/features/auth/data/models.dart';
 
 typedef SessionGeneration = int Function();
 
-/// Single-flight refresh. Persists the rotated pair before releasing waiters.
+/// Single-flight refresh coordinator for one app instance.
+///
+/// Always reads the current refresh token from [TokenCache]/[SessionStore].
+/// Callers never supply a refresh token, so a delayed 401 cannot replay an
+/// already-rotated value. The rotated pair is persisted before waiters resume.
 class TokenRefresher {
   TokenRefresher({
     required this._authApi,
@@ -27,13 +31,34 @@ class TokenRefresher {
 
   int get refreshCount => _refreshCount;
 
-  Future<TokenPair> refresh(String refreshToken) {
-    return _inFlight ??= _run(refreshToken);
+  /// Returns a usable pair. Joins an in-flight refresh.
+  ///
+  /// If [failedAccessToken] is already stale versus the current pair, returns
+  /// that pair without calling the server.
+  Future<TokenPair> ensureFresh({String? failedAccessToken}) {
+    final cached = _cache.current;
+    if (_alreadyRotated(cached, failedAccessToken)) {
+      return Future<TokenPair>.value(cached);
+    }
+    return _inFlight ??= _run();
   }
 
-  Future<TokenPair> _run(String refreshToken) async {
+  Future<TokenPair> _run() async {
     final generation = _currentGeneration();
     try {
+      if (await _store.isRefreshPending()) {
+        await _dropLocalPair();
+        throw const RefreshAmbiguousException();
+      }
+      final session = _cache.current ?? await _store.read();
+      final refreshToken = session?.refreshToken;
+      if (refreshToken == null || refreshToken.isEmpty) {
+        throw const ApiException(
+          'Session remplacée.',
+          code: 'AUTH_INVALID_TOKEN',
+        );
+      }
+      await _store.markRefreshPending();
       _refreshCount += 1;
       final pair = await _authApi.refresh(refreshToken);
       if (_currentGeneration() != generation) {
@@ -43,6 +68,7 @@ class TokenRefresher {
         );
       }
       await _store.write(pair);
+      await _store.clearRefreshPending();
       if (_currentGeneration() != generation) {
         throw const ApiException(
           'Session remplacée.',
@@ -51,8 +77,35 @@ class TokenRefresher {
       }
       _cache.current = pair;
       return pair;
+    } on RefreshAmbiguousException {
+      await _dropLocalPair();
+      rethrow;
+    } on ApiException catch (error) {
+      if (error.isAuthFailure) {
+        await _dropLocalPair();
+      } else {
+        await _store.clearRefreshPending();
+      }
+      rethrow;
+    } catch (error) {
+      await _store.clearRefreshPending();
+      rethrow;
     } finally {
       _inFlight = null;
     }
+  }
+
+  bool _alreadyRotated(TokenPair? current, String? failedAccessToken) {
+    if (current == null ||
+        failedAccessToken == null ||
+        failedAccessToken.isEmpty) {
+      return false;
+    }
+    return current.accessToken != failedAccessToken;
+  }
+
+  Future<void> _dropLocalPair() async {
+    _cache.current = null;
+    await _store.clear();
   }
 }

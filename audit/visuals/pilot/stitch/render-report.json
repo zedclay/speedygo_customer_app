@@ -1,0 +1,157 @@
+{
+  "pilots": [
+    {
+      "folder": "accueil_speedygo",
+      "slug": "home-ready-se-375x667",
+      "html": true,
+      "status": "rendered",
+      "bytes": 182559,
+      "failedResources": [],
+      "failedCount": 0,
+      "metrics": {
+        "innerWidth": 375,
+        "scrollWidth": 375,
+        "clientWidth": 375,
+        "mainScrollWidth": 375,
+        "overflowX": false,
+        "clippedControls": []
+      },
+      "htmlDefects": [],
+      "note": "Viewport normalized to logical 375x667; nested max/min widths forced to fit. Category overflow-x is intentional when present."
+    },
+    {
+      "folder": "profil_speedygo_2",
+      "slug": "profile-setup-ready-se-375x667",
+      "html": true,
+      "status": "rendered",
+      "bytes": 88977,
+      "failedResources": [],
+      "failedCount": 0,
+      "metrics": {
+        "innerWidth": 375,
+        "scrollWidth": 445,
+        "clientWidth": 375,
+        "mainScrollWidth": 445,
+        "overflowX": false,
+        "clippedControls": []
+      },
+      "htmlDefects": [],
+      "note": "Viewport normalized to logical 375x667; nested max/min widths forced to fit. Category overflow-x is intentional when present."
+    },
+    {
+      "folder": "confirmation_de_commande_speedygo",
+      "slug": "order-confirmation-ready-se-375x667",
+      "html": true,
+      "status": "rendered",
+      "bytes": 106261,
+      "failedResources": [],
+      "failedCount": 0,
+      "metrics": {
+        "innerWidth": 375,
+        "scrollWidth": 375,
+        "clientWidth": 375,
+        "mainScrollWidth": 375,
+        "overflowX": false,
+        "clippedControls": []
+      },
+      "htmlDefects": [],
+      "note": "Viewport normalized to logical 375x667; nested max/min widths forced to fit. Category overflow-x is intentional when present."
+    },
+    {
+      "folder": "d_tails_du_produit_speedygo",
+      "slug": "product-ready-se-375x667",
+      "html": true,
+      "status": "rendered",
+      "bytes": 483504,
+      "failedResources": [],
+      "failedCount": 0,
+      "metrics": {
+        "innerWidth": 375,
+        "scrollWidth": 375,
+        "clientWidth": 375,
+        "mainScrollWidth": 375,
+        "overflowX": false,
+        "clippedControls": []
+      },
+      "htmlDefects": [],
+      "note": "Viewport normalized to logical 375x667; nested max/min widths forced to fit. Category overflow-x is intentional when present."
+    },
+    {
+      "folder": "signaler_un_probl_me_speedygo",
+      "slug": "support-create-keyboard-se-375x667",
+      "html": true,
+      "status": "rendered",
+      "bytes": 105108,
+      "failedResources": [],
+      "failedCount": 0,
+      "metrics": {
+        "innerWidth": 375,
+        "scrollWidth": 375,
+        "clientWidth": 375,
+        "mainScrollWidth": 375,
+        "overflowX": false,
+        "clippedControls": [
+          {
+            "tag": "button",
+            "right": 401,
+            "width": 82,
+            "clipped": true
+          },
+          {
+            "tag": "button",
+            "right": 505,
+            "width": 96,
+            "clipped": true
+          },
+          {
+            "tag": "button",
+            "right": 610,
+            "width": 97,
+            "clipped": true
+          },
+          {
+            "tag": "button",
+            "right": 699,
+            "width": 81,
+            "clipped": true
+          },
+          {
+            "tag": "button",
+            "right": 778,
+            "width": 71,
+            "clipped": true
+          },
+          {
+            "tag": "button",
+            "right": 925,
+            "width": 139,
+            "clipped": true
+          }
+        ]
+      },
+      "htmlDefects": [
+        "intentional_horizontal_chip_overflow:6_chip_buttons_clip_at_right_edge"
+      ],
+      "note": "Viewport normalized to logical 375x667; nested max/min widths forced to fit. Category overflow-x is intentional when present."
+    },
+    {
+      "folder": "confirmation_de_commande_speedygo",
+      "slug": "payment-success-to-confirmation-se-375x667",
+      "html": true,
+      "status": "rendered",
+      "bytes": 104415,
+      "failedResources": [],
+      "failedCount": 0,
+      "metrics": {
+        "innerWidth": 375,
+        "scrollWidth": 375,
+        "clientWidth": 375,
+        "mainScrollWidth": 375,
+        "overflowX": false,
+        "clippedControls": []
+      },
+      "htmlDefects": [],
+      "note": "Viewport normalized to logical 375x667; nested max/min widths forced to fit. Category overflow-x is intentional when present."
+    }
+  ]
+}

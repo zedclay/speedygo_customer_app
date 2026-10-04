@@ -126,8 +126,7 @@ class NavCatalog {
       route: AppRoutes.home,
       capability: NavCapability.navigationOnly,
       surface: NavSurface.tab,
-      purpose:
-          'Accueil Stitch. Catalogue, photos et commande en cours non branchés.',
+      purpose: 'Accueil live. Catalogue authentifié. Catégories globales, promo, photos, notes et commande en cours non branchés.',
       group: 'Découverte',
       links: [
         const NavLink(label: 'Recherche', location: AppRoutes.search),
@@ -149,6 +148,16 @@ class NavCatalog {
           location: AppRoutes.checkoutAddressPicker,
         ),
       ],
+    ),
+    NavEntry(
+      id: 'home-design-preview',
+      designDir: 'accueil_speedygo',
+      title: AppStrings.homeDesignPreviewTitle,
+      route: AppRoutes.homeDesignPreview,
+      capability: NavCapability.navigationOnly,
+      surface: NavSurface.screen,
+      purpose: AppStrings.homeDesignPreviewHint,
+      group: 'Découverte',
     ),
     NavEntry(
       id: 'search',
@@ -188,7 +197,7 @@ class NavCatalog {
       route: AppRoutes.categories,
       capability: NavCapability.productDecision,
       surface: NavSurface.screen,
-      purpose: 'Seul écran catégories. API = catégories par branche.',
+      purpose: 'Verticales commerce. Résultats = GET /customer/branches.',
       group: 'Découverte',
       links: [
         const NavLink(label: 'Restaurants', location: AppRoutes.restaurants),
@@ -314,15 +323,13 @@ class NavCatalog {
       designDir: 'promotions_speedygo',
       title: 'Promotions et offres',
       route: AppRoutes.promotions,
-      capability: NavCapability.unsupported,
+      capability: NavCapability.navigationOnly,
       surface: NavSurface.screen,
-      purpose: 'Pas de GET /customer/promotions.',
+      purpose:
+          'GET /customer/promotions (discoverable). Checkout remains discount authority; list does not apply codes.',
       group: 'Découverte',
       links: [
-        NavLink(
-          label: 'Appliquer un code',
-          blockedMessage: AppStrings.promotionsUnavailable,
-        ),
+        NavLink(label: 'Vérifier ma commande', location: AppRoutes.checkoutReview),
       ],
     ),
     const NavEntry(
@@ -332,7 +339,7 @@ class NavCatalog {
       route: AppRoutes.cart,
       capability: NavCapability.navigationOnly,
       surface: NavSurface.screen,
-      purpose: 'Seul écran panier (_c_025). Panier serveur non appelé.',
+      purpose: 'GET/PATCH/DELETE /customer/cart. CTA Vérifier ma commande → preview.',
       group: 'Commande',
       links: [
         const NavLink(label: 'Révision', location: AppRoutes.checkoutReview),
@@ -364,9 +371,9 @@ class NavCatalog {
       designDir: 'r_vision_de_la_commande_speedygo',
       title: 'Révision de la commande',
       route: AppRoutes.checkoutReview,
-      capability: NavCapability.navigationOnly,
+      capability: NavCapability.liveAuth,
       surface: NavSurface.screen,
-      purpose: 'Preview checkout non appelé. Totaux non calculés ici.',
+      purpose: 'POST /customer/checkout/preview (addressId, promoCode). Pas de commande.',
       group: 'Commande',
       links: [
         const NavLink(
@@ -385,9 +392,9 @@ class NavCatalog {
       designDir: 's_lection_de_l_adresse_speedygo',
       title: 'Adresse de livraison',
       route: AppRoutes.checkoutAddress,
-      capability: NavCapability.productDecision,
+      capability: NavCapability.liveAuth,
       surface: NavSurface.variant,
-      purpose: 'Variante vs s_lecteur_d_adresse_speedygo_reference.',
+      purpose: 'Réutilise le sélecteur d’adresses. Sélection locale, pas PUT default.',
       group: 'Adresse',
       links: [
         const NavLink(
@@ -403,31 +410,32 @@ class NavCatalog {
     const NavEntry(
       id: 'checkout-address-picker',
       designDir: 's_lecteur_d_adresse_speedygo_reference',
-      title: 'Sélecteur d’adresse',
+      title: AppStrings.addressPickerTitle,
       route: AppRoutes.checkoutAddressPicker,
-      capability: NavCapability.productDecision,
-      surface: NavSurface.variant,
-      purpose: 'Variante vs s_lection_de_l_adresse. _reference ≠ rang.',
+      capability: NavCapability.liveAuth,
+      surface: NavSurface.screen,
+      purpose:
+          'GET /customer/addresses. Sélection Home locale, pas PUT default.',
       group: 'Adresse',
       links: [
         const NavLink(
           label: 'Adresses enregistrées',
           location: AppRoutes.accountAddresses,
         ),
-        NavLink(
-          label: 'Choisir cette adresse',
-          blockedMessage: AppStrings.navBlocked,
+        const NavLink(
+          label: 'Nouvelle adresse',
+          location: AppRoutes.addressForm,
         ),
       ],
     ),
     const NavEntry(
       id: 'addresses',
       designDir: 'adresses_enregistr_es_speedygo',
-      title: 'Adresses enregistrées',
+      title: AppStrings.addressesTitle,
       route: AppRoutes.accountAddresses,
-      capability: NavCapability.navigationOnly,
+      capability: NavCapability.liveAuth,
       surface: NavSurface.screen,
-      purpose: 'GET /customer/addresses non appelé.',
+      purpose: 'GET/DELETE/PUT default /customer/addresses.',
       group: 'Adresse',
       links: [
         const NavLink(label: 'Ajouter', location: AppRoutes.addressForm),
@@ -440,46 +448,43 @@ class NavCatalog {
     const NavEntry(
       id: 'address-form',
       designDir: 'ajouter_ou_modifier_une_adresse_speedygo',
-      title: 'Ajouter une adresse',
+      title: AppStrings.addAddress,
       route: AppRoutes.addressForm,
-      capability: NavCapability.navigationOnly,
+      capability: NavCapability.liveAuth,
       surface: NavSurface.screen,
       purpose:
-          'POST/PATCH adresse non appelé. isDefault create ignoré côté API.',
+          'POST/PATCH label, addressText, latitude, longitude. Pas isDefault.',
       group: 'Adresse',
       paramKeys: ['addressId'],
       links: [
-        const NavLink(
-          label: 'Enregistrer',
-          blockedMessage: AppStrings.saveUnavailable,
-        ),
         const NavLink(label: 'Carte', location: AppRoutes.addressConfirm),
       ],
     ),
     const NavEntry(
       id: 'address-confirm',
       designDir: 'confirmation_de_l_emplacement_speedygo',
-      title: 'Confirmer l’emplacement',
+      title: AppStrings.confirmLocationTitle,
       route: AppRoutes.addressConfirm,
-      capability: NavCapability.navigationOnly,
+      capability: NavCapability.liveAuth,
       surface: NavSurface.screen,
-      purpose: 'Carte / coords. Pas d’écriture adresse.',
+      purpose: 'Confirme des coords GPS. N’écrit pas d’adresse.',
       group: 'Adresse',
-      links: [
-        NavLink(label: 'Confirmer', blockedMessage: AppStrings.saveUnavailable),
-      ],
+      links: const [],
     ),
     const NavEntry(
       id: 'location-permission',
       designDir: 'permission_de_localisation_speedygo',
-      title: 'Permission de localisation',
+      title: AppStrings.locationPermissionTitle,
       route: AppRoutes.locationPermission,
-      capability: NavCapability.navigationOnly,
+      capability: NavCapability.liveAuth,
       surface: NavSurface.screen,
-      purpose: 'CLIENT_ONLY. Demande OS non déclenchée ici.',
+      purpose: 'Demande OS après action. Pas de découverte commerçants.',
       group: 'Adresse',
       links: [
-        NavLink(label: 'Autoriser', blockedMessage: AppStrings.navBlocked),
+        const NavLink(
+          label: 'Saisie manuelle',
+          location: AppRoutes.addressForm,
+        ),
       ],
     ),
     const NavEntry(
@@ -487,9 +492,9 @@ class NavCatalog {
       designDir: 'mode_de_paiement_speedygo',
       title: 'Mode de paiement',
       route: AppRoutes.checkoutMethod,
-      capability: NavCapability.navigationOnly,
+      capability: NavCapability.liveAuth,
       surface: NavSurface.screen,
-      purpose: 'COD | ELECTRONIC au moment commande. Pas de cartes sauvées.',
+      purpose: 'COD | ELECTRONIC au moment commande. Preview n’accepte pas paymentMethod.',
       group: 'Commande',
       links: [
         const NavLink(label: 'Paiement', location: AppRoutes.checkoutPayment),
@@ -523,7 +528,7 @@ class NavCatalog {
       links: [
         const NavLink(label: 'Envoi', location: AppRoutes.checkoutSubmit),
         NavLink(
-          label: 'Paiement réussi',
+          label: AppStrings.pspStatusUnconfirmed,
           blockedMessage: AppStrings.submitUnavailable,
         ),
       ],
@@ -578,7 +583,7 @@ class NavCatalog {
     NavEntry(
       id: 'order-detail',
       designDir: 'd_tails_de_la_commande_speedygo',
-      title: 'Détails de la commande',
+      title: 'Ma commande',
       route: AppRoutes.order(order),
       capability: NavCapability.navigationOnly,
       surface: NavSurface.screen,
@@ -617,13 +622,14 @@ class NavCatalog {
       route: AppRoutes.orderCancel(order),
       capability: NavCapability.navigationOnly,
       surface: NavSurface.screen,
-      purpose: 'Cancel ≠ refund. POST cancel non appelé.',
+      purpose:
+          'Cancel ≠ refund. Real order ids use OrderCancelScreen → POST cancel.',
       group: 'Suivi',
       paramKeys: const ['orderId'],
-      links: const [
+      links: [
         NavLink(
           label: 'Confirmer l’annulation',
-          blockedMessage: AppStrings.submitUnavailable,
+          location: AppRoutes.orderCancel(order),
         ),
       ],
     ),
@@ -634,7 +640,7 @@ class NavCatalog {
       route: AppRoutes.orderWaiting(order),
       capability: NavCapability.navigationOnly,
       surface: NavSurface.screen,
-      purpose: 'Attente marchand. Pas de polling.',
+      purpose: 'Attente marchand via OrderTrackingScreen + GET order/delivery.',
       group: 'Suivi',
       paramKeys: const ['orderId'],
       links: [
@@ -648,7 +654,8 @@ class NavCatalog {
       route: AppRoutes.orderSearching(order),
       capability: NavCapability.navigationOnly,
       surface: NavSurface.screen,
-      purpose: 'SEARCHING_DRIVER chrome. Tracking non appelé.',
+      purpose:
+          'SEARCHING_DRIVER only when Delivery.status says so. Tracking HTTP+socket.',
       group: 'Suivi',
       paramKeys: const ['orderId'],
       links: [NavLink(label: 'Carte', location: AppRoutes.orderMap(order))],
@@ -660,7 +667,7 @@ class NavCatalog {
       route: AppRoutes.orderTracking(order),
       capability: NavCapability.navigationOnly,
       surface: NavSurface.screen,
-      purpose: 'Suivi non temps réel.',
+      purpose: 'HTTP snapshot + /realtime subscribe for owned order.',
       group: 'Suivi',
       paramKeys: const ['orderId'],
       links: [
@@ -683,7 +690,7 @@ class NavCatalog {
       route: AppRoutes.orderMap(order),
       capability: NavCapability.navigationOnly,
       surface: NavSurface.screen,
-      purpose: 'Carte. Pas de GPS chauffeur.',
+      purpose: 'Pas de SDK carte. Coordonnées LIVE si fournies.',
       group: 'Suivi',
       paramKeys: const ['orderId'],
       links: [
@@ -697,7 +704,7 @@ class NavCatalog {
       route: AppRoutes.orderNearby(order),
       capability: NavCapability.navigationOnly,
       surface: NavSurface.screen,
-      purpose: 'État proximité. Pas de tracking live.',
+      purpose: 'ARRIVED_CUSTOMER via Delivery status.',
       group: 'Suivi',
       paramKeys: const ['orderId'],
       links: [
@@ -793,7 +800,10 @@ class NavCatalog {
       group: 'Suivi',
       paramKeys: const ['orderId'],
       links: const [
-        NavLink(label: 'Publier', blockedMessage: AppStrings.submitUnavailable),
+        NavLink(
+          label: AppStrings.ratingPublish,
+          blockedMessage: AppStrings.submitUnavailable,
+        ),
       ],
     ),
     NavEntry(
@@ -812,9 +822,10 @@ class NavCatalog {
       designDir: 'notifications_speedygo',
       title: 'Alertes / Autorisations',
       route: AppRoutes.alerts,
-      capability: NavCapability.navigationOnly,
+      capability: NavCapability.liveAuth,
       surface: NavSurface.tab,
-      purpose: 'Inbox vide. Push non configuré. Permission OS non demandée.',
+      purpose:
+          'Inbox IN_APP (GET /notifications). Mark-read / read-all. Pas de push OS ni préférences.',
       group: 'Compte',
       links: [
         const NavLink(
@@ -834,7 +845,8 @@ class NavCatalog {
       route: AppRoutes.alertsPermission,
       capability: NavCapability.navigationOnly,
       surface: NavSurface.screen,
-      purpose: 'Même référence HTML que l’onglet Alertes.',
+      purpose:
+          'Réf. Stitch permission OS — non demandé dans ce slice (pas de Firebase).',
       group: 'Compte',
       links: [
         NavLink(
@@ -854,7 +866,10 @@ class NavCatalog {
       group: 'Compte',
       links: [
         const NavLink(label: 'Adresses', location: AppRoutes.accountAddresses),
-        const NavLink(label: 'Paiement', location: AppRoutes.checkoutMethod),
+        const NavLink(
+          label: 'Paiement',
+          location: AppRoutes.accountPaymentMethods,
+        ),
         const NavLink(
           label: 'Notifications',
           location: AppRoutes.accountNotifications,
@@ -898,20 +913,11 @@ class NavCatalog {
       designDir: 's_curit_et_sessions_actives_speedygo',
       title: 'Sécurité et sessions',
       route: AppRoutes.accountSecurity,
-      capability: NavCapability.navigationOnly,
+      capability: NavCapability.liveAuth,
       surface: NavSurface.screen,
-      purpose: 'GET/DELETE sessions non appelés.',
+      purpose:
+          'GET /auth/sessions + DELETE /auth/sessions/:id + POST /auth/logout-all. Pas de géoloc inventée.',
       group: 'Compte',
-      links: [
-        NavLink(
-          label: 'Révoquer une session',
-          blockedMessage: AppStrings.navBlocked,
-        ),
-        NavLink(
-          label: 'Déconnecter tous les appareils',
-          blockedMessage: AppStrings.navBlocked,
-        ),
-      ],
     ),
     const NavEntry(
       id: 'account-legal',

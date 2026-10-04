@@ -54,7 +54,27 @@ flutter run --dart-define=API_BASE_URL=http://10.0.2.2:3000/api/v1
 
 Interactive login uses the development API (`speedygo_dev`) with `OTP_TRANSPORT=console`. The OTP is read from **server stdout**, never from the app. Do not use Redis DB15 or `speedygo_test` for this app.
 
-Firebase, Maps, payments, and production signing are not configured yet.
+### Electronic payment (deployment flag)
+
+There is **no** Customer API that advertises provider readiness. ELECTRONIC checkout is gated by an explicit compile-time flag (**default off**):
+
+```bash
+# Normal Customer builds — leave unset / false. COD only; ELECTRONIC shows « Bientôt disponible ».
+flutter run --dart-define=API_BASE_URL=http://127.0.0.1:3000/api/v1
+
+# Only after a verified Chargily sandbox is configured on the backend:
+flutter run \
+  --dart-define=API_BASE_URL=http://127.0.0.1:3000/api/v1 \
+  --dart-define=ELECTRONIC_PAYMENT_ENABLED=true
+```
+
+Backend prerequisites for that flag: `PAYMENT_PROVIDER=chargily`, `CHARGILY_MODE=test`, `CHARGILY_SECRET_KEY`, `PAYMENT_RETURN_URL`, `PAYMENT_CANCEL_URL`, `PAYMENT_WEBHOOK_URL`. Do **not** enable the flag against the empty/`test` adapter (`test://checkout/...`).
+
+Optional review-only (never production): `--dart-define=ELECTRONIC_PAYMENT_ALLOW_TEST_CHECKOUT=true` acknowledges `test://` URLs without opening them.
+
+Checkout URLs must be **HTTPS** on `pay.chargily.net`. HTTP, other hosts, and `test://` are rejected in normal mode. SpeedyGo Bearer tokens are never sent to the provider. Browser return never marks paid.
+
+Firebase, Maps, and production signing are not configured yet.
 
 ## Scripts
 

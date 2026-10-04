@@ -10,6 +10,7 @@ class AppRoutes {
   static const otp = '/otp';
   static const profileSetup = '/profile';
   static const home = '/home';
+  static const homeCategories = '/home/categories';
   static const search = '/search';
   static const searchResults = '/search/results';
   static const orders = '/orders';
@@ -20,6 +21,7 @@ class AppRoutes {
   static const accountLegal = '/account/legal';
   static const accountSecurity = '/account/security';
   static const accountNotifications = '/account/notifications';
+  static const accountPaymentMethods = '/account/payment-methods';
   static const accountAddresses = '/account/addresses';
   static const accountDelete = '/account/delete';
   static const addressForm = '/addresses/form';
@@ -41,7 +43,9 @@ class AppRoutes {
   static const legalTerms = '/legal/terms';
   static const legalPrivacy = '/legal/privacy';
   static const supportNew = '/support/new';
+  static const supportList = '/support';
   static const directory = '/directory';
+  static const homeDesignPreview = '/directory/home-design';
 
   static const navBranch = 'nav-branch';
   static const navProduct = 'nav-product';
@@ -56,8 +60,15 @@ class AppRoutes {
   static String merchantReviews(String branchId) =>
       '/merchants/$branchId/reviews';
   static String product(String productId) => '/products/$productId';
+  static String productInBranch(String branchId, String productId) =>
+      '/merchants/$branchId/products/$productId';
   static String productConfigure(String productId) =>
       '/products/$productId/configure';
+  static String productConfigureInBranch(
+    String branchId,
+    String productId, {
+    int quantity = 1,
+  }) => '/merchants/$branchId/products/$productId/configure?qty=$quantity';
   static String order(String orderId) => '/orders/$orderId';
   static String orderStatus(String orderId) => '/orders/$orderId/status';
   static String orderCancel(String orderId) => '/orders/$orderId/cancel';
@@ -69,6 +80,14 @@ class AppRoutes {
   static String orderWaiting(String orderId) => '/orders/$orderId/waiting';
   static String orderConfirmation(String orderId) =>
       '/orders/$orderId/confirmation';
+  static String orderPayment(String orderId) => '/orders/$orderId/payment';
+  static String orderPaymentRedirect(String orderId) =>
+      '/orders/$orderId/payment/redirect';
+  /// Checkout payment entry after ELECTRONIC order create (same screen).
+  static String checkoutPaymentForOrder(String orderId) =>
+      '$checkoutPayment?orderId=${Uri.encodeQueryComponent(orderId)}';
+  static String checkoutRedirectForOrder(String orderId) =>
+      '$checkoutRedirect?orderId=${Uri.encodeQueryComponent(orderId)}';
   static String orderCompleted(String orderId) => '/orders/$orderId/completed';
   static String orderReceipt(String orderId) => '/orders/$orderId/receipt';
   static String orderRate(String orderId) => '/orders/$orderId/rate';
@@ -81,4 +100,19 @@ class AppRoutes {
 
   static String searchResultsQuery(String q) =>
       '$searchResults?q=${Uri.encodeQueryComponent(q)}';
+
+  /// Filtered storefront results opened from Toutes les catégories.
+  static String homeCategoryResults(String verticalId) =>
+      '$homeCategories/results?verticalId=${Uri.encodeQueryComponent(verticalId)}';
+
+  /// Same destination as [homeCategoryResults] (scoped list, not Home filter).
+  static String restaurantsForVertical(String verticalId) =>
+      homeCategoryResults(verticalId);
+
+  static String addressFormFor(String? addressId) {
+    if (addressId == null || addressId.isEmpty) {
+      return addressForm;
+    }
+    return '$addressForm?addressId=${Uri.encodeQueryComponent(addressId)}';
+  }
 }

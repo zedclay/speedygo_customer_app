@@ -1,0 +1,54 @@
+{
+  "observation": "in_app_natural_access_expiry",
+  "accountHint": "Revue Catalogue SpeedyGo",
+  "homeFromSeed": false,
+  "bootstrap": "in_app_otp_once",
+  "usedOtpBootstrap": true,
+  "refreshCountAtHome": 0,
+  "sessionPhaseAtHome": "ready",
+  "accessAtHome": {
+    "present": true,
+    "exp": 1789603609,
+    "secondsUntilExp": 899,
+    "accessFp": "4ccccc86",
+    "sidFp": "6d17812b"
+  },
+  "seedCacheUpdated": true,
+  "waitedForNaturalExpirySeconds": 901,
+  "accessBeforeBurst": {
+    "present": true,
+    "exp": 1789603609,
+    "secondsUntilExp": -3,
+    "accessFp": "4ccccc86",
+    "sidFp": "6d17812b"
+  },
+  "accessExpiryObserved": true,
+  "refreshCountBeforeBurst": 0,
+  "subsequentMeOk": true,
+  "subsequentAccountId": "0d00c071-d000-7000-8000-0000000000c1",
+  "accountUnchanged": true,
+  "refreshCountAfterBurst": 1,
+  "refreshDelta": 1,
+  "accessAfterBurst": {
+    "present": true,
+    "exp": 1789604512,
+    "secondsUntilExp": 900,
+    "accessFp": "0345b2b1",
+    "sidFp": "6d17812b"
+  },
+  "accessRotated": true,
+  "tokenSourceAfter": "tokenCache",
+  "me1": {
+    "accountId": "0d00c071-d000-7000-8000-0000000000c1",
+    "phone": "+213550000072",
+    "hasCustomerProfile": true
+  },
+  "sessionPhaseAfter": "ready",
+  "stillAuthenticated": true,
+  "singleFlightOk": true,
+  "homeVisibleAloneInsufficient": true,
+  "sidFpBefore": "6d17812b",
+  "sidFpAfter": "6d17812b",
+  "result": "PASS",
+  "finishedAt": "2026-09-17T00:06:53.222219Z"
+}

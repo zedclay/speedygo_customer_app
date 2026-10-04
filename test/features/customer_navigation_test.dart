@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -7,14 +9,35 @@ import 'package:speedygo_customer_app/core/navigation/app_locale.dart';
 import 'package:speedygo_customer_app/core/navigation/app_routes.dart';
 import 'package:speedygo_customer_app/core/navigation/nav_catalog.dart';
 import 'package:speedygo_customer_app/core/storage/session_store.dart';
+import 'package:speedygo_customer_app/features/addresses/data/address_selection_store.dart';
 import 'package:speedygo_customer_app/features/auth/application/session_controller.dart';
 import 'package:speedygo_customer_app/features/auth/data/models.dart';
+import 'package:speedygo_customer_app/features/home/presentation/home_design_preview_screen.dart';
 import 'package:speedygo_customer_app/features/home/presentation/home_screen.dart';
+import 'package:speedygo_customer_app/features/home/presentation/widgets/home_bottom_bar.dart';
 
 import '../helpers/fakes.dart';
+import '../helpers/notification_support_fakes.dart';
 import '../widget_test.dart' as host;
 
-Widget readyApp({bool navPreview = false, MemoryLaunchStore? launch}) {
+Widget readyApp({
+  bool navPreview = false,
+  MemoryLaunchStore? launch,
+  FakeCatalogClient? catalog,
+  FakeCustomerClient? customer,
+  FakeOrdersClient? orders,
+  FakeRatingsClient? ratings,
+  FakePromotionsClient? promotions,
+  FakeCartClient? cart,
+  FakeCheckoutClient? checkout,
+  FakeAddressClient? addresses,
+  MemoryAddressSelectionStore? addressSelection,
+  FakeLocationClient? location,
+  FakeAuthClient? auth,
+  FakeNotificationsClient? notifications,
+  FakeSupportClient? support,
+  Future<Uint8List?> Function(String path)? coverImageBytes,
+}) {
   final store = MemorySessionStore()
     ..value = const TokenPair(
       accessToken: 'access-1',
@@ -22,19 +45,33 @@ Widget readyApp({bool navPreview = false, MemoryLaunchStore? launch}) {
       expiresIn: 900,
       tokenType: 'Bearer',
     );
-  final customer = FakeCustomerClient()
-    ..meResult = const CustomerMe(
-      customerProfileExists: true,
-      profileComplete: true,
-      addressReady: false,
-      profile: CustomerProfile(id: 'p', fullName: 'Amel Benali'),
-    );
+  final resolvedCustomer =
+      customer ??
+      (FakeCustomerClient()
+        ..meResult = const CustomerMe(
+          customerProfileExists: true,
+          profileComplete: true,
+          addressReady: false,
+          profile: CustomerProfile(id: 'p', fullName: 'Amel Benali'),
+        ));
   return host.app(
-    auth: FakeAuthClient(),
-    customer: customer,
+    auth: auth ?? FakeAuthClient(),
+    customer: resolvedCustomer,
     store: store,
     navPreview: navPreview,
     launch: launch,
+    catalog: catalog,
+    orders: orders,
+    ratings: ratings,
+    promotions: promotions,
+    cart: cart,
+    checkout: checkout,
+    addresses: addresses,
+    addressSelection: addressSelection,
+    location: location,
+    notifications: notifications,
+    support: support,
+    coverImageBytes: coverImageBytes,
   );
 }
 
@@ -126,7 +163,7 @@ void main() {
     final router = GoRouter.of(tester.element(find.byType(HomeScreen)));
     router.push(AppRoutes.restaurants);
     await tester.pumpAndSettle();
-    expect(find.textContaining('GET /customer/branches'), findsOneWidget);
+    expect(find.text(AppStrings.storefrontsTitle), findsWidgets);
     await tester.tap(find.byTooltip(AppStrings.back));
     await tester.pumpAndSettle();
     expect(find.text(AppStrings.searchHint), findsOneWidget);
@@ -138,7 +175,7 @@ void main() {
     await tester.pumpWidget(readyApp());
     await tester.pumpAndSettle();
     expect(find.text(AppStrings.searchHint), findsOneWidget);
-    expect(find.text(AppStrings.specialOffer.toUpperCase()), findsOneWidget);
+    expect(find.text(AppStrings.storefrontsTitle), findsOneWidget);
     expect(find.text(AppStrings.allScreens), findsNothing);
     expect(find.text(AppStrings.landingTitle), findsNothing);
     expect(find.text(AppStrings.activeOrder), findsNothing);
@@ -155,6 +192,11 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text(AppStrings.searchHint), findsOneWidget);
     expect(find.text(AppStrings.previewBanner), findsNothing);
+    router.go(AppRoutes.homeDesignPreview);
+    await tester.pumpAndSettle();
+    expect(find.text(AppStrings.searchHint), findsOneWidget);
+    expect(find.text(AppStrings.previewBanner), findsNothing);
+    expect(find.text(AppStrings.nearbyMerchants), findsNothing);
     router.go(AppRoutes.orderConfirmation(AppRoutes.navOrder));
     await tester.pumpAndSettle();
     expect(find.text(AppStrings.searchHint), findsOneWidget);
@@ -175,6 +217,40 @@ void main() {
     await tester.tap(find.text('Ajouter un favori'));
     await tester.pumpAndSettle();
     expect(find.text(AppStrings.favoritesUnavailable), findsOneWidget);
+  });
+
+  testWidgets('preview mode can open the full Home design composition', (
+    tester,
+  ) async {
+    await tester.pumpWidget(readyApp(navPreview: true));
+    await tester.pumpAndSettle();
+    expect(find.text(AppStrings.nearbyMerchants), findsNothing);
+    expect(find.text(AppStrings.specialOffer), findsNothing);
+    final router = GoRouter.of(tester.element(find.byType(HomeScreen)));
+    router.go(AppRoutes.directory);
+    await tester.pumpAndSettle();
+    expect(find.text(AppStrings.previewBanner), findsOneWidget);
+    await tester.scrollUntilVisible(
+      find.text(AppStrings.homeDesignPreviewTitle),
+      240,
+      scrollable: find.byType(Scrollable).first,
+    );
+    expect(find.text(AppStrings.homeDesignPreviewTitle), findsOneWidget);
+    router.go(AppRoutes.homeDesignPreview);
+    await tester.pumpAndSettle();
+    expect(find.byType(HomeDesignPreviewScreen), findsOneWidget);
+    expect(find.text(AppStrings.previewBanner), findsWidgets);
+    expect(find.text(AppStrings.categories), findsOneWidget);
+    expect(find.text(AppStrings.specialOffer.toUpperCase()), findsOneWidget);
+    expect(find.text(AppStrings.promoCode), findsOneWidget);
+    expect(find.text(AppStrings.nearbyMerchants), findsOneWidget);
+    expect(find.text(AppStrings.previewMerchantName), findsOneWidget);
+    expect(find.text(AppStrings.previewRating), findsOneWidget);
+    expect(find.text(AppStrings.activeOrder), findsOneWidget);
+    expect(find.text(AppStrings.previewOrderNumber), findsOneWidget);
+    expect(find.text(AppStrings.previewAddress), findsOneWidget);
+    expect(find.byType(HomeBottomBar), findsOneWidget);
+    expect(find.byType(NavigationBar), findsNothing);
   });
 
   testWidgets('favorites add does not invent a successful save', (
@@ -222,16 +298,21 @@ void main() {
     expect(find.text(AppStrings.phoneTitle), findsNothing);
   });
 
-  testWidgets('search results keep the query parameter', (tester) async {
-    await tester.pumpWidget(readyApp());
+  testWidgets('search keeps the typed query and does not call with fixtures', (
+    tester,
+  ) async {
+    final catalog = FakeCatalogClient();
+    await tester.pumpWidget(readyApp(catalog: catalog));
     await tester.pumpAndSettle();
     await tester.tap(find.byIcon(Icons.search_outlined));
     await tester.pumpAndSettle();
     await tester.enterText(find.byType(TextField), 'couscous');
-    await tester.tap(find.text('Voir les résultats (navigation)'));
-    await tester.pumpAndSettle();
-    expect(find.text('q: couscous'), findsOneWidget);
-    expect(find.textContaining('API non appelée'), findsOneWidget);
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 350));
+    expect(find.text('couscous'), findsOneWidget);
+    expect(catalog.lastSearchQ, 'couscous');
+    expect(catalog.searchCount, 1);
+    expect(find.textContaining('API non appelée'), findsNothing);
   });
 
   testWidgets('both address variants are independently reachable', (
@@ -241,14 +322,14 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.text(AppStrings.deliverToUnset));
     await tester.pumpAndSettle();
-    expect(find.text('Sélecteur d’adresse'), findsOneWidget);
+    expect(find.text(AppStrings.addressPickerTitle), findsOneWidget);
     await tester.tap(find.byTooltip(AppStrings.back));
     await tester.pumpAndSettle();
     final router = GoRouter.of(tester.element(find.byType(HomeScreen)));
     router.push(AppRoutes.checkoutAddress);
     await tester.pumpAndSettle();
-    expect(find.text('Adresse de livraison'), findsWidgets);
-    expect(find.textContaining('s_lection_de_l_adresse'), findsOneWidget);
+    expect(find.text(AppStrings.addressPickerTitle), findsOneWidget);
+    expect(find.textContaining('s_lection_de_l_adresse'), findsNothing);
   });
 
   testWidgets('Arabic cannot become the active language', (tester) async {
@@ -275,6 +356,24 @@ void main() {
     ).read(sessionControllerProvider).locale;
     expect(locale, AppLocale.french);
   });
+
+  testWidgets(
+    'rebuilding the app after leaving a nested route does not duplicate page keys',
+    (tester) async {
+      await tester.pumpWidget(readyApp());
+      await tester.pumpAndSettle();
+      expect(find.byType(HomeScreen), findsOneWidget);
+      final router = GoRouter.of(tester.element(find.byType(HomeScreen)));
+      router.go(AppRoutes.accountLanguage);
+      await tester.pumpAndSettle();
+      router.go(AppRoutes.home);
+      await tester.pumpAndSettle();
+      await tester.pumpWidget(readyApp());
+      await tester.pumpAndSettle();
+      expect(find.byType(HomeScreen), findsOneWidget);
+      expect(tester.takeException(), isNull);
+    },
+  );
 
   test('home greeting uses first name and evening Bonsoir', () {
     expect(

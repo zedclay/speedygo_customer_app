@@ -1,0 +1,13 @@
+{
+  "coldStartRestore": true,
+  "phone": "+213550000072",
+  "afterResumeReady": true,
+  "clientNetworkErrorObserved": true,
+  "clientNetworkErrorType": "DioException",
+  "reconnectApiOk": true,
+  "reconnectAccountId": null,
+  "accessExpiryObserved": false,
+  "refreshRotationLive": "NOT_TESTED_access_not_expired",
+  "logoutIsolation": "covered_by_session_controller_unit_and_auth_logout_revoke",
+  "finishedAt": "2026-09-15T03:59:07.480712Z"
+}

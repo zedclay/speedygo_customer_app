@@ -1,0 +1,117 @@
+{
+  "deliveryCodeRequired": false,
+  "deliveryCodeRoutes": {
+    "customer": 404,
+    "driver": 404
+  },
+  "openBranches": [
+    "Pharmacie Atlas",
+    "Souk El Khemis"
+  ],
+  "chosenBranch": "Souk El Khemis",
+  "chosenProduct": "Couscous moyen 1 kg",
+  "driver": {
+    "driverProfileExists": true,
+    "profileComplete": true,
+    "identityDocumentComplete": true,
+    "drivingLicenseComplete": true,
+    "vehicleComplete": true,
+    "verificationSubmitted": true,
+    "verificationApproved": true,
+    "operationalReady": true,
+    "matchingEligible": true,
+    "profile": {
+      "id": "01a0a2cd-d28d-7b9a-bb9c-6bc5f9f7260b",
+      "fullName": "SpeedyGo Dev COD Driver",
+      "verificationStatus": "APPROVED",
+      "approvedAt": "2026-09-15 02:03:13.124+00",
+      "createdAt": "2026-09-15 02:03:12.909+00",
+      "updatedAt": "2026-09-15 02:05:32.334+00"
+    },
+    "documents": [
+      {
+        "type": "IDENTITY",
+        "expiryDate": null,
+        "present": true
+      },
+      {
+        "type": "DRIVING_LICENSE",
+        "expiryDate": "2099-12-31",
+        "present": true
+      }
+    ],
+    "vehicles": [
+      {
+        "id": "01a0a2cd-d2e9-7c9b-bf5d-a165a0b1724c",
+        "type": "MOTORCYCLE",
+        "plateNumber": "SG-COD-073",
+        "model": "Synth NMAX",
+        "color": "White",
+        "status": "ACTIVE",
+        "createdAt": "2026-09-15 02:03:13.001+00",
+        "updatedAt": "2026-09-15 02:03:13.001+00"
+      }
+    ],
+    "availability": {
+      "status": "ONLINE",
+      "offlineAfterCurrentDelivery": false,
+      "updatedAt": "2026-09-15 02:05:32.344+00"
+    }
+  },
+  "goOnline": {
+    "driverProfileExists": true,
+    "profileComplete": true,
+    "identityDocumentComplete": true,
+    "drivingLicenseComplete": true,
+    "vehicleComplete": true,
+    "verificationSubmitted": true,
+    "verificationApproved": true,
+    "operationalReady": true,
+    "matchingEligible": true,
+    "profile": {
+      "id": "01a0a2cd-d28d-7b9a-bb9c-6bc5f9f7260b",
+      "fullName": "SpeedyGo Dev COD Driver",
+      "verificationStatus": "APPROVED",
+      "approvedAt": "2026-09-15 02:03:13.124+00",
+      "createdAt": "2026-09-15 02:03:12.909+00",
+      "updatedAt": "2026-09-15 02:05:32.334+00"
+    },
+    "documents": [
+      {
+        "type": "IDENTITY",
+        "expiryDate": null,
+        "present": true
+      },
+      {
+        "type": "DRIVING_LICENSE",
+        "expiryDate": "2099-12-31",
+        "present": true
+      }
+    ],
+    "vehicles": [
+      {
+        "id": "01a0a2cd-d2e9-7c9b-bf5d-a165a0b1724c",
+        "type": "MOTORCYCLE",
+        "plateNumber": "SG-COD-073",
+        "model": "Synth NMAX",
+        "color": "White",
+        "status": "ACTIVE",
+        "createdAt": "2026-09-15 02:03:13.001+00",
+        "updatedAt": "2026-09-15 02:03:13.001+00"
+      }
+    ],
+    "availability": {
+      "status": "ONLINE",
+      "offlineAfterCurrentDelivery": false,
+      "updatedAt": "2026-09-15 02:05:32.344+00"
+    }
+  },
+  "location": {
+    "driverId": "01a0a2cd-d28d-7b9a-bb9c-6bc5f9f7260b",
+    "recordedAt": "2026-09-15T02:05:32.406Z",
+    "applied": true,
+    "broadcast": false,
+    "deliveryId": null,
+    "rooms": []
+  }
+}

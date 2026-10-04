@@ -1,0 +1,21 @@
+{
+  "platform": "ios_simulator",
+  "home": true,
+  "feedReady": true,
+  "feedHasAtelier": true,
+  "feedHasDemoCafe": false,
+  "feedHasAtlasText": false,
+  "feedEmptyMessage": false,
+  "feedErrorMessage": false,
+  "category": "Pharmacies",
+  "storefrontTap": "0d00c071-d000-7000-8000-000000011008",
+  "storefront": true,
+  "product": true,
+  "openedProduct": "0d00c071-d000-7000-8000-000000030821",
+  "productBack": true,
+  "orders": true,
+  "support": true,
+  "addressForm": true,
+  "electronicPayment": "gated_off_default_false",
+  "finishedAt": "2026-09-15T12:22:27.186426Z"
+}

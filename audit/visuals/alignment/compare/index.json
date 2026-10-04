@@ -1,0 +1,346 @@
+[
+  {
+    "slug": "product-detail-ready",
+    "viewport": "se-375x667",
+    "artifact": "product-detail-ready-se-375x667",
+    "status": "compared",
+    "path": "product-detail-ready-se-375x667-side-by-side.jpg",
+    "bytes": 265446
+  },
+  {
+    "slug": "product-detail-ready",
+    "viewport": "iphone17pro-402x874",
+    "artifact": "product-detail-ready-iphone17pro-402x874",
+    "status": "compared",
+    "path": "product-detail-ready-iphone17pro-402x874-side-by-side.jpg",
+    "bytes": 630989
+  },
+  {
+    "slug": "product-options-ready",
+    "viewport": "se-375x667",
+    "artifact": "product-options-ready-se-375x667",
+    "status": "compared",
+    "path": "product-options-ready-se-375x667-side-by-side.jpg",
+    "bytes": 213559
+  },
+  {
+    "slug": "product-options-ready",
+    "viewport": "iphone17pro-402x874",
+    "artifact": "product-options-ready-iphone17pro-402x874",
+    "status": "compared",
+    "path": "product-options-ready-iphone17pro-402x874-side-by-side.jpg",
+    "bytes": 479337
+  },
+  {
+    "slug": "storefront-ready",
+    "viewport": "se-375x667",
+    "artifact": "storefront-ready-se-375x667",
+    "status": "compared",
+    "path": "storefront-ready-se-375x667-side-by-side.jpg",
+    "bytes": 290711
+  },
+  {
+    "slug": "storefront-ready",
+    "viewport": "iphone17pro-402x874",
+    "artifact": "storefront-ready-iphone17pro-402x874",
+    "status": "compared",
+    "path": "storefront-ready-iphone17pro-402x874-side-by-side.jpg",
+    "bytes": 605070
+  },
+  {
+    "slug": "categories-ready",
+    "viewport": "se-375x667",
+    "artifact": "categories-ready-se-375x667",
+    "status": "compared",
+    "path": "categories-ready-se-375x667-side-by-side.jpg",
+    "bytes": 241102
+  },
+  {
+    "slug": "categories-ready",
+    "viewport": "iphone17pro-402x874",
+    "artifact": "categories-ready-iphone17pro-402x874",
+    "status": "compared",
+    "path": "categories-ready-iphone17pro-402x874-side-by-side.jpg",
+    "bytes": 508686
+  },
+  {
+    "slug": "cart-ready",
+    "viewport": "se-375x667",
+    "artifact": "cart-ready-se-375x667",
+    "status": "compared",
+    "path": "cart-ready-se-375x667-side-by-side.jpg",
+    "bytes": 201971
+  },
+  {
+    "slug": "cart-ready",
+    "viewport": "iphone17pro-402x874",
+    "artifact": "cart-ready-iphone17pro-402x874",
+    "status": "compared",
+    "path": "cart-ready-iphone17pro-402x874-side-by-side.jpg",
+    "bytes": 422542
+  },
+  {
+    "slug": "home-ready",
+    "viewport": "se-375x667",
+    "artifact": "home-ready-se-375x667",
+    "status": "compared",
+    "path": "home-ready-se-375x667-side-by-side.jpg",
+    "bytes": 209575
+  },
+  {
+    "slug": "home-ready",
+    "viewport": "iphone17pro-402x874",
+    "artifact": "home-ready-iphone17pro-402x874",
+    "status": "compared",
+    "path": "home-ready-iphone17pro-402x874-side-by-side.jpg",
+    "bytes": 525782
+  },
+  {
+    "slug": "merchant-reviews-ready",
+    "viewport": "se-375x667",
+    "artifact": "merchant-reviews-ready-se-375x667",
+    "status": "compared",
+    "path": "merchant-reviews-ready-se-375x667-side-by-side.jpg",
+    "bytes": 202318
+  },
+  {
+    "slug": "merchant-reviews-ready",
+    "viewport": "iphone17pro-402x874",
+    "artifact": "merchant-reviews-ready-iphone17pro-402x874",
+    "status": "compared",
+    "path": "merchant-reviews-ready-iphone17pro-402x874-side-by-side.jpg",
+    "bytes": 432331
+  },
+  {
+    "slug": "merchant-info-ready",
+    "viewport": "se-375x667",
+    "artifact": "merchant-info-ready-se-375x667",
+    "status": "compared",
+    "path": "merchant-info-ready-se-375x667-side-by-side.jpg",
+    "bytes": 194078
+  },
+  {
+    "slug": "merchant-info-ready",
+    "viewport": "iphone17pro-402x874",
+    "artifact": "merchant-info-ready-iphone17pro-402x874",
+    "status": "compared",
+    "path": "merchant-info-ready-iphone17pro-402x874-side-by-side.jpg",
+    "bytes": 438308
+  },
+  {
+    "slug": "order-rate-ready",
+    "viewport": "se-375x667",
+    "artifact": "order-rate-ready-se-375x667",
+    "status": "compared",
+    "path": "order-rate-ready-se-375x667-side-by-side.jpg",
+    "bytes": 172490
+  },
+  {
+    "slug": "order-rate-ready",
+    "viewport": "iphone17pro-402x874",
+    "artifact": "order-rate-ready-iphone17pro-402x874",
+    "status": "compared",
+    "path": "order-rate-ready-iphone17pro-402x874-side-by-side.jpg",
+    "bytes": 387870
+  },
+  {
+    "slug": "order-write-review-ready",
+    "viewport": "se-375x667",
+    "artifact": "order-write-review-ready-se-375x667",
+    "status": "compared",
+    "path": "order-write-review-ready-se-375x667-side-by-side.jpg",
+    "bytes": 176710
+  },
+  {
+    "slug": "order-write-review-ready",
+    "viewport": "iphone17pro-402x874",
+    "artifact": "order-write-review-ready-iphone17pro-402x874",
+    "status": "compared",
+    "path": "order-write-review-ready-iphone17pro-402x874-side-by-side.jpg",
+    "bytes": 395010
+  },
+  {
+    "slug": "support-create-ready",
+    "viewport": "se-375x667",
+    "artifact": "support-create-ready-se-375x667",
+    "status": "structure_only",
+    "path": "support-create-ready-se-375x667-side-by-side.jpg",
+    "bytes": 187281,
+    "note": "Stitch has order card + chips; Flutter honest create without chips/photos"
+  },
+  {
+    "slug": "support-create-ready",
+    "viewport": "iphone17pro-402x874",
+    "artifact": "support-create-ready-iphone17pro-402x874",
+    "status": "structure_only",
+    "path": "support-create-ready-iphone17pro-402x874-side-by-side.jpg",
+    "bytes": 415897,
+    "note": "Stitch has order card + chips; Flutter honest create without chips/photos"
+  },
+  {
+    "slug": "support-detail-ready",
+    "viewport": "se-375x667",
+    "artifact": "support-detail-ready-se-375x667",
+    "status": "structure_only",
+    "path": "support-detail-ready-se-375x667-side-by-side.jpg",
+    "bytes": 167457,
+    "note": "Stitch is in-progress with photo/linked order; Flutter is OPEN thread without photos"
+  },
+  {
+    "slug": "support-detail-ready",
+    "viewport": "iphone17pro-402x874",
+    "artifact": "support-detail-ready-iphone17pro-402x874",
+    "status": "structure_only",
+    "path": "support-detail-ready-iphone17pro-402x874-side-by-side.jpg",
+    "bytes": 390372,
+    "note": "Stitch is in-progress with photo/linked order; Flutter is OPEN thread without photos"
+  },
+  {
+    "slug": "orders-in-progress-ready",
+    "viewport": "se-375x667",
+    "artifact": "orders-in-progress-ready-se-375x667",
+    "status": "compared",
+    "path": "orders-in-progress-ready-se-375x667-side-by-side.jpg",
+    "bytes": 175757
+  },
+  {
+    "slug": "orders-in-progress-ready",
+    "viewport": "iphone17pro-402x874",
+    "artifact": "orders-in-progress-ready-iphone17pro-402x874",
+    "status": "compared",
+    "path": "orders-in-progress-ready-iphone17pro-402x874-side-by-side.jpg",
+    "bytes": 391069
+  },
+  {
+    "slug": "order-detail-ready",
+    "viewport": "se-375x667",
+    "artifact": "order-detail-ready-se-375x667",
+    "status": "structure_only",
+    "path": "order-detail-ready-se-375x667-side-by-side.jpg",
+    "bytes": 186383,
+    "note": "Stitch is delivered + Recommander; Flutter capture is awaiting merchant"
+  },
+  {
+    "slug": "order-detail-ready",
+    "viewport": "iphone17pro-402x874",
+    "artifact": "order-detail-ready-iphone17pro-402x874",
+    "status": "structure_only",
+    "path": "order-detail-ready-iphone17pro-402x874-side-by-side.jpg",
+    "bytes": 461294,
+    "note": "Stitch is delivered + Recommander; Flutter capture is awaiting merchant"
+  },
+  {
+    "slug": "account-hub-ready",
+    "viewport": "se-375x667",
+    "artifact": "account-hub-ready-se-375x667",
+    "status": "compared",
+    "path": "account-hub-ready-se-375x667-side-by-side.jpg",
+    "bytes": 169877
+  },
+  {
+    "slug": "account-hub-ready",
+    "viewport": "iphone17pro-402x874",
+    "artifact": "account-hub-ready-iphone17pro-402x874",
+    "status": "compared",
+    "path": "account-hub-ready-iphone17pro-402x874-side-by-side.jpg",
+    "bytes": 397427
+  },
+  {
+    "slug": "account-language-ready",
+    "viewport": "se-375x667",
+    "artifact": "account-language-ready-se-375x667",
+    "status": "compared",
+    "path": "account-language-ready-se-375x667-side-by-side.jpg",
+    "bytes": 191945
+  },
+  {
+    "slug": "account-language-ready",
+    "viewport": "iphone17pro-402x874",
+    "artifact": "account-language-ready-iphone17pro-402x874",
+    "status": "compared",
+    "path": "account-language-ready-iphone17pro-402x874-side-by-side.jpg",
+    "bytes": 501124
+  },
+  {
+    "slug": "sessions-ready",
+    "viewport": "se-375x667",
+    "artifact": "sessions-ready-se-375x667",
+    "status": "compared",
+    "path": "sessions-ready-se-375x667-side-by-side.jpg",
+    "bytes": 223939
+  },
+  {
+    "slug": "sessions-ready",
+    "viewport": "iphone17pro-402x874",
+    "artifact": "sessions-ready-iphone17pro-402x874",
+    "status": "compared",
+    "path": "sessions-ready-iphone17pro-402x874-side-by-side.jpg",
+    "bytes": 506466
+  },
+  {
+    "slug": "promotions-ready",
+    "viewport": "se-375x667",
+    "artifact": "promotions-ready-se-375x667",
+    "status": "compared",
+    "path": "promotions-ready-se-375x667-side-by-side.jpg",
+    "bytes": 213409
+  },
+  {
+    "slug": "promotions-ready",
+    "viewport": "iphone17pro-402x874",
+    "artifact": "promotions-ready-iphone17pro-402x874",
+    "status": "compared",
+    "path": "promotions-ready-iphone17pro-402x874-side-by-side.jpg",
+    "bytes": 480731
+  },
+  {
+    "slug": "addresses-ready",
+    "viewport": "se-375x667",
+    "artifact": "addresses-ready-se-375x667",
+    "status": "compared",
+    "path": "addresses-ready-se-375x667-side-by-side.jpg",
+    "bytes": 175660
+  },
+  {
+    "slug": "addresses-ready",
+    "viewport": "iphone17pro-402x874",
+    "artifact": "addresses-ready-iphone17pro-402x874",
+    "status": "compared",
+    "path": "addresses-ready-iphone17pro-402x874-side-by-side.jpg",
+    "bytes": 355491
+  },
+  {
+    "slug": "checkout-method-ready",
+    "viewport": "se-375x667",
+    "artifact": "checkout-method-ready-se-375x667",
+    "status": "compared",
+    "path": "checkout-method-ready-se-375x667-side-by-side.jpg",
+    "bytes": 220061
+  },
+  {
+    "slug": "checkout-method-ready",
+    "viewport": "iphone17pro-402x874",
+    "artifact": "checkout-method-ready-iphone17pro-402x874",
+    "status": "compared",
+    "path": "checkout-method-ready-iphone17pro-402x874-side-by-side.jpg",
+    "bytes": 448258
+  },
+  {
+    "slug": "tracking-waiting-ready",
+    "viewport": "se-375x667",
+    "artifact": "tracking-waiting-ready-se-375x667",
+    "status": "structure_only",
+    "path": "tracking-waiting-ready-se-375x667-side-by-side.jpg",
+    "bytes": 185940,
+    "note": "Stitch stage is pr\u00e9paration; Flutter waiting is contract-accurate"
+  },
+  {
+    "slug": "tracking-waiting-ready",
+    "viewport": "iphone17pro-402x874",
+    "artifact": "tracking-waiting-ready-iphone17pro-402x874",
+    "status": "structure_only",
+    "path": "tracking-waiting-ready-iphone17pro-402x874-side-by-side.jpg",
+    "bytes": 420909,
+    "note": "Stitch stage is pr\u00e9paration; Flutter waiting is contract-accurate"
+  }
+]

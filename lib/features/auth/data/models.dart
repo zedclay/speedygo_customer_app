@@ -92,21 +92,92 @@ class CustomerProfile {
   }
 }
 
+class CustomerAddress {
+  const CustomerAddress({
+    required this.id,
+    required this.label,
+    required this.addressText,
+    required this.isDefault,
+    this.latitude,
+    this.longitude,
+  });
+
+  final String id;
+  final String label;
+  final String addressText;
+  final bool isDefault;
+  final double? latitude;
+  final double? longitude;
+
+  factory CustomerAddress.fromJson(Map<String, dynamic> json) {
+    return CustomerAddress(
+      id: json['id']?.toString() ?? '',
+      label: json['label']?.toString() ?? '',
+      addressText: json['addressText']?.toString() ?? '',
+      isDefault: json['isDefault'] == true,
+      latitude: _parseCoord(json['latitude']),
+      longitude: _parseCoord(json['longitude']),
+    );
+  }
+
+  CustomerAddress copyWith({
+    String? id,
+    String? label,
+    String? addressText,
+    bool? isDefault,
+    double? latitude,
+    double? longitude,
+  }) {
+    return CustomerAddress(
+      id: id ?? this.id,
+      label: label ?? this.label,
+      addressText: addressText ?? this.addressText,
+      isDefault: isDefault ?? this.isDefault,
+      latitude: latitude ?? this.latitude,
+      longitude: longitude ?? this.longitude,
+    );
+  }
+
+  /// Contract `label`, or `addressText` when the label is empty.
+  String get displayLabel {
+    final trimmed = label.trim();
+    if (trimmed.isNotEmpty) {
+      return trimmed;
+    }
+    return addressText.trim();
+  }
+}
+
+double? _parseCoord(Object? value) {
+  if (value is num) {
+    return value.toDouble();
+  }
+  if (value is String) {
+    return double.tryParse(value.trim());
+  }
+  return null;
+}
+
 class CustomerMe {
   const CustomerMe({
     required this.customerProfileExists,
     required this.profileComplete,
     required this.addressReady,
     this.profile,
+    this.addresses = const [],
+    this.defaultAddressId,
   });
 
   final bool customerProfileExists;
   final bool profileComplete;
   final bool addressReady;
   final CustomerProfile? profile;
+  final List<CustomerAddress> addresses;
+  final String? defaultAddressId;
 
   factory CustomerMe.fromJson(Map<String, dynamic> json) {
     final profileJson = json['profile'];
+    final defaultId = json['defaultAddressId']?.toString();
     return CustomerMe(
       customerProfileExists: json['customerProfileExists'] == true,
       profileComplete: json['profileComplete'] == true,
@@ -116,6 +187,10 @@ class CustomerMe {
           : profileJson is Map
           ? CustomerProfile.fromJson(Map<String, dynamic>.from(profileJson))
           : null,
+      addresses: _parseAddresses(json['addresses']),
+      defaultAddressId: defaultId == null || defaultId.isEmpty
+          ? null
+          : defaultId,
     );
   }
 
@@ -126,6 +201,54 @@ class CustomerMe {
     }
     return name;
   }
+
+  /// Server default address only. Home may show a temporary selection separately.
+  CustomerAddress? get deliveryAddress {
+    if (addresses.isEmpty) {
+      return null;
+    }
+    if (defaultAddressId != null) {
+      for (final address in addresses) {
+        if (address.id == defaultAddressId) {
+          return address;
+        }
+      }
+    }
+    for (final address in addresses) {
+      if (address.isDefault) {
+        return address;
+      }
+    }
+    return null;
+  }
+
+  /// Uses the contract `label`, or `addressText` when the label is empty.
+  String? get deliverToLabel {
+    final address = deliveryAddress;
+    if (address == null) {
+      return null;
+    }
+    final label = address.displayLabel;
+    return label.isEmpty ? null : label;
+  }
+}
+
+List<CustomerAddress> _parseAddresses(Object? raw) {
+  if (raw is! List) {
+    return const [];
+  }
+  final addresses = <CustomerAddress>[];
+  for (final item in raw) {
+    if (item is! Map) {
+      continue;
+    }
+    final address = CustomerAddress.fromJson(Map<String, dynamic>.from(item));
+    if (address.id.isEmpty) {
+      continue;
+    }
+    addresses.add(address);
+  }
+  return addresses;
 }
 
 class OtpRequestBody {
@@ -168,5 +291,45 @@ class OtpVerifyBody {
       if (deviceId != null) 'deviceId': deviceId,
       if (deviceName != null) 'deviceName': deviceName,
     };
+  }
+}
+
+/// Account-owned auth session row from `GET /auth/sessions`.
+class AuthSession {
+  const AuthSession({
+    required this.id,
+    required this.deviceId,
+    required this.platform,
+    required this.deviceName,
+    required this.createdAt,
+    required this.expiresAt,
+    required this.revoked,
+    required this.currentSession,
+  });
+
+  final String id;
+  final String? deviceId;
+  final String? platform;
+  final String? deviceName;
+  final String createdAt;
+  final String expiresAt;
+  final bool revoked;
+  final bool currentSession;
+
+  factory AuthSession.fromJson(Map<String, dynamic> json) {
+    final id = json['id']?.toString();
+    if (id == null || id.isEmpty) {
+      throw const SessionParseException();
+    }
+    return AuthSession(
+      id: id,
+      deviceId: json['deviceId']?.toString(),
+      platform: json['platform']?.toString(),
+      deviceName: json['deviceName']?.toString(),
+      createdAt: json['createdAt']?.toString() ?? '',
+      expiresAt: json['expiresAt']?.toString() ?? '',
+      revoked: json['revoked'] == true,
+      currentSession: json['currentSession'] == true,
+    );
   }
 }

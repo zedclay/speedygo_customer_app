@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "com.speedygo.speedygo_customer_app"
-    compileSdk = flutter.compileSdkVersion
+    compileSdk = maxOf(flutter.compileSdkVersion, 37)
     ndkVersion = flutter.ndkVersion
 
     compileOptions {

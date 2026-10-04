@@ -1,0 +1,46 @@
+[✓] Flutter (Channel stable, 3.47.2, on macOS 26.3 25D125 darwin-arm64, locale en-DZ) [453ms]
+    • Flutter version 3.47.2 on channel stable at /Users/mac/flutter
+    • Upstream repository git@github.com:flutter/flutter.git
+    • Framework revision d3b14c8769 (3 weeks ago), 2026-08-26 16:07:51 -0700
+    • Engine revision a804b26164
+    • Dart version 3.13.2
+    • DevTools version 2.60.0
+    • Feature flags: enable-web, enable-linux-desktop, enable-macos-desktop, enable-windows-desktop, enable-android, enable-ios, cli-animations, enable-native-assets, enable-record-use, enable-swift-package-manager, omit-legacy-version-file, enable-lldb-debugging, enable-uiscene-migration
+
+[✓] Android toolchain - develop for Android devices (Android SDK version 35.0.0) [2.1s]
+    • Android SDK at /Users/mac/Library/Android/sdk
+    • Emulator version 35.3.12.0 (build_id 12990079) (CL:N/A)
+    • Platform android-37, build-tools 35.0.0
+    • ANDROID_HOME = /Users/mac/Library/Android/sdk
+    • Java binary at: /Applications/Android Studio.app/Contents/jbr/Contents/Home/bin/java
+      This is the JDK bundled with the latest Android Studio installation on this machine.
+      To manually set the JDK path, use: `flutter config --jdk-dir="path/to/jdk"`.
+    • Java version OpenJDK Runtime Environment (build 17.0.7+0-17.0.7b1000.6-10550314)
+    • All Android licenses accepted.
+
+[✓] Xcode - develop for iOS and macOS (Xcode 26.0.1) [1,567ms]
+    • Xcode at /Applications/Xcode.app/Contents/Developer
+    • Build 17A400
+    • CocoaPods version 1.16.2
+
+[✓] Chrome - develop for the web [7ms]
+    • Chrome at /Applications/Google Chrome.app/Contents/MacOS/Google Chrome
+
+[✓] Connected device (4 available) [14.4s]
+    • iPhone De Hafid (wireless) (mobile) • 00008110-00080D91023A401E            • ios            • iOS 26.3.1 23D771330a
+    • iPhone 17 Pro (mobile)              • 4A1C3481-8B8E-48BD-983D-03896884EF09 • ios            • com.apple.CoreSimulator.SimRuntime.iOS-26-0 (simulator)
+    • macOS (desktop)                     • macos                                • darwin-arm64   • macOS 26.3 25D125 darwin-arm64
+    • Chrome (web)                        • chrome                               • web-javascript • Google Chrome 152.0.7977.84
+    ! Error: Browsing on the local area network for iPhone 16. Ensure the device is unlocked and attached with a cable or associated with the same local area network as this Mac.
+      The device must be opted into Developer Mode to connect wirelessly. (code -27)
+    ! Error: Browsing on the local area network for 11. Ensure the device is unlocked and attached with a cable or associated with the same local area network as this Mac.
+      The device must be opted into Developer Mode to connect wirelessly. (code -27)
+    ! Error: Browsing on the local area network for iPhone. Ensure the device is unlocked and attached with a cable or associated with the same local area network as this Mac.
+      The device must be opted into Developer Mode to connect wirelessly. (code -27)
+    ! Error: Browsing on the local area network for iPhone. Ensure the device is unlocked and attached with a cable or associated with the same local area network as this Mac.
+      The device must be opted into Developer Mode to connect wirelessly. (code -27)
+
+[✓] Network resources [658ms]
+    • All expected network resources are available.
+
+• No issues found!

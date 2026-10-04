@@ -1,0 +1,1649 @@
+[
+  {
+    "slug": "home-ready",
+    "viewport": "se-375x667",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/home-ready-se-375x667-side-by-side.png",
+    "stitchPx": [
+      750,
+      1334
+    ],
+    "widgetPx": [
+      750,
+      1334
+    ],
+    "stitchSlug": "home-ready"
+  },
+  {
+    "slug": "home-ready",
+    "viewport": "iphone17pro-402x874",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/home-ready-iphone17pro-402x874-side-by-side.png",
+    "stitchPx": [
+      804,
+      1748
+    ],
+    "widgetPx": [
+      1206,
+      2622
+    ],
+    "stitchSlug": "home-ready"
+  },
+  {
+    "slug": "categories-ready",
+    "viewport": "se-375x667",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/categories-ready-se-375x667-side-by-side.png",
+    "stitchPx": [
+      750,
+      1334
+    ],
+    "widgetPx": [
+      750,
+      1334
+    ],
+    "stitchSlug": "categories-ready"
+  },
+  {
+    "slug": "categories-ready",
+    "viewport": "iphone17pro-402x874",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/categories-ready-iphone17pro-402x874-side-by-side.png",
+    "stitchPx": [
+      804,
+      1748
+    ],
+    "widgetPx": [
+      1206,
+      2622
+    ],
+    "stitchSlug": "categories-ready"
+  },
+  {
+    "slug": "category-results-ready",
+    "viewport": "se-375x667",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/category-results-ready-se-375x667-side-by-side.png",
+    "stitchPx": [
+      750,
+      1334
+    ],
+    "widgetPx": [
+      750,
+      1334
+    ],
+    "stitchSlug": "category-results-ready"
+  },
+  {
+    "slug": "category-results-ready",
+    "viewport": "iphone17pro-402x874",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/category-results-ready-iphone17pro-402x874-side-by-side.png",
+    "stitchPx": [
+      804,
+      1748
+    ],
+    "widgetPx": [
+      1206,
+      2622
+    ],
+    "stitchSlug": "category-results-ready"
+  },
+  {
+    "slug": "storefront-ready",
+    "viewport": "se-375x667",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/storefront-ready-se-375x667-side-by-side.png",
+    "stitchPx": [
+      750,
+      1334
+    ],
+    "widgetPx": [
+      750,
+      1334
+    ],
+    "stitchSlug": "storefront-ready"
+  },
+  {
+    "slug": "storefront-ready",
+    "viewport": "iphone17pro-402x874",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/storefront-ready-iphone17pro-402x874-side-by-side.png",
+    "stitchPx": [
+      804,
+      1748
+    ],
+    "widgetPx": [
+      1206,
+      2622
+    ],
+    "stitchSlug": "storefront-ready"
+  },
+  {
+    "slug": "product-ready",
+    "viewport": "se-375x667",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/product-ready-se-375x667-side-by-side.png",
+    "stitchPx": [
+      750,
+      1334
+    ],
+    "widgetPx": [
+      750,
+      1334
+    ],
+    "stitchSlug": "product-ready"
+  },
+  {
+    "slug": "product-ready",
+    "viewport": "iphone17pro-402x874",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/product-ready-iphone17pro-402x874-side-by-side.png",
+    "stitchPx": [
+      804,
+      1748
+    ],
+    "widgetPx": [
+      1206,
+      2622
+    ],
+    "stitchSlug": "product-ready"
+  },
+  {
+    "slug": "product-options-ready",
+    "viewport": "se-375x667",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/product-options-ready-se-375x667-side-by-side.png",
+    "stitchPx": [
+      750,
+      1334
+    ],
+    "widgetPx": [
+      750,
+      1334
+    ],
+    "stitchSlug": "product-options-ready"
+  },
+  {
+    "slug": "product-options-ready",
+    "viewport": "iphone17pro-402x874",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/product-options-ready-iphone17pro-402x874-side-by-side.png",
+    "stitchPx": [
+      804,
+      1748
+    ],
+    "widgetPx": [
+      1206,
+      2622
+    ],
+    "stitchSlug": "product-options-ready"
+  },
+  {
+    "slug": "search-idle",
+    "viewport": "se-375x667",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/search-idle-se-375x667-side-by-side.png",
+    "stitchPx": [
+      750,
+      1334
+    ],
+    "widgetPx": [
+      750,
+      1334
+    ],
+    "stitchSlug": "search-idle"
+  },
+  {
+    "slug": "search-idle",
+    "viewport": "iphone17pro-402x874",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/search-idle-iphone17pro-402x874-side-by-side.png",
+    "stitchPx": [
+      804,
+      1748
+    ],
+    "widgetPx": [
+      1206,
+      2622
+    ],
+    "stitchSlug": "search-idle"
+  },
+  {
+    "slug": "search-results-ready",
+    "viewport": "se-375x667",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/search-results-ready-se-375x667-side-by-side.png",
+    "stitchPx": [
+      750,
+      1334
+    ],
+    "widgetPx": [
+      750,
+      1334
+    ],
+    "stitchSlug": "search-results-ready"
+  },
+  {
+    "slug": "search-results-ready",
+    "viewport": "iphone17pro-402x874",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/search-results-ready-iphone17pro-402x874-side-by-side.png",
+    "stitchPx": [
+      804,
+      1748
+    ],
+    "widgetPx": [
+      1206,
+      2622
+    ],
+    "stitchSlug": "search-results-ready"
+  },
+  {
+    "slug": "cart-ready",
+    "viewport": "se-375x667",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/cart-ready-se-375x667-side-by-side.png",
+    "stitchPx": [
+      750,
+      1334
+    ],
+    "widgetPx": [
+      750,
+      1334
+    ],
+    "stitchSlug": "cart-ready"
+  },
+  {
+    "slug": "cart-ready",
+    "viewport": "iphone17pro-402x874",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/cart-ready-iphone17pro-402x874-side-by-side.png",
+    "stitchPx": [
+      804,
+      1748
+    ],
+    "widgetPx": [
+      1206,
+      2622
+    ],
+    "stitchSlug": "cart-ready"
+  },
+  {
+    "slug": "checkout-address-ready",
+    "viewport": "se-375x667",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/checkout-address-ready-se-375x667-side-by-side.png",
+    "stitchPx": [
+      750,
+      1334
+    ],
+    "widgetPx": [
+      750,
+      1334
+    ],
+    "stitchSlug": "checkout-address-ready"
+  },
+  {
+    "slug": "checkout-address-ready",
+    "viewport": "iphone17pro-402x874",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/checkout-address-ready-iphone17pro-402x874-side-by-side.png",
+    "stitchPx": [
+      804,
+      1748
+    ],
+    "widgetPx": [
+      1206,
+      2622
+    ],
+    "stitchSlug": "checkout-address-ready"
+  },
+  {
+    "slug": "checkout-review-ready",
+    "viewport": "se-375x667",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/checkout-review-ready-se-375x667-side-by-side.png",
+    "stitchPx": [
+      750,
+      1334
+    ],
+    "widgetPx": [
+      750,
+      1334
+    ],
+    "stitchSlug": "checkout-review-ready"
+  },
+  {
+    "slug": "checkout-review-ready",
+    "viewport": "iphone17pro-402x874",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/checkout-review-ready-iphone17pro-402x874-side-by-side.png",
+    "stitchPx": [
+      804,
+      1748
+    ],
+    "widgetPx": [
+      1206,
+      2622
+    ],
+    "stitchSlug": "checkout-review-ready"
+  },
+  {
+    "slug": "orders-in-progress-ready",
+    "viewport": "se-375x667",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/orders-in-progress-ready-se-375x667-side-by-side.png",
+    "stitchPx": [
+      750,
+      1334
+    ],
+    "widgetPx": [
+      750,
+      1334
+    ],
+    "stitchSlug": "orders-in-progress-ready"
+  },
+  {
+    "slug": "orders-in-progress-ready",
+    "viewport": "iphone17pro-402x874",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/orders-in-progress-ready-iphone17pro-402x874-side-by-side.png",
+    "stitchPx": [
+      804,
+      1748
+    ],
+    "widgetPx": [
+      1206,
+      2622
+    ],
+    "stitchSlug": "orders-in-progress-ready"
+  },
+  {
+    "slug": "order-detail-ready",
+    "viewport": "se-375x667",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/order-detail-ready-se-375x667-side-by-side.png",
+    "stitchPx": [
+      750,
+      1334
+    ],
+    "widgetPx": [
+      750,
+      1334
+    ],
+    "stitchSlug": "order-detail-ready"
+  },
+  {
+    "slug": "order-detail-ready",
+    "viewport": "iphone17pro-402x874",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/order-detail-ready-iphone17pro-402x874-side-by-side.png",
+    "stitchPx": [
+      804,
+      1748
+    ],
+    "widgetPx": [
+      1206,
+      2622
+    ],
+    "stitchSlug": "order-detail-ready"
+  },
+  {
+    "slug": "orders-cancelled-ready",
+    "viewport": "se-375x667",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/orders-cancelled-ready-se-375x667-side-by-side.png",
+    "stitchPx": [
+      750,
+      1334
+    ],
+    "widgetPx": [
+      750,
+      1334
+    ],
+    "stitchSlug": "orders-cancelled-ready"
+  },
+  {
+    "slug": "orders-cancelled-ready",
+    "viewport": "iphone17pro-402x874",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/orders-cancelled-ready-iphone17pro-402x874-side-by-side.png",
+    "stitchPx": [
+      804,
+      1748
+    ],
+    "widgetPx": [
+      1206,
+      2622
+    ],
+    "stitchSlug": "orders-cancelled-ready"
+  },
+  {
+    "slug": "account-hub-ready",
+    "viewport": "se-375x667",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/account-hub-ready-se-375x667-side-by-side.png",
+    "stitchPx": [
+      750,
+      1334
+    ],
+    "widgetPx": [
+      750,
+      1334
+    ],
+    "stitchSlug": "account-hub-ready"
+  },
+  {
+    "slug": "account-hub-ready",
+    "viewport": "iphone17pro-402x874",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/account-hub-ready-iphone17pro-402x874-side-by-side.png",
+    "stitchPx": [
+      804,
+      1748
+    ],
+    "widgetPx": [
+      1206,
+      2622
+    ],
+    "stitchSlug": "account-hub-ready"
+  },
+  {
+    "slug": "addresses-ready",
+    "viewport": "se-375x667",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/addresses-ready-se-375x667-side-by-side.png",
+    "stitchPx": [
+      750,
+      1334
+    ],
+    "widgetPx": [
+      750,
+      1334
+    ],
+    "stitchSlug": "addresses-ready"
+  },
+  {
+    "slug": "addresses-ready",
+    "viewport": "iphone17pro-402x874",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/addresses-ready-iphone17pro-402x874-side-by-side.png",
+    "stitchPx": [
+      804,
+      1748
+    ],
+    "widgetPx": [
+      1206,
+      2622
+    ],
+    "stitchSlug": "addresses-ready"
+  },
+  {
+    "slug": "support-detail-ready",
+    "viewport": "se-375x667",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/support-detail-ready-se-375x667-side-by-side.png",
+    "stitchPx": [
+      750,
+      1334
+    ],
+    "widgetPx": [
+      750,
+      1334
+    ],
+    "stitchSlug": "support-detail-ready"
+  },
+  {
+    "slug": "support-detail-ready",
+    "viewport": "iphone17pro-402x874",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/support-detail-ready-iphone17pro-402x874-side-by-side.png",
+    "stitchPx": [
+      804,
+      1748
+    ],
+    "widgetPx": [
+      1206,
+      2622
+    ],
+    "stitchSlug": "support-detail-ready"
+  },
+  {
+    "slug": "notifications-ready",
+    "viewport": "se-375x667",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/notifications-ready-se-375x667-side-by-side.png",
+    "stitchPx": [
+      750,
+      1334
+    ],
+    "widgetPx": [
+      750,
+      1334
+    ],
+    "stitchSlug": "notifications-ready"
+  },
+  {
+    "slug": "notifications-ready",
+    "viewport": "iphone17pro-402x874",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/notifications-ready-iphone17pro-402x874-side-by-side.png",
+    "stitchPx": [
+      804,
+      1748
+    ],
+    "widgetPx": [
+      1206,
+      2622
+    ],
+    "stitchSlug": "notifications-ready"
+  },
+  {
+    "slug": "sessions-ready",
+    "viewport": "se-375x667",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/sessions-ready-se-375x667-side-by-side.png",
+    "stitchPx": [
+      750,
+      1334
+    ],
+    "widgetPx": [
+      750,
+      1334
+    ],
+    "stitchSlug": "sessions-ready"
+  },
+  {
+    "slug": "sessions-ready",
+    "viewport": "iphone17pro-402x874",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/sessions-ready-iphone17pro-402x874-side-by-side.png",
+    "stitchPx": [
+      804,
+      1748
+    ],
+    "widgetPx": [
+      1206,
+      2622
+    ],
+    "stitchSlug": "sessions-ready"
+  },
+  {
+    "slug": "language-ready",
+    "viewport": "se-375x667",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/language-ready-se-375x667-side-by-side.png",
+    "stitchPx": [
+      750,
+      1334
+    ],
+    "widgetPx": [
+      750,
+      1334
+    ],
+    "stitchSlug": "language-ready"
+  },
+  {
+    "slug": "language-ready",
+    "viewport": "iphone17pro-402x874",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/language-ready-iphone17pro-402x874-side-by-side.png",
+    "stitchPx": [
+      804,
+      1748
+    ],
+    "widgetPx": [
+      1206,
+      2622
+    ],
+    "stitchSlug": "language-ready"
+  },
+  {
+    "slug": "welcome-ready",
+    "viewport": "se-375x667",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/welcome-ready-se-375x667-side-by-side.png",
+    "stitchPx": [
+      750,
+      1334
+    ],
+    "widgetPx": [
+      750,
+      1334
+    ],
+    "stitchSlug": "welcome-ready"
+  },
+  {
+    "slug": "welcome-ready",
+    "viewport": "iphone17pro-402x874",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/welcome-ready-iphone17pro-402x874-side-by-side.png",
+    "stitchPx": [
+      804,
+      1748
+    ],
+    "widgetPx": [
+      1206,
+      2622
+    ],
+    "stitchSlug": "welcome-ready"
+  },
+  {
+    "slug": "phone-ready",
+    "viewport": "se-375x667",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/phone-ready-se-375x667-side-by-side.png",
+    "stitchPx": [
+      750,
+      1334
+    ],
+    "widgetPx": [
+      750,
+      1334
+    ],
+    "stitchSlug": "phone-ready"
+  },
+  {
+    "slug": "phone-ready",
+    "viewport": "iphone17pro-402x874",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/phone-ready-iphone17pro-402x874-side-by-side.png",
+    "stitchPx": [
+      804,
+      1748
+    ],
+    "widgetPx": [
+      1206,
+      2622
+    ],
+    "stitchSlug": "phone-ready"
+  },
+  {
+    "slug": "otp-ready",
+    "viewport": "se-375x667",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/otp-ready-se-375x667-side-by-side.png",
+    "stitchPx": [
+      750,
+      1334
+    ],
+    "widgetPx": [
+      750,
+      1334
+    ],
+    "stitchSlug": "otp-ready"
+  },
+  {
+    "slug": "otp-ready",
+    "viewport": "iphone17pro-402x874",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/otp-ready-iphone17pro-402x874-side-by-side.png",
+    "stitchPx": [
+      804,
+      1748
+    ],
+    "widgetPx": [
+      1206,
+      2622
+    ],
+    "stitchSlug": "otp-ready"
+  },
+  {
+    "slug": "profile-setup-ready",
+    "viewport": "se-375x667",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/profile-setup-ready-se-375x667-side-by-side.png",
+    "stitchPx": [
+      750,
+      1334
+    ],
+    "widgetPx": [
+      750,
+      1334
+    ],
+    "stitchSlug": "profile-setup-ready"
+  },
+  {
+    "slug": "profile-setup-ready",
+    "viewport": "iphone17pro-402x874",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/profile-setup-ready-iphone17pro-402x874-side-by-side.png",
+    "stitchPx": [
+      804,
+      1748
+    ],
+    "widgetPx": [
+      1206,
+      2622
+    ],
+    "stitchSlug": "profile-setup-ready"
+  },
+  {
+    "slug": "restore-loading-ready",
+    "viewport": "se-375x667",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/restore-loading-ready-se-375x667-side-by-side.png",
+    "stitchPx": [
+      750,
+      1334
+    ],
+    "widgetPx": [
+      750,
+      1334
+    ],
+    "stitchSlug": "restore-loading-ready"
+  },
+  {
+    "slug": "restore-loading-ready",
+    "viewport": "iphone17pro-402x874",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/restore-loading-ready-iphone17pro-402x874-side-by-side.png",
+    "stitchPx": [
+      804,
+      1748
+    ],
+    "widgetPx": [
+      1206,
+      2622
+    ],
+    "stitchSlug": "restore-loading-ready"
+  },
+  {
+    "slug": "checkout-method-ready",
+    "viewport": "se-375x667",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/checkout-method-ready-se-375x667-side-by-side.png",
+    "stitchPx": [
+      750,
+      1334
+    ],
+    "widgetPx": [
+      750,
+      1334
+    ],
+    "stitchSlug": "checkout-method-ready"
+  },
+  {
+    "slug": "checkout-method-ready",
+    "viewport": "iphone17pro-402x874",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/checkout-method-ready-iphone17pro-402x874-side-by-side.png",
+    "stitchPx": [
+      804,
+      1748
+    ],
+    "widgetPx": [
+      1206,
+      2622
+    ],
+    "stitchSlug": "checkout-method-ready"
+  },
+  {
+    "slug": "order-confirmation-ready",
+    "viewport": "se-375x667",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/order-confirmation-ready-se-375x667-side-by-side.png",
+    "stitchPx": [
+      750,
+      1334
+    ],
+    "widgetPx": [
+      750,
+      1334
+    ],
+    "stitchSlug": "order-confirmation-ready"
+  },
+  {
+    "slug": "order-confirmation-ready",
+    "viewport": "iphone17pro-402x874",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/order-confirmation-ready-iphone17pro-402x874-side-by-side.png",
+    "stitchPx": [
+      804,
+      1748
+    ],
+    "widgetPx": [
+      1206,
+      2622
+    ],
+    "stitchSlug": "order-confirmation-ready"
+  },
+  {
+    "slug": "menu-ready",
+    "viewport": "se-375x667",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/menu-ready-se-375x667-side-by-side.png",
+    "stitchPx": [
+      750,
+      1334
+    ],
+    "widgetPx": [
+      750,
+      1334
+    ],
+    "stitchSlug": "menu-ready"
+  },
+  {
+    "slug": "menu-ready",
+    "viewport": "iphone17pro-402x874",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/menu-ready-iphone17pro-402x874-side-by-side.png",
+    "stitchPx": [
+      804,
+      1748
+    ],
+    "widgetPx": [
+      1206,
+      2622
+    ],
+    "stitchSlug": "menu-ready"
+  },
+  {
+    "slug": "merchant-info-ready",
+    "viewport": "se-375x667",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/merchant-info-ready-se-375x667-side-by-side.png",
+    "stitchPx": [
+      750,
+      1334
+    ],
+    "widgetPx": [
+      750,
+      1334
+    ],
+    "stitchSlug": "merchant-info-ready"
+  },
+  {
+    "slug": "merchant-info-ready",
+    "viewport": "iphone17pro-402x874",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/merchant-info-ready-iphone17pro-402x874-side-by-side.png",
+    "stitchPx": [
+      804,
+      1748
+    ],
+    "widgetPx": [
+      1206,
+      2622
+    ],
+    "stitchSlug": "merchant-info-ready"
+  },
+  {
+    "slug": "merchant-reviews-ready",
+    "viewport": "se-375x667",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/merchant-reviews-ready-se-375x667-side-by-side.png",
+    "stitchPx": [
+      750,
+      1334
+    ],
+    "widgetPx": [
+      750,
+      1334
+    ],
+    "stitchSlug": "merchant-reviews-ready"
+  },
+  {
+    "slug": "merchant-reviews-ready",
+    "viewport": "iphone17pro-402x874",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/merchant-reviews-ready-iphone17pro-402x874-side-by-side.png",
+    "stitchPx": [
+      804,
+      1748
+    ],
+    "widgetPx": [
+      1206,
+      2622
+    ],
+    "stitchSlug": "merchant-reviews-ready"
+  },
+  {
+    "slug": "order-cancel-form-ready",
+    "viewport": "se-375x667",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/order-cancel-form-ready-se-375x667-side-by-side.png",
+    "stitchPx": [
+      750,
+      1334
+    ],
+    "widgetPx": [
+      750,
+      1334
+    ],
+    "stitchSlug": "order-cancel-form-ready"
+  },
+  {
+    "slug": "order-cancel-form-ready",
+    "viewport": "iphone17pro-402x874",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/order-cancel-form-ready-iphone17pro-402x874-side-by-side.png",
+    "stitchPx": [
+      804,
+      1748
+    ],
+    "widgetPx": [
+      1206,
+      2622
+    ],
+    "stitchSlug": "order-cancel-form-ready"
+  },
+  {
+    "slug": "tracking-waiting-ready",
+    "viewport": "se-375x667",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/tracking-waiting-ready-se-375x667-side-by-side.png",
+    "stitchPx": [
+      750,
+      1334
+    ],
+    "widgetPx": [
+      750,
+      1334
+    ],
+    "stitchSlug": "tracking-waiting-ready"
+  },
+  {
+    "slug": "tracking-waiting-ready",
+    "viewport": "iphone17pro-402x874",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/tracking-waiting-ready-iphone17pro-402x874-side-by-side.png",
+    "stitchPx": [
+      804,
+      1748
+    ],
+    "widgetPx": [
+      1206,
+      2622
+    ],
+    "stitchSlug": "tracking-waiting-ready"
+  },
+  {
+    "slug": "tracking-searching-ready",
+    "viewport": "se-375x667",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/tracking-searching-ready-se-375x667-side-by-side.png",
+    "stitchPx": [
+      750,
+      1334
+    ],
+    "widgetPx": [
+      750,
+      1334
+    ],
+    "stitchSlug": "tracking-searching-ready"
+  },
+  {
+    "slug": "tracking-searching-ready",
+    "viewport": "iphone17pro-402x874",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/tracking-searching-ready-iphone17pro-402x874-side-by-side.png",
+    "stitchPx": [
+      804,
+      1748
+    ],
+    "widgetPx": [
+      1206,
+      2622
+    ],
+    "stitchSlug": "tracking-searching-ready"
+  },
+  {
+    "slug": "tracking-map-ready",
+    "viewport": "se-375x667",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/tracking-map-ready-se-375x667-side-by-side.png",
+    "stitchPx": [
+      750,
+      1334
+    ],
+    "widgetPx": [
+      750,
+      1334
+    ],
+    "stitchSlug": "tracking-map-ready"
+  },
+  {
+    "slug": "tracking-map-ready",
+    "viewport": "iphone17pro-402x874",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/tracking-map-ready-iphone17pro-402x874-side-by-side.png",
+    "stitchPx": [
+      804,
+      1748
+    ],
+    "widgetPx": [
+      1206,
+      2622
+    ],
+    "stitchSlug": "tracking-map-ready"
+  },
+  {
+    "slug": "tracking-nearby-ready",
+    "viewport": "se-375x667",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/tracking-nearby-ready-se-375x667-side-by-side.png",
+    "stitchPx": [
+      750,
+      1334
+    ],
+    "widgetPx": [
+      750,
+      1334
+    ],
+    "stitchSlug": "tracking-nearby-ready"
+  },
+  {
+    "slug": "tracking-nearby-ready",
+    "viewport": "iphone17pro-402x874",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/tracking-nearby-ready-iphone17pro-402x874-side-by-side.png",
+    "stitchPx": [
+      804,
+      1748
+    ],
+    "widgetPx": [
+      1206,
+      2622
+    ],
+    "stitchSlug": "tracking-nearby-ready"
+  },
+  {
+    "slug": "tracking-completed-ready",
+    "viewport": "se-375x667",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/tracking-completed-ready-se-375x667-side-by-side.png",
+    "stitchPx": [
+      750,
+      1334
+    ],
+    "widgetPx": [
+      750,
+      1334
+    ],
+    "stitchSlug": "tracking-completed-ready"
+  },
+  {
+    "slug": "tracking-completed-ready",
+    "viewport": "iphone17pro-402x874",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/tracking-completed-ready-iphone17pro-402x874-side-by-side.png",
+    "stitchPx": [
+      804,
+      1748
+    ],
+    "widgetPx": [
+      1206,
+      2622
+    ],
+    "stitchSlug": "tracking-completed-ready"
+  },
+  {
+    "slug": "order-rate-ready",
+    "viewport": "se-375x667",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/order-rate-ready-se-375x667-side-by-side.png",
+    "stitchPx": [
+      750,
+      1334
+    ],
+    "widgetPx": [
+      750,
+      1334
+    ],
+    "stitchSlug": "order-rate-ready"
+  },
+  {
+    "slug": "order-rate-ready",
+    "viewport": "iphone17pro-402x874",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/order-rate-ready-iphone17pro-402x874-side-by-side.png",
+    "stitchPx": [
+      804,
+      1748
+    ],
+    "widgetPx": [
+      1206,
+      2622
+    ],
+    "stitchSlug": "order-rate-ready"
+  },
+  {
+    "slug": "order-write-review-ready",
+    "viewport": "se-375x667",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/order-write-review-ready-se-375x667-side-by-side.png",
+    "stitchPx": [
+      750,
+      1334
+    ],
+    "widgetPx": [
+      750,
+      1334
+    ],
+    "stitchSlug": "order-write-review-ready"
+  },
+  {
+    "slug": "order-write-review-ready",
+    "viewport": "iphone17pro-402x874",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/order-write-review-ready-iphone17pro-402x874-side-by-side.png",
+    "stitchPx": [
+      804,
+      1748
+    ],
+    "widgetPx": [
+      1206,
+      2622
+    ],
+    "stitchSlug": "order-write-review-ready"
+  },
+  {
+    "slug": "account-language-ready",
+    "viewport": "se-375x667",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/account-language-ready-se-375x667-side-by-side.png",
+    "stitchPx": [
+      750,
+      1334
+    ],
+    "widgetPx": [
+      750,
+      1334
+    ],
+    "stitchSlug": "account-language-ready"
+  },
+  {
+    "slug": "account-language-ready",
+    "viewport": "iphone17pro-402x874",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/account-language-ready-iphone17pro-402x874-side-by-side.png",
+    "stitchPx": [
+      804,
+      1748
+    ],
+    "widgetPx": [
+      1206,
+      2622
+    ],
+    "stitchSlug": "account-language-ready"
+  },
+  {
+    "slug": "support-create-ready",
+    "viewport": "se-375x667",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/support-create-ready-se-375x667-side-by-side.png",
+    "stitchPx": [
+      750,
+      1334
+    ],
+    "widgetPx": [
+      750,
+      1334
+    ],
+    "stitchSlug": "support-create-ready"
+  },
+  {
+    "slug": "support-create-ready",
+    "viewport": "iphone17pro-402x874",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/support-create-ready-iphone17pro-402x874-side-by-side.png",
+    "stitchPx": [
+      804,
+      1748
+    ],
+    "widgetPx": [
+      1206,
+      2622
+    ],
+    "stitchSlug": "support-create-ready"
+  },
+  {
+    "slug": "legal-ready",
+    "viewport": "se-375x667",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/legal-ready-se-375x667-side-by-side.png",
+    "stitchPx": [
+      750,
+      1334
+    ],
+    "widgetPx": [
+      750,
+      1334
+    ],
+    "stitchSlug": "legal-ready"
+  },
+  {
+    "slug": "legal-ready",
+    "viewport": "iphone17pro-402x874",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/legal-ready-iphone17pro-402x874-side-by-side.png",
+    "stitchPx": [
+      804,
+      1748
+    ],
+    "widgetPx": [
+      1206,
+      2622
+    ],
+    "stitchSlug": "legal-ready"
+  },
+  {
+    "slug": "notification-prefs-ready",
+    "viewport": "se-375x667",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/notification-prefs-ready-se-375x667-side-by-side.png",
+    "stitchPx": [
+      750,
+      1334
+    ],
+    "widgetPx": [
+      750,
+      1334
+    ],
+    "stitchSlug": "notification-prefs-ready"
+  },
+  {
+    "slug": "notification-prefs-ready",
+    "viewport": "iphone17pro-402x874",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/notification-prefs-ready-iphone17pro-402x874-side-by-side.png",
+    "stitchPx": [
+      804,
+      1748
+    ],
+    "widgetPx": [
+      1206,
+      2622
+    ],
+    "stitchSlug": "notification-prefs-ready"
+  },
+  {
+    "slug": "account-delete-ready",
+    "viewport": "se-375x667",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/account-delete-ready-se-375x667-side-by-side.png",
+    "stitchPx": [
+      750,
+      1334
+    ],
+    "widgetPx": [
+      750,
+      1334
+    ],
+    "stitchSlug": "account-delete-ready"
+  },
+  {
+    "slug": "account-delete-ready",
+    "viewport": "iphone17pro-402x874",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/account-delete-ready-iphone17pro-402x874-side-by-side.png",
+    "stitchPx": [
+      804,
+      1748
+    ],
+    "widgetPx": [
+      1206,
+      2622
+    ],
+    "stitchSlug": "account-delete-ready"
+  },
+  {
+    "slug": "favorites-ready",
+    "viewport": "se-375x667",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/favorites-ready-se-375x667-side-by-side.png",
+    "stitchPx": [
+      750,
+      1334
+    ],
+    "widgetPx": [
+      750,
+      1334
+    ],
+    "stitchSlug": "favorites-ready"
+  },
+  {
+    "slug": "favorites-ready",
+    "viewport": "iphone17pro-402x874",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/favorites-ready-iphone17pro-402x874-side-by-side.png",
+    "stitchPx": [
+      804,
+      1748
+    ],
+    "widgetPx": [
+      1206,
+      2622
+    ],
+    "stitchSlug": "favorites-ready"
+  },
+  {
+    "slug": "promotions-ready",
+    "viewport": "se-375x667",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/promotions-ready-se-375x667-side-by-side.png",
+    "stitchPx": [
+      750,
+      1334
+    ],
+    "widgetPx": [
+      750,
+      1334
+    ],
+    "stitchSlug": "promotions-ready"
+  },
+  {
+    "slug": "promotions-ready",
+    "viewport": "iphone17pro-402x874",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/promotions-ready-iphone17pro-402x874-side-by-side.png",
+    "stitchPx": [
+      804,
+      1748
+    ],
+    "widgetPx": [
+      1206,
+      2622
+    ],
+    "stitchSlug": "promotions-ready"
+  },
+  {
+    "slug": "checkout-notes-ready",
+    "viewport": "se-375x667",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/checkout-notes-ready-se-375x667-side-by-side.png",
+    "stitchPx": [
+      750,
+      1334
+    ],
+    "widgetPx": [
+      750,
+      1334
+    ],
+    "stitchSlug": "checkout-notes-ready"
+  },
+  {
+    "slug": "checkout-notes-ready",
+    "viewport": "iphone17pro-402x874",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/checkout-notes-ready-iphone17pro-402x874-side-by-side.png",
+    "stitchPx": [
+      804,
+      1748
+    ],
+    "widgetPx": [
+      1206,
+      2622
+    ],
+    "stitchSlug": "checkout-notes-ready"
+  },
+  {
+    "slug": "location-permission-ready",
+    "viewport": "se-375x667",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/location-permission-ready-se-375x667-side-by-side.png",
+    "stitchPx": [
+      750,
+      1334
+    ],
+    "widgetPx": [
+      750,
+      1334
+    ],
+    "stitchSlug": "location-permission-ready"
+  },
+  {
+    "slug": "location-permission-ready",
+    "viewport": "iphone17pro-402x874",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/location-permission-ready-iphone17pro-402x874-side-by-side.png",
+    "stitchPx": [
+      804,
+      1748
+    ],
+    "widgetPx": [
+      1206,
+      2622
+    ],
+    "stitchSlug": "location-permission-ready"
+  },
+  {
+    "slug": "logout-sheet-ready",
+    "viewport": "se-375x667",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/logout-sheet-ready-se-375x667-side-by-side.png",
+    "stitchPx": [
+      750,
+      1334
+    ],
+    "widgetPx": [
+      750,
+      1334
+    ],
+    "stitchSlug": "logout-sheet-ready"
+  },
+  {
+    "slug": "logout-sheet-ready",
+    "viewport": "iphone17pro-402x874",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/logout-sheet-ready-iphone17pro-402x874-side-by-side.png",
+    "stitchPx": [
+      804,
+      1748
+    ],
+    "widgetPx": [
+      1206,
+      2622
+    ],
+    "stitchSlug": "logout-sheet-ready"
+  },
+  {
+    "slug": "splash-frame-front",
+    "viewport": "se-375x667",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/splash-frame-front-se-375x667-side-by-side.png",
+    "stitchPx": [
+      750,
+      1334
+    ],
+    "widgetPx": [
+      750,
+      1334
+    ],
+    "stitchSlug": "splash-ready"
+  },
+  {
+    "slug": "splash-frame-front",
+    "viewport": "iphone17pro-402x874",
+    "status": "missing",
+    "widget": false,
+    "stitch": true,
+    "stitchSlug": "splash-ready"
+  },
+  {
+    "slug": "splash-frame-edge",
+    "viewport": "se-375x667",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/splash-frame-edge-se-375x667-side-by-side.png",
+    "stitchPx": [
+      750,
+      1334
+    ],
+    "widgetPx": [
+      750,
+      1334
+    ],
+    "stitchSlug": "splash2-ready"
+  },
+  {
+    "slug": "splash-frame-edge",
+    "viewport": "iphone17pro-402x874",
+    "status": "missing",
+    "widget": false,
+    "stitch": true,
+    "stitchSlug": "splash2-ready"
+  },
+  {
+    "slug": "splash-frame-back",
+    "viewport": "se-375x667",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/splash-frame-back-se-375x667-side-by-side.png",
+    "stitchPx": [
+      750,
+      1334
+    ],
+    "widgetPx": [
+      750,
+      1334
+    ],
+    "stitchSlug": "splash2-ready"
+  },
+  {
+    "slug": "splash-frame-back",
+    "viewport": "iphone17pro-402x874",
+    "status": "missing",
+    "widget": false,
+    "stitch": true,
+    "stitchSlug": "splash2-ready"
+  },
+  {
+    "slug": "splash-frame-static",
+    "viewport": "se-375x667",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/splash-frame-static-se-375x667-side-by-side.png",
+    "stitchPx": [
+      750,
+      1334
+    ],
+    "widgetPx": [
+      750,
+      1334
+    ],
+    "stitchSlug": "splash-ready"
+  },
+  {
+    "slug": "splash-frame-static",
+    "viewport": "iphone17pro-402x874",
+    "status": "missing",
+    "widget": false,
+    "stitch": true,
+    "stitchSlug": "splash-ready"
+  },
+  {
+    "slug": "payment-disabled-ready",
+    "viewport": "se-375x667",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/payment-disabled-ready-se-375x667-side-by-side.png",
+    "stitchPx": [
+      750,
+      1334
+    ],
+    "widgetPx": [
+      750,
+      1334
+    ],
+    "stitchSlug": "payment-ready"
+  },
+  {
+    "slug": "payment-disabled-ready",
+    "viewport": "iphone17pro-402x874",
+    "status": "missing",
+    "widget": false,
+    "stitch": true,
+    "stitchSlug": "payment-ready"
+  },
+  {
+    "slug": "payment-pending-ready",
+    "viewport": "se-375x667",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/payment-pending-ready-se-375x667-side-by-side.png",
+    "stitchPx": [
+      750,
+      1334
+    ],
+    "widgetPx": [
+      750,
+      1334
+    ],
+    "stitchSlug": "payment-ready"
+  },
+  {
+    "slug": "payment-pending-ready",
+    "viewport": "iphone17pro-402x874",
+    "status": "missing",
+    "widget": false,
+    "stitch": true,
+    "stitchSlug": "payment-ready"
+  },
+  {
+    "slug": "payment-failed-ready",
+    "viewport": "se-375x667",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/payment-failed-ready-se-375x667-side-by-side.png",
+    "stitchPx": [
+      750,
+      1334
+    ],
+    "widgetPx": [
+      750,
+      1334
+    ],
+    "stitchSlug": "payment-ready"
+  },
+  {
+    "slug": "payment-failed-ready",
+    "viewport": "iphone17pro-402x874",
+    "status": "missing",
+    "widget": false,
+    "stitch": true,
+    "stitchSlug": "payment-ready"
+  },
+  {
+    "slug": "payment-succeeded-ready",
+    "viewport": "se-375x667",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/payment-succeeded-ready-se-375x667-side-by-side.png",
+    "stitchPx": [
+      750,
+      1334
+    ],
+    "widgetPx": [
+      750,
+      1334
+    ],
+    "stitchSlug": "payment-ready"
+  },
+  {
+    "slug": "payment-succeeded-ready",
+    "viewport": "iphone17pro-402x874",
+    "status": "missing",
+    "widget": false,
+    "stitch": true,
+    "stitchSlug": "payment-ready"
+  },
+  {
+    "slug": "payment-redirect-ready",
+    "viewport": "se-375x667",
+    "status": "compared",
+    "sideBySide": "apps/customer_app/audit/visuals/compare/payment-redirect-ready-se-375x667-side-by-side.png",
+    "stitchPx": [
+      750,
+      1334
+    ],
+    "widgetPx": [
+      750,
+      1334
+    ],
+    "stitchSlug": "payment-redirect-ready"
+  },
+  {
+    "slug": "payment-redirect-ready",
+    "viewport": "iphone17pro-402x874",
+    "status": "missing",
+    "widget": false,
+    "stitch": true,
+    "stitchSlug": "payment-redirect-ready"
+  }
+]

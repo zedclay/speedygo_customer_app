@@ -10,6 +10,9 @@
 .env.*
 !.env.example
 
+# Local development OTP capture (owner-only; never commit)
+.speedygo/
+
 # Signing material (never commit)
 *.keystore
 *.jks

@@ -6,11 +6,10 @@ import 'package:speedygo_customer_app/core/navigation/app_routes.dart';
 import 'package:speedygo_customer_app/core/navigation/nav_models.dart';
 import 'package:speedygo_customer_app/core/navigation/nav_parents.dart';
 import 'package:speedygo_customer_app/core/navigation/nav_preview.dart';
+import 'package:speedygo_customer_app/core/widgets/sg_snackbar.dart';
 
 void showNavBlocked(BuildContext context, String message) {
-  ScaffoldMessenger.of(context)
-    ..hideCurrentSnackBar()
-    ..showSnackBar(SnackBar(content: Text(message)));
+  SgSnack.warning(context, message: message);
 }
 
 bool previewEnabledOf(BuildContext context) {

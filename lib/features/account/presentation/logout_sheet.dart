@@ -6,6 +6,13 @@ import 'package:speedygo_customer_app/core/utils/phone_input.dart';
 import 'package:speedygo_customer_app/core/widgets/sg_primary_button.dart';
 import 'package:speedygo_customer_app/features/auth/application/session_controller.dart';
 
+/// Sheet lift from Stitch `d_connexion_speedygo`.
+const _kAccountCardShadow = BoxShadow(
+  color: Color(0x0A000000),
+  blurRadius: 8,
+  offset: Offset(0, 2),
+);
+
 Future<void> confirmLogout(BuildContext context, WidgetRef ref) async {
   final confirmed = await showModalBottomSheet<bool>(
     context: context,
@@ -36,7 +43,7 @@ class LogoutSheet extends ConsumerWidget {
         16,
         16,
         16,
-        24 + MediaQuery.paddingOf(context).bottom,
+        32 + MediaQuery.paddingOf(context).bottom,
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -53,29 +60,66 @@ class LogoutSheet extends ConsumerWidget {
           Text(
             AppStrings.logoutConfirmTitle,
             textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.headlineSmall
-                ?.copyWith(fontWeight: FontWeight.w700),
+            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+              fontWeight: FontWeight.w700,
+            ),
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: 32),
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
               color: AppColors.surfaceContainerLowest,
               borderRadius: BorderRadius.circular(12),
               border: Border.all(color: AppColors.outlineVariant),
+              boxShadow: const [_kAccountCardShadow],
             ),
             child: Row(
               children: [
-                CircleAvatar(
-                  radius: 28,
-                  backgroundColor: AppColors.primaryContainer,
-                  child: Text(
-                    initials,
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      color: AppColors.onPrimaryContainer,
-                      fontWeight: FontWeight.w700,
+                Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: const Color(0xFFD9E2FF),
+                          width: 2,
+                        ),
+                      ),
+                      child: CircleAvatar(
+                        radius: 28,
+                        backgroundColor: AppColors.primaryContainer,
+                        child: Text(
+                          initials,
+                          style: Theme.of(context).textTheme.titleLarge
+                              ?.copyWith(
+                                color: AppColors.onPrimaryContainer,
+                                fontWeight: FontWeight.w700,
+                              ),
+                        ),
+                      ),
                     ),
-                  ),
+                    Positioned(
+                      right: -2,
+                      bottom: -2,
+                      child: Container(
+                        padding: const EdgeInsets.all(2),
+                        decoration: BoxDecoration(
+                          color: AppColors.primary,
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: AppColors.surfaceContainerLowest,
+                            width: 2,
+                          ),
+                        ),
+                        child: const Icon(
+                          Icons.check_circle,
+                          size: 14,
+                          color: AppColors.onPrimary,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
                 const SizedBox(width: 16),
                 Expanded(
@@ -84,8 +128,7 @@ class LogoutSheet extends ConsumerWidget {
                     children: [
                       Text(
                         name,
-                        style: Theme.of(context).textTheme.titleMedium
-                            ?.copyWith(fontWeight: FontWeight.w600),
+                        style: Theme.of(context).textTheme.titleMedium,
                       ),
                       if (phone != null && phone.isNotEmpty)
                         Text(
@@ -94,12 +137,25 @@ class LogoutSheet extends ConsumerWidget {
                               ?.copyWith(color: AppColors.onSurfaceVariant),
                         ),
                       const SizedBox(height: 4),
-                      Text(
-                        AppStrings.logoutSessionActive,
-                        style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                          color: AppColors.tertiary,
-                          letterSpacing: 0.4,
-                        ),
+                      Row(
+                        children: [
+                          const Icon(
+                            Icons.smartphone,
+                            size: 14,
+                            color: AppColors.tertiary,
+                          ),
+                          const SizedBox(width: 4),
+                          Expanded(
+                            child: Text(
+                              AppStrings.logoutSessionActive.toUpperCase(),
+                              style: Theme.of(context).textTheme.labelSmall
+                                  ?.copyWith(
+                                    color: AppColors.tertiary,
+                                    letterSpacing: 0.6,
+                                  ),
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -107,38 +163,40 @@ class LogoutSheet extends ConsumerWidget {
               ],
             ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 24),
           Container(
             width: double.infinity,
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: AppColors.surfaceContainerHigh,
+              color: AppColors.surfaceContainer,
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: const Column(
               children: [
-                Text(
-                  AppStrings.logoutNoteLocal,
-                  style: Theme.of(context).textTheme.bodyMedium
-                      ?.copyWith(color: AppColors.onSurfaceVariant),
+                _LogoutNote(
+                  icon: Icons.local_shipping,
+                  text: AppStrings.logoutNoteOrders,
                 ),
-                const SizedBox(height: 8),
-                Text(
-                  AppStrings.logoutNoteReconnect,
-                  style: Theme.of(context).textTheme.bodyMedium
-                      ?.copyWith(color: AppColors.onSurfaceVariant),
+                SizedBox(height: 16),
+                _LogoutNote(
+                  icon: Icons.notifications_active,
+                  text: AppStrings.logoutNoteReconnect,
+                ),
+                SizedBox(height: 16),
+                _LogoutNote(
+                  icon: Icons.security,
+                  text: AppStrings.logoutNoteSafe,
                 ),
               ],
             ),
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: 32),
           SgPrimaryButton(
             label: AppStrings.logoutConfirmAction,
             icon: Icons.logout,
             onPressed: () => Navigator.of(context).pop(true),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 12),
           SizedBox(
             width: double.infinity,
             height: 56,
@@ -149,6 +207,9 @@ class LogoutSheet extends ConsumerWidget {
                 side: const BorderSide(color: AppColors.primary),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
+                ),
+                textStyle: Theme.of(context).textTheme.titleMedium?.copyWith(
+                  color: AppColors.primary,
                 ),
               ),
               child: const Text(AppStrings.cancel),
@@ -167,5 +228,34 @@ class LogoutSheet extends ConsumerWidget {
     final first = parts.first[0];
     final last = parts.length > 1 ? parts.last[0] : '';
     return '$first$last'.toUpperCase();
+  }
+}
+
+class _LogoutNote extends StatelessWidget {
+  const _LogoutNote({required this.icon, required this.text});
+
+  final IconData icon;
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(top: 2),
+          child: Icon(icon, size: 22, color: AppColors.primaryContainer),
+        ),
+        const SizedBox(width: 16),
+        Expanded(
+          child: Text(
+            text,
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              color: AppColors.onSurfaceVariant,
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }

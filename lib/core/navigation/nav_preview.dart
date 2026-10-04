@@ -23,14 +23,6 @@ class NavPreview {
     AppRoutes.navSession,
   };
 
-  static const previewOnlySuffixes = [
-    '/confirmation',
-    '/completed',
-    '/receipt',
-    '/delivery-code',
-    '/nearby',
-  ];
-
   static bool isFixtureId(String? id) => fixtureIds.contains(id);
 
   static bool isEnabled(bool runtimeFlag) {
@@ -40,6 +32,11 @@ class NavPreview {
     return runtimeFlag;
   }
 
+  /// Preview-only when the path is the design directory or embeds a fixture id.
+  ///
+  /// Live order paths such as `/orders/<uuid>/confirmation` must NOT be gated —
+  /// they share suffixes with design previews (`/confirmation`, `/completed`, …)
+  /// and must stay reachable after Commander.
   static bool isPreviewPath(String path) {
     final normalized = path.split('?').first;
     if (normalized == AppRoutes.directory ||
@@ -48,11 +45,6 @@ class NavPreview {
     }
     for (final id in fixtureIds) {
       if (normalized.contains('/$id')) {
-        return true;
-      }
-    }
-    for (final suffix in previewOnlySuffixes) {
-      if (normalized.endsWith(suffix)) {
         return true;
       }
     }
@@ -73,5 +65,6 @@ class NavPreviewFlag extends Notifier<bool> {
   }
 }
 
-final navPreviewEnabledProvider =
-    NotifierProvider<NavPreviewFlag, bool>(NavPreviewFlag.new);
+final navPreviewEnabledProvider = NotifierProvider<NavPreviewFlag, bool>(
+  NavPreviewFlag.new,
+);

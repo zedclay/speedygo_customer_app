@@ -1,0 +1,17 @@
+{
+  "mode": "LIVE_UI_GESTURE",
+  "orderId": "01a0a2d5-70c9-76a9-8a6d-a6a77b54645d",
+  "publicReference": "sgo_01a0a2d570c97b46834e0c23e071634c",
+  "payableMinor": "240500",
+  "expectedDzd": "2 405,00 DZD",
+  "createdNewOrder": false,
+  "ratingsResubmitted": false,
+  "notificationsCreated": false,
+  "login": "restored_revue_session",
+  "activeOrderCard": "absent",
+  "paymentStatusUi": "payment_entry_missing",
+  "ratingsRead": "already_done_banner",
+  "notificationsInspected": true,
+  "gesturePath": "Home → Commandes → detail → payment/ratings read → Back → Alertes",
+  "finishedAt": "2026-09-15T03:10:10.648091Z"
+}

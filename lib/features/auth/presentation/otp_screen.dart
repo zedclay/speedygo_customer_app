@@ -9,6 +9,7 @@ import 'package:speedygo_customer_app/core/constants/app_constants.dart';
 import 'package:speedygo_customer_app/core/constants/app_strings.dart';
 import 'package:speedygo_customer_app/core/utils/phone_input.dart';
 import 'package:speedygo_customer_app/core/widgets/sg_primary_button.dart';
+import 'package:speedygo_customer_app/core/widgets/sg_snackbar.dart';
 import 'package:speedygo_customer_app/features/auth/application/session_controller.dart';
 
 class OtpScreen extends ConsumerStatefulWidget {
@@ -58,8 +59,10 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
     final seconds = session.otpResendSecondsRemaining;
     final clock = '00:${seconds.toString().padLeft(2, '0')}';
     final bottomInset = MediaQuery.viewInsetsOf(context).bottom;
+    final masked = PhoneInput.maskInternational(phone);
 
     return Scaffold(
+      backgroundColor: AppColors.surface,
       resizeToAvoidBottomInset: true,
       body: SafeArea(
         child: Column(
@@ -79,10 +82,9 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                     IconButton(
                       tooltip: AppStrings.needHelp,
                       onPressed: () {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text(AppStrings.helpUnavailable),
-                          ),
+                        SgSnack.info(
+                          context,
+                          message: AppStrings.helpUnavailable,
                         );
                       },
                       icon: const Icon(
@@ -102,22 +104,40 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                     AppStrings.otpTitle,
                     style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                       fontWeight: FontWeight.w700,
+                      fontSize: 24,
+                      height: 32 / 24,
                       letterSpacing: -0.2,
+                      color: AppColors.onSurface,
                     ),
                   ),
                   const SizedBox(height: 4),
                   Wrap(
                     crossAxisAlignment: WrapCrossAlignment.center,
+                    spacing: 8,
                     children: [
                       Text(
-                        AppStrings.otpSentTo(
-                          PhoneInput.maskInternational(phone),
+                        AppStrings.otpSentTo(masked),
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                          color: AppColors.onSurfaceVariant,
+                          fontSize: 16,
+                          height: 24 / 16,
                         ),
-                        style: Theme.of(context).textTheme.bodyLarge
-                            ?.copyWith(color: AppColors.onSurfaceVariant),
                       ),
                       TextButton(
                         onPressed: () => context.go('/phone'),
+                        style: TextButton.styleFrom(
+                          foregroundColor: AppColors.primary,
+                          padding: const EdgeInsets.symmetric(horizontal: 4),
+                          minimumSize: Size.zero,
+                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                          textStyle: Theme.of(context).textTheme.titleMedium
+                              ?.copyWith(
+                                color: AppColors.primary,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16,
+                                height: 24 / 16,
+                              ),
+                        ),
                         child: const Text(AppStrings.editNumber),
                       ),
                     ],
@@ -125,8 +145,10 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                   const SizedBox(height: 32),
                   _OtpBoxes(
                     code: code,
+                    hasError: session.errorMessage != null,
                     onTap: () => _focus.requestFocus(),
                     child: TextField(
+                      key: const Key('otp-code-field'),
                       controller: _controller,
                       focusNode: _focus,
                       autofocus: true,
@@ -153,7 +175,12 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                         counterText: '',
                         contentPadding: EdgeInsets.zero,
                       ),
-                      onChanged: (_) => setState(() {}),
+                      onChanged: (_) {
+                        ref
+                            .read(sessionControllerProvider.notifier)
+                            .dismissError();
+                        setState(() {});
+                      },
                       onSubmitted: (_) {
                         if (code.length == AppConstants.otpLength) {
                           _verify();
@@ -163,30 +190,62 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                   ),
                   const SizedBox(height: 16),
                   seconds > 0
-                      ? Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Icon(
-                              Icons.schedule,
-                              size: 18,
-                              color: AppColors.onSurfaceVariant,
-                            ),
-                            const SizedBox(width: 8),
-                            Flexible(
-                              child: Text(
-                                AppStrings.resendIn(clock),
-                                textAlign: TextAlign.center,
-                                style: Theme.of(context).textTheme.bodyMedium
-                                    ?.copyWith(
-                                      color: AppColors.onSurfaceVariant,
+                      ? Builder(
+                          builder: (context) {
+                            final label = AppStrings.resendIn(clock);
+                            final prefixLen = label.length - clock.length;
+                            return Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Icon(
+                                  Icons.schedule,
+                                  size: 18,
+                                  color: AppColors.onSurfaceVariant,
+                                ),
+                                const SizedBox(width: 8),
+                                Flexible(
+                                  child: Text.rich(
+                                    TextSpan(
+                                      text: label.substring(0, prefixLen),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium
+                                          ?.copyWith(
+                                            color: AppColors.onSurfaceVariant,
+                                            fontSize: 14,
+                                            height: 20 / 14,
+                                          ),
+                                      children: [
+                                        TextSpan(
+                                          text: clock,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyMedium
+                                              ?.copyWith(
+                                                color: AppColors.onSurface,
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 14,
+                                                height: 20 / 14,
+                                              ),
+                                        ),
+                                      ],
                                     ),
-                              ),
-                            ),
-                          ],
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
                         )
                       : Center(
                           child: TextButton(
                             onPressed: session.busy ? null : _resend,
+                            style: TextButton.styleFrom(
+                              foregroundColor: AppColors.primary,
+                              textStyle: const TextStyle(
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
                             child: const Text(AppStrings.resend),
                           ),
                         ),
@@ -201,13 +260,34 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.fromLTRB(16, 8, 16, bottomInset > 0 ? 8 : 24),
-              child: SgPrimaryButton(
-                label: AppStrings.verify,
-                loading: session.busy,
-                onPressed: code.length == AppConstants.otpLength
-                    ? _verify
-                    : null,
+              padding: EdgeInsets.fromLTRB(16, 16, 16, bottomInset > 0 ? 8 : 32),
+              child: Theme(
+                data: Theme.of(context).copyWith(
+                  filledButtonTheme: FilledButtonThemeData(
+                    style: FilledButton.styleFrom(
+                      minimumSize: const Size.fromHeight(56),
+                      backgroundColor: AppColors.primary,
+                      foregroundColor: AppColors.onPrimary,
+                      elevation: 4,
+                      shadowColor: const Color(0x330A4096),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      textStyle: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                        height: 28 / 20,
+                      ),
+                    ),
+                  ),
+                ),
+                child: SgPrimaryButton(
+                  label: AppStrings.verify,
+                  loading: session.busy,
+                  onPressed: code.length == AppConstants.otpLength
+                      ? _verify
+                      : null,
+                ),
               ),
             ),
           ],
@@ -222,9 +302,11 @@ class _OtpBoxes extends StatelessWidget {
     required this.code,
     required this.onTap,
     required this.child,
+    this.hasError = false,
   });
 
   final String code;
+  final bool hasError;
   final VoidCallback onTap;
   final Widget child;
 
@@ -245,7 +327,7 @@ class _OtpBoxes extends StatelessWidget {
               return Expanded(
                 child: Padding(
                   padding: EdgeInsets.only(
-                    right: index == AppConstants.otpLength - 1 ? 0 : 8,
+                    right: index == AppConstants.otpLength - 1 ? 0 : 12,
                   ),
                   child: AnimatedContainer(
                     duration: const Duration(milliseconds: 150),
@@ -255,16 +337,31 @@ class _OtpBoxes extends StatelessWidget {
                       color: AppColors.surfaceContainerLowest,
                       borderRadius: BorderRadius.circular(12),
                       border: Border.all(
-                        color: focused
+                        color: hasError
+                            ? AppColors.error
+                            : focused
                             ? AppColors.primaryContainer
                             : AppColors.outlineVariant,
-                        width: focused ? 2 : 1,
+                        width: hasError || focused ? 2 : 1,
                       ),
+                      boxShadow: focused && !hasError
+                          ? const [
+                              BoxShadow(
+                                color: Color(0x140A4096),
+                                blurRadius: 4,
+                              ),
+                            ]
+                          : null,
                     ),
                     child: Text(
                       filled ? code[index] : '',
                       style: Theme.of(context).textTheme.headlineSmall
-                          ?.copyWith(fontWeight: FontWeight.w700),
+                          ?.copyWith(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 24,
+                            height: 32 / 24,
+                            color: AppColors.onSurface,
+                          ),
                     ),
                   ),
                 ),

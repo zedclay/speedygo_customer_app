@@ -16,7 +16,10 @@ void main() {
     final store = SecureSessionStore();
     await tester.pumpWidget(
       ProviderScope(
-        overrides: [sessionStoreProvider.overrideWithValue(store)],
+        overrides: [
+          sessionStoreProvider.overrideWithValue(store),
+          splashAnimateProvider.overrideWithValue(false),
+        ],
         child: const SpeedyGoApp(),
       ),
     );
@@ -27,11 +30,11 @@ void main() {
     await tester.tap(find.byIcon(Icons.person_outline));
     await tester.pumpAndSettle();
     await tester.scrollUntilVisible(
-      find.widgetWithText(FilledButton, AppStrings.logout),
+      find.byKey(const Key('account-logout')),
       240,
       scrollable: find.byType(Scrollable).first,
     );
-    await tester.tap(find.widgetWithText(FilledButton, AppStrings.logout));
+    await tester.tap(find.byKey(const Key('account-logout')));
     await tester.pumpAndSettle();
     expect(find.text(AppStrings.logoutConfirmTitle), findsOneWidget);
     await tester.pump(const Duration(seconds: 2));

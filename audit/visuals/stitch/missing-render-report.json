@@ -1,0 +1,360 @@
+{
+  "rendered": 44,
+  "failed": 0,
+  "html_missing": 0,
+  "unmapped": 0,
+  "results": [
+    {
+      "slug": "checkout-method-ready",
+      "viewport": "se-375x667",
+      "folder": "mode_de_paiement_speedygo",
+      "status": "rendered",
+      "attempts": 1,
+      "bytes": 83400
+    },
+    {
+      "slug": "checkout-method-ready",
+      "viewport": "iphone17pro-402x874",
+      "folder": "mode_de_paiement_speedygo",
+      "status": "rendered",
+      "attempts": 1,
+      "bytes": 104549
+    },
+    {
+      "slug": "merchant-reviews-ready",
+      "viewport": "iphone17pro-402x874",
+      "folder": "avis_speedygo",
+      "status": "rendered",
+      "attempts": 1,
+      "bytes": 151427
+    },
+    {
+      "slug": "tracking-waiting-ready",
+      "viewport": "iphone17pro-402x874",
+      "folder": "attente_de_confirmation_speedygo",
+      "status": "rendered",
+      "attempts": 1,
+      "bytes": 222462
+    },
+    {
+      "slug": "tracking-searching-ready",
+      "viewport": "se-375x667",
+      "folder": "recherche_de_livreur_speedygo",
+      "status": "rendered",
+      "attempts": 1,
+      "bytes": 313442
+    },
+    {
+      "slug": "tracking-searching-ready",
+      "viewport": "iphone17pro-402x874",
+      "folder": "recherche_de_livreur_speedygo",
+      "status": "rendered",
+      "attempts": 1,
+      "bytes": 363923
+    },
+    {
+      "slug": "tracking-map-ready",
+      "viewport": "se-375x667",
+      "folder": "suivi_de_livraison_speedygo",
+      "status": "rendered",
+      "attempts": 1,
+      "bytes": 429628
+    },
+    {
+      "slug": "tracking-map-ready",
+      "viewport": "iphone17pro-402x874",
+      "folder": "suivi_de_livraison_speedygo",
+      "status": "rendered",
+      "attempts": 1,
+      "bytes": 563556
+    },
+    {
+      "slug": "tracking-nearby-ready",
+      "viewport": "se-375x667",
+      "folder": "livreur_proximit_speedygo",
+      "status": "rendered",
+      "attempts": 1,
+      "bytes": 123896
+    },
+    {
+      "slug": "tracking-nearby-ready",
+      "viewport": "iphone17pro-402x874",
+      "folder": "livreur_proximit_speedygo",
+      "status": "rendered",
+      "attempts": 1,
+      "bytes": 129256
+    },
+    {
+      "slug": "tracking-completed-ready",
+      "viewport": "se-375x667",
+      "folder": "commande_termin_e_speedygo",
+      "status": "rendered",
+      "attempts": 1,
+      "bytes": 107591
+    },
+    {
+      "slug": "tracking-completed-ready",
+      "viewport": "iphone17pro-402x874",
+      "folder": "commande_termin_e_speedygo",
+      "status": "rendered",
+      "attempts": 1,
+      "bytes": 210991
+    },
+    {
+      "slug": "order-rate-ready",
+      "viewport": "se-375x667",
+      "folder": "noter_la_commande_speedygo",
+      "status": "rendered",
+      "attempts": 1,
+      "bytes": 110220
+    },
+    {
+      "slug": "order-rate-ready",
+      "viewport": "iphone17pro-402x874",
+      "folder": "noter_la_commande_speedygo",
+      "status": "rendered",
+      "attempts": 1,
+      "bytes": 133238
+    },
+    {
+      "slug": "order-write-review-ready",
+      "viewport": "se-375x667",
+      "folder": "r_diger_un_avis_speedygo",
+      "status": "rendered",
+      "attempts": 1,
+      "bytes": 67171
+    },
+    {
+      "slug": "order-write-review-ready",
+      "viewport": "iphone17pro-402x874",
+      "folder": "r_diger_un_avis_speedygo",
+      "status": "rendered",
+      "attempts": 1,
+      "bytes": 92316
+    },
+    {
+      "slug": "account-language-ready",
+      "viewport": "se-375x667",
+      "folder": "param_tres_de_la_langue_speedygo",
+      "status": "rendered",
+      "attempts": 1,
+      "bytes": 79327
+    },
+    {
+      "slug": "account-language-ready",
+      "viewport": "iphone17pro-402x874",
+      "folder": "param_tres_de_la_langue_speedygo",
+      "status": "rendered",
+      "attempts": 1,
+      "bytes": 116097
+    },
+    {
+      "slug": "support-create-ready",
+      "viewport": "se-375x667",
+      "folder": "signaler_un_probl_me_speedygo",
+      "status": "rendered",
+      "attempts": 1,
+      "bytes": 96968
+    },
+    {
+      "slug": "support-create-ready",
+      "viewport": "iphone17pro-402x874",
+      "folder": "signaler_un_probl_me_speedygo",
+      "status": "rendered",
+      "attempts": 1,
+      "bytes": 219995
+    },
+    {
+      "slug": "legal-ready",
+      "viewport": "se-375x667",
+      "folder": "l_gal_et_confidentialit_speedygo",
+      "status": "rendered",
+      "attempts": 1,
+      "bytes": 96603
+    },
+    {
+      "slug": "legal-ready",
+      "viewport": "iphone17pro-402x874",
+      "folder": "l_gal_et_confidentialit_speedygo",
+      "status": "rendered",
+      "attempts": 1,
+      "bytes": 152732
+    },
+    {
+      "slug": "notification-prefs-ready",
+      "viewport": "se-375x667",
+      "folder": "param_tres_des_notifications_speedygo",
+      "status": "rendered",
+      "attempts": 1,
+      "bytes": 121067
+    },
+    {
+      "slug": "notification-prefs-ready",
+      "viewport": "iphone17pro-402x874",
+      "folder": "param_tres_des_notifications_speedygo",
+      "status": "rendered",
+      "attempts": 1,
+      "bytes": 148947
+    },
+    {
+      "slug": "account-delete-ready",
+      "viewport": "se-375x667",
+      "folder": "suppression_du_compte_speedygo",
+      "status": "rendered",
+      "attempts": 1,
+      "bytes": 116841
+    },
+    {
+      "slug": "account-delete-ready",
+      "viewport": "iphone17pro-402x874",
+      "folder": "suppression_du_compte_speedygo",
+      "status": "rendered",
+      "attempts": 1,
+      "bytes": 142943
+    },
+    {
+      "slug": "favorites-ready",
+      "viewport": "se-375x667",
+      "folder": "favoris_speedygo",
+      "status": "rendered",
+      "attempts": 1,
+      "bytes": 625392
+    },
+    {
+      "slug": "favorites-ready",
+      "viewport": "iphone17pro-402x874",
+      "folder": "favoris_speedygo",
+      "status": "rendered",
+      "attempts": 1,
+      "bytes": 789099
+    },
+    {
+      "slug": "promotions-ready",
+      "viewport": "se-375x667",
+      "folder": "promotions_speedygo",
+      "status": "rendered",
+      "attempts": 1,
+      "bytes": 444114
+    },
+    {
+      "slug": "promotions-ready",
+      "viewport": "iphone17pro-402x874",
+      "folder": "promotions_speedygo",
+      "status": "rendered",
+      "attempts": 1,
+      "bytes": 646023
+    },
+    {
+      "slug": "checkout-notes-ready",
+      "viewport": "se-375x667",
+      "folder": "instructions_sp_ciales_speedygo",
+      "status": "rendered",
+      "attempts": 1,
+      "bytes": 100125
+    },
+    {
+      "slug": "checkout-notes-ready",
+      "viewport": "iphone17pro-402x874",
+      "folder": "instructions_sp_ciales_speedygo",
+      "status": "rendered",
+      "attempts": 1,
+      "bytes": 105060
+    },
+    {
+      "slug": "location-permission-ready",
+      "viewport": "se-375x667",
+      "folder": "permission_de_localisation_speedygo",
+      "status": "rendered",
+      "attempts": 1,
+      "bytes": 105002
+    },
+    {
+      "slug": "location-permission-ready",
+      "viewport": "iphone17pro-402x874",
+      "folder": "permission_de_localisation_speedygo",
+      "status": "rendered",
+      "attempts": 1,
+      "bytes": 126453
+    },
+    {
+      "slug": "logout-sheet-ready",
+      "viewport": "se-375x667",
+      "folder": "d_connexion_speedygo",
+      "status": "rendered",
+      "attempts": 1,
+      "bytes": 99278
+    },
+    {
+      "slug": "logout-sheet-ready",
+      "viewport": "iphone17pro-402x874",
+      "folder": "d_connexion_speedygo",
+      "status": "rendered",
+      "attempts": 1,
+      "bytes": 104322
+    },
+    {
+      "slug": "splash-ready",
+      "viewport": "se-375x667",
+      "folder": "splash_speedygo",
+      "status": "rendered",
+      "attempts": 1,
+      "bytes": 122639
+    },
+    {
+      "slug": "splash-ready",
+      "viewport": "iphone17pro-402x874",
+      "folder": "splash_speedygo",
+      "status": "rendered",
+      "attempts": 1,
+      "bytes": 126160
+    },
+    {
+      "slug": "splash2-ready",
+      "viewport": "se-375x667",
+      "folder": "splash_speedygo2",
+      "status": "rendered",
+      "attempts": 1,
+      "bytes": 326420
+    },
+    {
+      "slug": "splash2-ready",
+      "viewport": "iphone17pro-402x874",
+      "folder": "splash_speedygo2",
+      "status": "rendered",
+      "attempts": 1,
+      "bytes": 364611
+    },
+    {
+      "slug": "payment-ready",
+      "viewport": "se-375x667",
+      "folder": "paiement_speedygo",
+      "status": "rendered",
+      "attempts": 1,
+      "bytes": 121794
+    },
+    {
+      "slug": "payment-ready",
+      "viewport": "iphone17pro-402x874",
+      "folder": "paiement_speedygo",
+      "status": "rendered",
+      "attempts": 1,
+      "bytes": 141088
+    },
+    {
+      "slug": "payment-redirect-ready",
+      "viewport": "se-375x667",
+      "folder": "redirection_vers_le_paiement_speedygo",
+      "status": "rendered",
+      "attempts": 1,
+      "bytes": 72110
+    },
+    {
+      "slug": "payment-redirect-ready",
+      "viewport": "iphone17pro-402x874",
+      "folder": "redirection_vers_le_paiement_speedygo",
+      "status": "rendered",
+      "attempts": 1,
+      "bytes": 128411
+    }
+  ]
+}
