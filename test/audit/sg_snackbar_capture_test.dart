@@ -13,7 +13,7 @@ import 'package:speedygo_customer_app/features/home/presentation/widgets/home_bo
 /// Mocked visual captures for SpeedyGo snackbars (no live business writes).
 void main() {
   final outDir = Directory(
-    '/Users/mac/Downloads/speedygo_project/apps/customer_app/audit/visuals/snackbar',
+    '${Directory.current.path}/audit/visuals/snackbar',
   );
 
   setUpAll(() => outDir.createSync(recursive: true));
