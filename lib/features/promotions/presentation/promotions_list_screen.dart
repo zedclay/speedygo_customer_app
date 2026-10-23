@@ -26,7 +26,7 @@ class PromotionsListScreen extends ConsumerWidget {
           onPressed: () => popOrParent(context),
           icon: const Icon(Icons.arrow_back),
         ),
-        title: const Text(AppStrings.promotionsTitle),
+        title: Text(AppStrings.promotionsTitle),
       ),
       body: offers.when(
         loading: () => const Center(child: CircularProgressIndicator()),
@@ -46,7 +46,7 @@ class PromotionsListScreen extends ConsumerWidget {
                 FilledButton(
                   onPressed: () =>
                       ref.invalidate(discoverablePromotionsProvider),
-                  child: const Text(AppStrings.retry),
+                  child: Text(AppStrings.retry),
                 ),
               ],
             ),
@@ -54,7 +54,7 @@ class PromotionsListScreen extends ConsumerWidget {
         ),
         data: (items) {
           if (items.isEmpty) {
-            return const Center(child: Text(AppStrings.promotionsEmpty));
+            return Center(child: Text(AppStrings.promotionsEmpty));
           }
           return ListView(
             padding: const EdgeInsets.fromLTRB(16, 8, 16, 32),
@@ -134,7 +134,7 @@ class _PromotionCard extends StatelessWidget {
                   // Copy-only — information, never success (promo not applied).
                   SgSnack.info(context, message: AppStrings.promoCodeCopied);
                 },
-                child: const Text(AppStrings.copyPromoCode),
+                child: Text(AppStrings.copyPromoCode),
               ),
             ),
           ],

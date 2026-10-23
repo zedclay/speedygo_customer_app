@@ -117,7 +117,7 @@ void main() {
             );
           },
           home: Scaffold(
-            appBar: AppBar(title: const Text(AppStrings.customizeTitle)),
+            appBar: AppBar(title: Text(AppStrings.customizeTitle)),
             body: Column(
               children: [
                 Expanded(
@@ -219,7 +219,7 @@ void main() {
           child: FilledButton(
             key: const Key('address-save-button'),
             onPressed: () {},
-            child: const Text(AppStrings.saveAddress),
+            child: Text(AppStrings.saveAddress),
           ),
         ),
       ),
@@ -265,7 +265,7 @@ void main() {
                   }
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: const Text(AppStrings.cartAdded),
+                      content: Text(AppStrings.cartAdded),
                       action: SnackBarAction(
                         label: AppStrings.viewCart,
                         onPressed: () {},

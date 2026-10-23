@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:speedygo_customer_app/app/theme/app_theme.dart';
 import 'package:speedygo_customer_app/core/constants/app_strings.dart';
 import 'package:speedygo_customer_app/core/errors/app_exception.dart';
-import 'package:speedygo_customer_app/core/money/money_format.dart';
+import 'package:speedygo_customer_app/core/widgets/money_text.dart';
 import 'package:speedygo_customer_app/core/navigation/app_routes.dart';
 import 'package:speedygo_customer_app/core/navigation/nav_actions.dart';
 import 'package:speedygo_customer_app/features/catalog/application/catalog_providers.dart';
@@ -487,8 +487,8 @@ class _ProductRow extends StatelessWidget {
                       ),
                     ],
                     const SizedBox(height: 8),
-                    Text(
-                      MoneyFormat.dzd(product.priceMinor),
+                    MoneyText(
+                      product.priceMinor,
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         color: AppColors.primary,
                         fontWeight: FontWeight.w600,

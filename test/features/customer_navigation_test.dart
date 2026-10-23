@@ -332,19 +332,23 @@ void main() {
     expect(find.textContaining('s_lection_de_l_adresse'), findsNothing);
   });
 
-  testWidgets('Arabic cannot become the active language', (tester) async {
+  testWidgets('Arabic becomes the active language and is persisted', (
+    tester,
+  ) async {
+    final launch = MemoryLaunchStore(onboardingSeen: false, languageSeen: false);
     await tester.pumpWidget(
       host.app(
         auth: FakeAuthClient(),
         customer: FakeCustomerClient(),
         onboardingSeen: false,
         languageSeen: false,
+        launch: launch,
       ),
     );
     await tester.pumpAndSettle();
     expect(find.text(AppStrings.languageTitle), findsOneWidget);
-    expect(find.text(AppStrings.languageArabicDisabled), findsOneWidget);
-    await tester.tap(find.text(AppStrings.languageArabic));
+    expect(find.text(AppStrings.languageArabicDisabled), findsNothing);
+    await tester.tap(find.byKey(const Key('language-option-ar')));
     await tester.pumpAndSettle();
     await tester.tap(
       find.widgetWithText(FilledButton, AppStrings.continueLabel),
@@ -354,7 +358,8 @@ void main() {
     final locale = ProviderScope.containerOf(
       tester.element(find.text(AppStrings.welcomeDiscoverTitle)),
     ).read(sessionControllerProvider).locale;
-    expect(locale, AppLocale.french);
+    expect(locale, AppLocale.arabic);
+    expect(launch.locale, AppLocale.arabic);
   });
 
   testWidgets(

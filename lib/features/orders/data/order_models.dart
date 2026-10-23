@@ -142,12 +142,22 @@ class ActiveOrderSnapshot {
   const ActiveOrderSnapshot({
     required this.orderId,
     required this.publicReference,
-    required this.statusLabel,
+    required this.fulfillmentStatus,
+    required this.orderStatus,
+    this.deliveryStatus,
   });
 
   final String orderId;
   final String publicReference;
-  final String statusLabel;
+  final String fulfillmentStatus;
+  final String orderStatus;
+  final String? deliveryStatus;
+
+  String get statusLabel => activeOrderStatusLabel(
+    fulfillmentStatus: fulfillmentStatus,
+    deliveryStatus: deliveryStatus,
+    orderStatus: orderStatus,
+  );
 }
 
 bool isEligibleActiveOrder({required String status, String? deliveryStatus}) {
@@ -377,9 +387,15 @@ class CreateOrderRequest {
     return {
       'addressId': addressId,
       'paymentMethod': paymentMethod,
-      'expectedMerchandiseSubtotalMinor': expectedMerchandiseSubtotalMinor,
-      'expectedDeliveryFeeMinor': expectedDeliveryFeeMinor,
-      'expectedCustomerTotalMinor': expectedCustomerTotalMinor,
+      'expectedMerchandiseSubtotal': MoneyFormat.centimesToDzdV2(
+        expectedMerchandiseSubtotalMinor,
+      ),
+      'expectedDeliveryFee': MoneyFormat.centimesToDzdV2(
+        expectedDeliveryFeeMinor,
+      ),
+      'expectedCustomerTotal': MoneyFormat.centimesToDzdV2(
+        expectedCustomerTotalMinor,
+      ),
       if (code != null && code.isNotEmpty) 'promoCode': code,
     };
   }

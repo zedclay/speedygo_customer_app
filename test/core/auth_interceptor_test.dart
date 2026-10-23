@@ -261,7 +261,7 @@ void main() {
 
   test('refresh timeout does not reuse the old refresh token', () async {
     final auth = FakeAuthClient()
-      ..refreshError = const RefreshAmbiguousException();
+      ..refreshError = RefreshAmbiguousException();
     final adapter = _AuthAwareAdapter();
     final client = _client(adapter: adapter, auth: auth);
 

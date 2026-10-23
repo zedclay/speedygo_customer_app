@@ -3,7 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:speedygo_customer_app/app/theme/app_theme.dart';
 import 'package:speedygo_customer_app/core/constants/app_strings.dart';
-import 'package:speedygo_customer_app/core/money/money_format.dart';
+import 'package:speedygo_customer_app/core/widgets/bidi_ltr.dart';
+import 'package:speedygo_customer_app/core/widgets/money_text.dart';
 import 'package:speedygo_customer_app/core/navigation/app_routes.dart';
 import 'package:speedygo_customer_app/core/navigation/nav_actions.dart';
 import 'package:speedygo_customer_app/features/orders/application/order_cancellation_controller.dart';
@@ -27,7 +28,7 @@ class OrderCancelScreen extends ConsumerStatefulWidget {
 }
 
 class _OrderCancelScreenState extends ConsumerState<OrderCancelScreen> {
-  static const _reasons = [
+  static List<(String, IconData)> get _reasons => [
     (
       AppStrings.orderCancelReasonChangeOfMind,
       Icons.sentiment_dissatisfied_outlined,
@@ -79,13 +80,13 @@ class _OrderCancelScreenState extends ConsumerState<OrderCancelScreen> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Text(AppStrings.orderLoadError),
+              Text(AppStrings.orderLoadError),
               const SizedBox(height: 16),
               FilledButton(
                 onPressed: () => ref.invalidate(
                   orderDetailControllerProvider(widget.orderId),
                 ),
-                child: const Text(AppStrings.retry),
+                child: Text(AppStrings.retry),
               ),
             ],
           ),
@@ -251,7 +252,7 @@ class _OrderCancelScreenState extends ConsumerState<OrderCancelScreen> {
                       ),
                       onPressed: () =>
                           context.go(AppRoutes.order(widget.orderId)),
-                      child: const Text(AppStrings.orderConfirmationViewDetail),
+                      child: Text(AppStrings.orderConfirmationViewDetail),
                     ),
                     const SizedBox(height: 8),
                     OutlinedButton(
@@ -266,7 +267,7 @@ class _OrderCancelScreenState extends ConsumerState<OrderCancelScreen> {
                           borderRadius: BorderRadius.circular(12),
                         ),
                       ),
-                      child: const Text(AppStrings.orderSubmissionViewOrders),
+                      child: Text(AppStrings.orderSubmissionViewOrders),
                     ),
                   ] else if (eligible) ...[
                     FilledButton.icon(
@@ -307,7 +308,7 @@ class _OrderCancelScreenState extends ConsumerState<OrderCancelScreen> {
                           borderRadius: BorderRadius.circular(12),
                         ),
                       ),
-                      child: const Text(AppStrings.orderCancelKeepOrder),
+                      child: Text(AppStrings.orderCancelKeepOrder),
                     ),
                   ] else ...[
                     OutlinedButton(
@@ -318,7 +319,7 @@ class _OrderCancelScreenState extends ConsumerState<OrderCancelScreen> {
                           borderRadius: BorderRadius.circular(12),
                         ),
                       ),
-                      child: const Text(AppStrings.back),
+                      child: Text(AppStrings.back),
                     ),
                   ],
                 ],
@@ -427,18 +428,20 @@ class _OrderCancelScreenState extends ConsumerState<OrderCancelScreen> {
             ),
             const SizedBox(width: 12),
             Expanded(
-              child: Text(
-                '${AppStrings.orderReferenceLabel} · ${order.publicReference}',
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.w600,
+              child: BidiLtr(
+                child: Text(
+                  '${AppStrings.orderReferenceLabel} · ${order.publicReference}',
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Text(
-                  MoneyFormat.dzd(order.financial.customerTotalMinor),
+                MoneyText(
+                  order.financial.customerTotalMinor,
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.w600,
                     color: AppColors.primary,

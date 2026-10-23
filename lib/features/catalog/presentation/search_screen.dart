@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:speedygo_customer_app/app/theme/app_theme.dart';
 import 'package:speedygo_customer_app/core/constants/app_strings.dart';
-import 'package:speedygo_customer_app/core/money/money_format.dart';
+import 'package:speedygo_customer_app/core/widgets/money_text.dart';
 import 'package:speedygo_customer_app/core/navigation/app_routes.dart';
 import 'package:speedygo_customer_app/core/navigation/nav_actions.dart';
 import 'package:speedygo_customer_app/features/catalog/application/search_controller.dart';
@@ -69,7 +69,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                 },
               ),
             )
-          : AppBar(title: const Text(AppStrings.tabSearch)),
+          : AppBar(title: Text(AppStrings.tabSearch)),
       body: Column(
         children: [
           if (!widget.showBack)
@@ -97,7 +97,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
     String normalized,
   ) {
     if (_controller.text.trim().isNotEmpty && normalized.length < 2) {
-      return const CatalogStatusView(message: AppStrings.searchNeedTwoChars);
+      return CatalogStatusView(message: AppStrings.searchNeedTwoChars);
     }
     switch (search.phase) {
       case SearchPhase.idle:
@@ -106,7 +106,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
       case SearchPhase.loading:
         return const Center(child: CircularProgressIndicator());
       case SearchPhase.empty:
-        return const CatalogStatusView(message: AppStrings.searchEmpty);
+        return CatalogStatusView(message: AppStrings.searchEmpty);
       case SearchPhase.error:
         return CatalogStatusView(
           message: search.error?.message ?? AppStrings.catalogLoadError,
@@ -244,8 +244,8 @@ class _ProductHit extends StatelessWidget {
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
       ),
-      trailing: Text(
-        MoneyFormat.dzd(product.priceMinor),
+      trailing: MoneyText(
+        product.priceMinor,
         style: Theme.of(context).textTheme.titleMedium
             ?.copyWith(color: AppColors.primary, fontWeight: FontWeight.w600),
       ),
@@ -274,7 +274,7 @@ class _SearchField extends StatelessWidget {
       maxLines: 1,
       autofocus: autofocus,
       scrollPadding: const EdgeInsets.only(bottom: 120),
-      decoration: const InputDecoration(
+      decoration: InputDecoration(
         hintText: AppStrings.searchHint,
         hintMaxLines: 1,
         prefixIcon: Icon(Icons.search),

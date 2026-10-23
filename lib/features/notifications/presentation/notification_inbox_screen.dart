@@ -5,9 +5,11 @@ import 'package:speedygo_customer_app/app/theme/app_theme.dart';
 import 'package:speedygo_customer_app/core/constants/app_strings.dart';
 import 'package:speedygo_customer_app/core/navigation/app_routes.dart';
 import 'package:speedygo_customer_app/core/widgets/sg_snackbar.dart';
+import 'package:speedygo_customer_app/features/notifications/application/notification_copy.dart';
 import 'package:speedygo_customer_app/features/notifications/application/notification_inbox_controller.dart';
 import 'package:speedygo_customer_app/features/notifications/application/notification_navigation.dart';
 import 'package:speedygo_customer_app/features/notifications/data/notification_models.dart';
+import 'package:speedygo_customer_app/features/notifications/presentation/notification_copy_text.dart';
 
 /// Inbox list chrome aligned to SpeedyGo tokens / card language from
 /// `notifications_speedygo` preview cards — not the OS-permission artboard
@@ -119,7 +121,7 @@ class _NotificationInboxScreenState
             onPressed: () => ref
                 .read(notificationInboxControllerProvider.notifier)
                 .refresh(),
-            child: const Text(AppStrings.retry),
+            child: Text(AppStrings.retry),
           ),
         ],
       );
@@ -166,14 +168,37 @@ class _NotificationInboxScreenState
       );
     }
 
-    final extra = state.hasMore ? 1 : 0;
+    final showBanner = state.errorMessage != null;
+    final showFooter = state.hasMore || state.loadMoreError != null;
+    final header = showBanner ? 1 : 0;
+    final extra = showFooter ? 1 : 0;
     return ListView.separated(
       physics: const AlwaysScrollableScrollPhysics(),
       padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
-      itemCount: state.items.length + extra,
+      itemCount: header + state.items.length + extra,
       separatorBuilder: (_, _) => const SizedBox(height: 12),
       itemBuilder: (context, index) {
-        if (index >= state.items.length) {
+        if (showBanner && index == 0) {
+          return _InboxErrorBanner(
+            message: state.errorMessage!,
+            onRetry: () => ref
+                .read(notificationInboxControllerProvider.notifier)
+                .refresh(),
+          );
+        }
+        final itemIndex = index - header;
+        if (itemIndex >= state.items.length) {
+          if (state.loadMoreError != null) {
+            return _InboxErrorBanner(
+              message: state.loadMoreError!,
+              pagination: true,
+              onRetry: state.loadingMore
+                  ? null
+                  : () => ref
+                      .read(notificationInboxControllerProvider.notifier)
+                      .loadMore(),
+            );
+          }
           return TextButton(
             key: const Key('notifications-load-more'),
             onPressed: state.loadingMore
@@ -188,9 +213,10 @@ class _NotificationInboxScreenState
             ),
           );
         }
-        final item = state.items[index];
+        final item = state.items[itemIndex];
         return _NotificationTile(
           item: item,
+          busy: state.mutating,
           onOpen: () => _openItem(context, item),
         );
       },
@@ -215,6 +241,44 @@ class _NotificationInboxScreenState
       return;
     }
     context.push(destination.location!);
+  }
+}
+
+class _InboxErrorBanner extends StatelessWidget {
+  const _InboxErrorBanner({
+    required this.message,
+    required this.onRetry,
+    this.pagination = false,
+  });
+
+  final String message;
+  final VoidCallback? onRetry;
+  final bool pagination;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(
+          message,
+          key: pagination
+              ? const Key('notifications-pagination-error')
+              : const Key('notifications-error'),
+          textAlign: TextAlign.center,
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+            color: AppColors.error,
+          ),
+        ),
+        const SizedBox(height: 8),
+        OutlinedButton(
+          key: pagination
+              ? const Key('notifications-pagination-retry')
+              : const Key('notifications-retry'),
+          onPressed: onRetry,
+          child: Text(AppStrings.retry),
+        ),
+      ],
+    );
   }
 }
 
@@ -281,15 +345,22 @@ class _NotificationTile extends StatelessWidget {
   const _NotificationTile({
     required this.item,
     required this.onOpen,
+    this.busy = false,
   });
 
   final NotificationItem item;
   final VoidCallback onOpen;
+  final bool busy;
 
   @override
   Widget build(BuildContext context) {
     final unread = !item.read;
     final icon = _iconForType(item.type);
+    final copy = resolveSystemNotificationCopy(
+      type: item.type,
+      storedTitle: item.title,
+      storedBody: item.body,
+    );
     return Material(
       key: Key('notification-tile-${item.id}'),
       color: AppColors.surfaceContainerLowest,
@@ -305,7 +376,7 @@ class _NotificationTile extends StatelessWidget {
       ),
       shadowColor: const Color(0x0A000000),
       child: InkWell(
-        onTap: onOpen,
+        onTap: busy ? null : onOpen,
         borderRadius: BorderRadius.circular(12),
         child: DecoratedBox(
           decoration: const BoxDecoration(
@@ -348,6 +419,7 @@ class _NotificationTile extends StatelessWidget {
                           if (unread) ...[
                             const SizedBox(width: 8),
                             Container(
+                              key: Key('notification-unread-${item.id}'),
                               width: 8,
                               height: 8,
                               decoration: const BoxDecoration(
@@ -365,8 +437,10 @@ class _NotificationTile extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 4),
-                      Text(
-                        item.title,
+                      NotificationCopyText(
+                        copy: copy,
+                        isTitle: true,
+                        maxLines: 3,
                         style: Theme.of(context).textTheme.titleMedium
                             ?.copyWith(
                               fontWeight:
@@ -374,10 +448,9 @@ class _NotificationTile extends StatelessWidget {
                             ),
                       ),
                       const SizedBox(height: 4),
-                      Text(
-                        item.body,
-                        maxLines: 3,
-                        overflow: TextOverflow.ellipsis,
+                      NotificationCopyText(
+                        copy: copy,
+                        maxLines: 8,
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                           color: AppColors.onSurfaceVariant,
                           fontWeight:
@@ -416,24 +489,23 @@ IconData _iconForType(String type) {
   }
 }
 
-String formatNotificationTimestamp(String iso) {
+String formatNotificationTimestamp(String iso, {DateTime? now}) {
   final parsed = DateTime.tryParse(iso)?.toLocal();
   if (parsed == null) {
     return '';
   }
-  final now = DateTime.now();
-  final diff = now.difference(parsed);
+  final diff = (now ?? DateTime.now()).difference(parsed);
   if (diff.inMinutes < 1) {
-    return 'À l’instant';
+    return AppStrings.notificationsJustNow;
   }
   if (diff.inHours < 1) {
-    return 'Il y a ${diff.inMinutes} min';
+    return AppStrings.notificationsMinutesAgo(diff.inMinutes);
   }
   if (diff.inDays < 1) {
-    return 'Il y a ${diff.inHours} h';
+    return AppStrings.notificationsHoursAgo(diff.inHours);
   }
   if (diff.inDays < 7) {
-    return 'Il y a ${diff.inDays} j';
+    return AppStrings.notificationsDaysAgo(diff.inDays);
   }
   final day = parsed.day.toString().padLeft(2, '0');
   final month = parsed.month.toString().padLeft(2, '0');

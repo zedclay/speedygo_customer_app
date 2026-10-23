@@ -19,6 +19,8 @@ class AppConstants {
   static const int otpLength = 6;
   static const int otpResendCooldownSeconds = 60;
   static const int refreshMaxAttempts = 1;
+  static const String speedyGoAppHeader = 'X-SpeedyGo-App';
+  static const String speedyGoAppAudience = 'CUSTOMER';
 }
 
 /// Resolves the server origin used by unprefixed `GET /health`.
@@ -50,6 +52,10 @@ class ApiEndpoints {
   static const String customerCheckoutPreviewPath =
       '/customer/checkout/preview';
   static const String customerAddressesPath = '/customer/addresses';
+  static const String geoWilayasPath = '/geo/wilayas';
+  static const String geoPlacesAutocompletePath = '/geo/places/autocomplete';
+  static const String geoPlacesDetailsPath = '/geo/places/details';
+  static const String geoReverseGeocodePath = '/geo/geocode/reverse';
 
   static String customerAddressPath(String addressId) =>
       '/customer/addresses/$addressId';

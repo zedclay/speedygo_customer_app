@@ -5,7 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:speedygo_customer_app/app/theme/app_theme.dart';
 import 'package:speedygo_customer_app/core/constants/app_strings.dart';
-import 'package:speedygo_customer_app/core/money/money_format.dart';
+import 'package:speedygo_customer_app/core/widgets/bidi_ltr.dart';
+import 'package:speedygo_customer_app/core/widgets/money_text.dart';
 import 'package:speedygo_customer_app/core/navigation/app_routes.dart';
 import 'package:speedygo_customer_app/core/navigation/nav_actions.dart';
 import 'package:speedygo_customer_app/features/orders/application/order_detail_controller.dart';
@@ -198,7 +199,7 @@ class _SupportCreateScreenState extends ConsumerState<SupportCreateScreen> {
                 }
                 context.push(AppRoutes.supportList);
               },
-              child: const Text(AppStrings.supportCheckList),
+              child: Text(AppStrings.supportCheckList),
             ),
           ],
           const SizedBox(height: 88),
@@ -311,16 +312,18 @@ class _LinkedOrderCard extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
-              child: Text(
-                order.publicReference,
-                key: const Key('support-create-order-reference'),
-                style: theme.textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.w700,
+              child: BidiLtr(
+                child: Text(
+                  order.publicReference,
+                  key: const Key('support-create-order-reference'),
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
               ),
             ),
-            Text(
-              MoneyFormat.dzd(order.financial.customerTotalMinor),
+            MoneyText(
+              order.financial.customerTotalMinor,
               key: const Key('support-create-order-amount'),
               style: theme.textTheme.titleMedium?.copyWith(
                 color: AppColors.primary,

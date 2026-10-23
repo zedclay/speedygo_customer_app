@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:speedygo_customer_app/app/theme/app_theme.dart';
 import 'package:speedygo_customer_app/core/constants/app_strings.dart';
 import 'package:speedygo_customer_app/core/utils/phone_input.dart';
+import 'package:speedygo_customer_app/core/widgets/bidi_ltr.dart';
 import 'package:speedygo_customer_app/core/widgets/sg_primary_button.dart';
 import 'package:speedygo_customer_app/features/auth/application/session_controller.dart';
 
@@ -131,10 +132,12 @@ class LogoutSheet extends ConsumerWidget {
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                       if (phone != null && phone.isNotEmpty)
-                        Text(
-                          PhoneInput.maskInternational(phone),
-                          style: Theme.of(context).textTheme.bodyMedium
-                              ?.copyWith(color: AppColors.onSurfaceVariant),
+                        BidiLtr(
+                          child: Text(
+                            PhoneInput.maskInternational(phone),
+                            style: Theme.of(context).textTheme.bodyMedium
+                                ?.copyWith(color: AppColors.onSurfaceVariant),
+                          ),
                         ),
                       const SizedBox(height: 4),
                       Row(
@@ -171,18 +174,18 @@ class LogoutSheet extends ConsumerWidget {
               color: AppColors.surfaceContainer,
               borderRadius: BorderRadius.circular(12),
             ),
-            child: const Column(
+            child: Column(
               children: [
                 _LogoutNote(
                   icon: Icons.local_shipping,
                   text: AppStrings.logoutNoteOrders,
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 _LogoutNote(
                   icon: Icons.notifications_active,
                   text: AppStrings.logoutNoteReconnect,
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 _LogoutNote(
                   icon: Icons.security,
                   text: AppStrings.logoutNoteSafe,
@@ -212,7 +215,7 @@ class LogoutSheet extends ConsumerWidget {
                   color: AppColors.primary,
                 ),
               ),
-              child: const Text(AppStrings.cancel),
+              child: Text(AppStrings.cancel),
             ),
           ),
         ],

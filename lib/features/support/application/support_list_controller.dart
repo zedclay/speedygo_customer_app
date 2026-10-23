@@ -87,7 +87,7 @@ class SupportListController extends Notifier<SupportListState> {
       if (generation != _generation) {
         return;
       }
-      state = const SupportListState(
+      state = SupportListState(
         loading: false,
         errorMessage: AppStrings.supportListLoadError,
       );

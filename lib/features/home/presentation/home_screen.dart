@@ -34,16 +34,16 @@ class HomeScreen extends ConsumerWidget {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text(AppStrings.previewEnableTitle),
-        content: const Text(AppStrings.previewEnableBody),
+        title: Text(AppStrings.previewEnableTitle),
+        content: Text(AppStrings.previewEnableBody),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
-            child: const Text(AppStrings.cancel),
+            child: Text(AppStrings.cancel),
           ),
           TextButton(
             onPressed: () => Navigator.of(context).pop(true),
-            child: const Text(AppStrings.previewEnableAction),
+            child: Text(AppStrings.previewEnableAction),
           ),
         ],
       ),
@@ -146,8 +146,24 @@ class HomeScreen extends ConsumerWidget {
                   ],
                   // Stitch merchant section `mt-8` (honest title — no proximity).
                   const SizedBox(height: 32),
-                  const HomeSectionTitle(title: AppStrings.storefrontsTitle),
+                  HomeSectionTitle(title: AppStrings.storefrontsTitle),
                   const SizedBox(height: 12),
+                  if (feed.coverage?.reason == 'INSIDE')
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(
+                        HomeLayout.margin,
+                        0,
+                        HomeLayout.margin,
+                        12,
+                      ),
+                      child: Text(
+                        AppStrings.locationCoverageInside,
+                        key: const Key('home-coverage-inside'),
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          color: AppColors.onSurfaceVariant,
+                        ),
+                      ),
+                    ),
                   const OpenNowFilterChip(),
                   const SizedBox(height: 16),
                   if (feed.loading && feed.items.isEmpty)
@@ -164,14 +180,23 @@ class HomeScreen extends ConsumerWidget {
                     )
                   else if (feed.isEmpty)
                     CatalogStatusView(
+                      key: ValueKey(
+                        'home-empty-${feed.coverage?.reason ?? 'none'}',
+                      ),
                       icon: Icons.storefront_outlined,
-                      message: openNow
+                      message: feed.coverage?.isOutside == true
+                          ? AppStrings.locationCoverageOutside
+                          : openNow
                           ? AppStrings.storefrontsOpenNowEmpty
                           : AppStrings.storefrontsEmpty,
-                      retryLabel: openNow
+                      retryLabel: feed.coverage?.isOutside == true
+                          ? AppStrings.checkoutChangeAddress
+                          : openNow
                           ? AppStrings.storefrontsShowAll
                           : AppStrings.refresh,
-                      onRetry: openNow
+                      onRetry: feed.coverage?.isOutside == true
+                          ? () => context.push(AppRoutes.checkoutAddressPicker)
+                          : openNow
                           ? () => ref
                                 .read(openNowFilterProvider.notifier)
                                 .setEnabled(false)

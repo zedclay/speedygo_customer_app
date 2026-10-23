@@ -122,7 +122,7 @@ void main() {
 
   test('ambiguous timeout drops the pair and is not retried', () async {
     final auth = FakeAuthClient()
-      ..refreshError = const RefreshAmbiguousException();
+      ..refreshError = RefreshAmbiguousException();
     final store = MemorySessionStore();
     final cache = TokenCache();
     final refresher = _refresher(auth: auth, store: store, cache: cache);

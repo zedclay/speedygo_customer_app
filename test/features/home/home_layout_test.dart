@@ -136,9 +136,9 @@ void main() {
         ),
       ),
     );
-    expect(find.text('Restaurants'), findsOneWidget);
+    expect(find.text(AppStrings.categoryRestaurants), findsOneWidget);
     await tester.scrollUntilVisible(
-      find.text('Desserts glacés'),
+      find.text(AppStrings.categoryDesserts),
       60,
       scrollable: find
           .descendant(
@@ -147,7 +147,7 @@ void main() {
           )
           .first,
     );
-    expect(find.text('Desserts glacés'), findsOneWidget);
+    expect(find.text(AppStrings.categoryDesserts), findsOneWidget);
     expect(tester.takeException(), isNull);
   });
 

@@ -13,6 +13,9 @@ void main() {
       expect(MoneyFormat.dzd('1200'), '12,00 DZD');
       expect(MoneyFormat.dzd('1500'), '15,00 DZD');
       expect(MoneyFormat.dzd('220000'), '2 200,00 DZD');
+      expect(MoneyFormat.dzd('650.00'), '650,00 DZD');
+      expect(MoneyFormat.centimesToDzdV2(65000), '650.00');
+      expect(MoneyFormat.centimesToDzdV2(15000), '150.00');
       expect(MoneyFormat.dzd('9007199254740993'), '90 071 992 547 409,93 DZD');
     },
   );
@@ -21,6 +24,7 @@ void main() {
     expect(MoneyFormat.isMinorString('12.5'), isFalse);
     expect(MoneyFormat.isMinorString('-1'), isFalse);
     expect(MoneyFormat.isMinorString(''), isFalse);
-    expect(() => MoneyFormat.dzd('12.00'), throwsFormatException);
+    expect(() => MoneyFormat.dzd('12.000'), throwsFormatException);
+    expect(() => MoneyFormat.dzd('abc'), throwsFormatException);
   });
 }

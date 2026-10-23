@@ -1,6 +1,7 @@
 import 'package:speedygo_customer_app/core/constants/app_strings.dart';
 import 'package:speedygo_customer_app/core/errors/app_exception.dart';
 import 'package:speedygo_customer_app/features/catalog/data/catalog_api.dart';
+import 'package:speedygo_customer_app/features/catalog/data/catalog_models.dart';
 
 class CatalogFeedState<T> {
   const CatalogFeedState({
@@ -11,6 +12,7 @@ class CatalogFeedState<T> {
     this.loadingMore = false,
     this.error,
     this.loadMoreError,
+    this.coverage,
   });
 
   final List<T> items;
@@ -20,6 +22,7 @@ class CatalogFeedState<T> {
   final bool loadingMore;
   final AppException? error;
   final AppException? loadMoreError;
+  final DeliveryCoverage? coverage;
 
   bool get hasMore => items.length < total;
   bool get isEmpty => !loading && error == null && items.isEmpty;
@@ -32,8 +35,10 @@ class CatalogFeedState<T> {
     bool? loadingMore,
     AppException? error,
     AppException? loadMoreError,
+    DeliveryCoverage? coverage,
     bool clearError = false,
     bool clearLoadMoreError = false,
+    bool clearCoverage = false,
   }) {
     return CatalogFeedState<T>(
       items: items ?? this.items,
@@ -45,6 +50,7 @@ class CatalogFeedState<T> {
       loadMoreError: clearLoadMoreError
           ? null
           : loadMoreError ?? this.loadMoreError,
+      coverage: clearCoverage ? null : coverage ?? this.coverage,
     );
   }
 }
@@ -69,5 +75,5 @@ AppException mapCatalogError(Object error) {
   if (error is AppException) {
     return error;
   }
-  return const UnexpectedException(AppStrings.unexpected);
+  return UnexpectedException(AppStrings.unexpected);
 }

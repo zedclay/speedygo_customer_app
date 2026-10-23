@@ -172,7 +172,7 @@ void main() {
   test('timeout sets pending verification without duplicate POST', () async {
     final checkout = FakeCheckoutClient(result: espressoCheckoutPreview());
     final orders = FakeOrdersClient(
-      createError: const NetworkException(
+      createError: NetworkException(
         AppStrings.offline,
         code: 'NETWORK_TIMEOUT',
       ),

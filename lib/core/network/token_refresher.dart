@@ -48,7 +48,7 @@ class TokenRefresher {
     try {
       if (await _store.isRefreshPending()) {
         await _dropLocalPair();
-        throw const RefreshAmbiguousException();
+        throw RefreshAmbiguousException();
       }
       final session = _cache.current ?? await _store.read();
       final refreshToken = session?.refreshToken;

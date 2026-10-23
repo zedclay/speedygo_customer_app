@@ -67,7 +67,7 @@ class AuthApi implements AuthClient {
     } on DioException catch (error) {
       if (error.type == DioExceptionType.receiveTimeout ||
           error.type == DioExceptionType.sendTimeout) {
-        throw const RefreshAmbiguousException();
+        throw RefreshAmbiguousException();
       }
       throw mapDioError(error);
     } catch (error) {

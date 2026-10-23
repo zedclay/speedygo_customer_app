@@ -131,7 +131,7 @@ void main() {
     final catalog = FakeCatalogClient(
       storefronts: CatalogPage(items: items, limit: 2, offset: 0, total: 3),
       testPageCap: 2,
-      loadMoreError: const NetworkException(
+      loadMoreError: NetworkException(
         AppStrings.offline,
         code: 'NETWORK',
       ),

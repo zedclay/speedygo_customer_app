@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 import 'package:speedygo_customer_app/app/theme/app_theme.dart';
 import 'package:speedygo_customer_app/core/constants/app_strings.dart';
 import 'package:speedygo_customer_app/core/utils/phone_input.dart';
+import 'package:speedygo_customer_app/core/widgets/bidi_ltr.dart';
 import 'package:speedygo_customer_app/core/widgets/sg_primary_button.dart';
 import 'package:speedygo_customer_app/core/widgets/sg_snackbar.dart';
 import 'package:speedygo_customer_app/features/auth/application/session_controller.dart';
@@ -184,7 +185,8 @@ class _PhoneScreenState extends ConsumerState<PhoneScreen> {
                           width: focused || hasError ? 2 : 1,
                         ),
                       ),
-                      child: Row(
+                      child: BidiLtr(
+                        child: Row(
                         children: [
                           const SizedBox(width: 16),
                           const _AlgeriaFlag(),
@@ -213,6 +215,7 @@ class _PhoneScreenState extends ConsumerState<PhoneScreen> {
                               autofocus: true,
                               keyboardType: TextInputType.phone,
                               textInputAction: TextInputAction.done,
+                              textDirection: TextDirection.ltr,
                               autofillHints: const [
                                 AutofillHints.telephoneNumber,
                               ],
@@ -228,7 +231,7 @@ class _PhoneScreenState extends ConsumerState<PhoneScreen> {
                                 FilteringTextInputFormatter.digitsOnly,
                                 LengthLimitingTextInputFormatter(10),
                               ],
-                              decoration: const InputDecoration(
+                              decoration: InputDecoration(
                                 hintText: AppStrings.phoneHint,
                                 border: InputBorder.none,
                                 enabledBorder: InputBorder.none,
@@ -261,6 +264,7 @@ class _PhoneScreenState extends ConsumerState<PhoneScreen> {
                           ),
                           const SizedBox(width: 12),
                         ],
+                      ),
                       ),
                     ),
                   ),
@@ -353,7 +357,7 @@ class _PhoneScreenState extends ConsumerState<PhoneScreen> {
                                   height: 20 / 14,
                                 ),
                           ),
-                          child: const Text(AppStrings.needHelp),
+                          child: Text(AppStrings.needHelp),
                         ),
                       ],
                     ),

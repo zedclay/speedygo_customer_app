@@ -50,7 +50,7 @@ void main() {
     expect(state.locale, AppLocale.french);
   });
 
-  test('markLanguageSeen rejects an unsupported locale', () async {
+  test('markLanguageSeen persists Arabic', () async {
     final launch = MemoryLaunchStore(onboardingSeen: false, locale: 'fr');
     final container = ProviderContainer(
       overrides: [
@@ -64,13 +64,29 @@ void main() {
     await container.read(sessionControllerProvider.notifier).restore();
     await container
         .read(sessionControllerProvider.notifier)
-        .markLanguageSeen(locale: 'ar');
-    expect(container.read(sessionControllerProvider).locale, AppLocale.french);
-    expect(launch.locale, AppLocale.french);
+        .markLanguageSeen(locale: AppLocale.arabic);
+    expect(container.read(sessionControllerProvider).locale, AppLocale.arabic);
+    expect(launch.locale, AppLocale.arabic);
+  });
+
+  test('stored Arabic locale is restored after restart', () async {
+    final launch = MemoryLaunchStore(onboardingSeen: true, locale: 'ar');
+    final container = ProviderContainer(
+      overrides: [
+        sessionStoreProvider.overrideWithValue(MemorySessionStore()),
+        launchStoreProvider.overrideWithValue(launch),
+        authApiProvider.overrideWithValue(FakeAuthClient()),
+        customerApiProvider.overrideWithValue(FakeCustomerClient()),
+      ],
+    );
+    addTearDown(container.dispose);
+    await container.read(sessionControllerProvider.notifier).restore();
+    expect(container.read(sessionControllerProvider).locale, AppLocale.arabic);
+    expect(launch.locale, AppLocale.arabic);
   });
 
   test('stored unsupported locale falls back to French', () async {
-    final launch = MemoryLaunchStore(onboardingSeen: true, locale: 'ar');
+    final launch = MemoryLaunchStore(onboardingSeen: true, locale: 'en');
     final container = ProviderContainer(
       overrides: [
         sessionStoreProvider.overrideWithValue(MemorySessionStore()),

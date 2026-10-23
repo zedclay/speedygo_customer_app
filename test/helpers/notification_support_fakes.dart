@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:speedygo_customer_app/core/constants/app_strings.dart';
 import 'package:speedygo_customer_app/core/errors/app_exception.dart';
 import 'package:speedygo_customer_app/features/notifications/data/notification_api.dart';
@@ -15,21 +17,43 @@ class FakeNotificationsClient implements NotificationsClient {
   int markAllCalls = 0;
   int unreadCalls = 0;
   Object? markReadError;
+  Object? markAllError;
+  Object? listError;
+  Object? unreadError;
+  Object? Function(int offset)? listErrorForOffset;
+  Duration? listDelay;
+  Duration Function(int callCount)? listDelayForCall;
+  Completer<void>? markReadGate;
+  bool overlapOnLoadMore = false;
   int Function(int limit, int offset)? listHook;
 
   @override
   Future<NotificationPage> list({int limit = 20, int offset = 0}) async {
     listCalls += 1;
+    final snapshot = List.of(items);
     if (listHook != null) {
       listHook!(limit, offset);
     }
-    final slice = items.skip(offset).take(limit).toList();
-    final unread = items.where((e) => !e.read).length;
+    final delay = listDelayForCall?.call(listCalls) ?? listDelay;
+    if (delay != null && delay > Duration.zero) {
+      await Future<void>.delayed(delay);
+    }
+    if (listError != null) {
+      throw listError!;
+    }
+    final offsetError = listErrorForOffset?.call(offset);
+    if (offsetError != null) {
+      throw offsetError;
+    }
+    final slice = overlapOnLoadMore && offset > 0
+        ? snapshot.take(limit).toList()
+        : snapshot.skip(offset).take(limit).toList();
+    final unread = snapshot.where((e) => !e.read).length;
     return NotificationPage(
       items: slice,
       limit: limit,
       offset: offset,
-      total: items.length,
+      total: snapshot.length,
       unreadCount: unread,
     );
   }
@@ -37,6 +61,9 @@ class FakeNotificationsClient implements NotificationsClient {
   @override
   Future<UnreadCountResponse> unreadCount() async {
     unreadCalls += 1;
+    if (unreadError != null) {
+      throw unreadError!;
+    }
     return UnreadCountResponse(
       unreadCount: items.where((e) => !e.read).length,
     );
@@ -45,6 +72,10 @@ class FakeNotificationsClient implements NotificationsClient {
   @override
   Future<NotificationItem> markRead(String notificationId) async {
     markReadCalls += 1;
+    final gate = markReadGate;
+    if (gate != null) {
+      await gate.future;
+    }
     if (markReadError != null) {
       throw markReadError!;
     }
@@ -63,6 +94,9 @@ class FakeNotificationsClient implements NotificationsClient {
   @override
   Future<MarkAllReadResponse> markAllRead() async {
     markAllCalls += 1;
+    if (markAllError != null) {
+      throw markAllError!;
+    }
     var marked = 0;
     for (var i = 0; i < items.length; i++) {
       if (!items[i].read) {
@@ -198,7 +232,7 @@ class FakeSupportClient implements SupportClient {
     }
     final existing = tickets[ticketId];
     if (existing == null || !existing.canCustomerReply) {
-      throw const ApiException(
+      throw ApiException(
         AppStrings.supportReplyClosed,
         code: 'SUPPORT_INVALID_STATE',
         statusCode: 409,

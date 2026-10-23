@@ -122,7 +122,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: AppRoutes.legalTerms,
-        builder: (_, _) => const AccountStatusScreen(
+        builder: (_, _) => AccountStatusScreen(
           title: AppStrings.legalTermsTitle,
           body: AppStrings.legalUnavailableBody,
           icon: Icons.gavel,
@@ -130,7 +130,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: AppRoutes.legalPrivacy,
-        builder: (_, _) => const AccountStatusScreen(
+        builder: (_, _) => AccountStatusScreen(
           title: AppStrings.legalPrivacyTitle,
           body: AppStrings.legalUnavailableBody,
           icon: Icons.privacy_tip_outlined,
@@ -246,7 +246,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(path: AppRoutes.cart, builder: (_, _) => const CartScreen()),
       GoRoute(
         path: AppRoutes.checkoutNotes,
-        builder: (_, _) => const AccountStatusScreen(
+        builder: (_, _) => AccountStatusScreen(
           title: AppStrings.checkoutNotesTitle,
           body: AppStrings.checkoutNotesUnavailable,
           icon: Icons.notes_outlined,
@@ -341,7 +341,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: AppRoutes.accountPaymentMethods,
-        builder: (_, _) => const AccountStatusScreen(
+        builder: (_, _) => AccountStatusScreen(
           title: AppStrings.accountPaymentMethodsTitle,
           body: AppStrings.accountPaymentMethodsBody,
           icon: Icons.payments_outlined,
@@ -353,7 +353,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: AppRoutes.accountLegal,
-        builder: (_, _) => const AccountStatusScreen(
+        builder: (_, _) => AccountStatusScreen(
           title: AppStrings.accountSectionLegal,
           body: AppStrings.legalUnavailableBody,
           icon: Icons.policy_outlined,
@@ -361,7 +361,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: AppRoutes.accountDelete,
-        builder: (_, _) => const AccountStatusScreen(
+        builder: (_, _) => AccountStatusScreen(
           title: AppStrings.accountDeleteTitle,
           body: AppStrings.accountDeleteBody,
           icon: Icons.delete_forever_outlined,
@@ -707,11 +707,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           }
           return Scaffold(
             appBar: AppBar(
-              title: const Text(AppStrings.trackingTitle),
+              title: Text(AppStrings.trackingTitle),
             ),
-            body: const Center(
+            body: Center(
               child: Padding(
-                padding: EdgeInsets.all(24),
+                padding: const EdgeInsets.all(24),
                 child: Text(
                   AppStrings.trackingDeliveryCodeUnavailable,
                   textAlign: TextAlign.center,

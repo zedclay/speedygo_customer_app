@@ -212,11 +212,11 @@ class _OrderWriteReviewScreenState
                   ),
                 ],
                 if (state.phase == OrderRatingPhase.succeeded)
-                  const Padding(
-                    padding: EdgeInsets.only(top: 12),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 12),
                     child: Text(
                       AppStrings.ratingSuccess,
-                      key: Key('rating-write-success'),
+                      key: const Key('rating-write-success'),
                     ),
                   ),
                 if (state.phase == OrderRatingPhase.pendingVerification)
@@ -226,7 +226,7 @@ class _OrderWriteReviewScreenState
                           orderRatingControllerProvider(widget.orderId).notifier,
                         )
                         .reconcileAfterUncertain(),
-                    child: const Text(AppStrings.supportRefresh),
+                    child: Text(AppStrings.supportRefresh),
                   ),
               ],
             ),

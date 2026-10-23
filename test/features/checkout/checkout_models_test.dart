@@ -88,6 +88,10 @@ void main() {
       AppStrings.errorForCode('CHECKOUT_BRANCH_CLOSED'),
       contains('fermé'),
     );
+    expect(
+      AppStrings.errorForCode('CHECKOUT_BRANCH_OUTSIDE_ZONE'),
+      contains('ne livre pas'),
+    );
     expect(AppStrings.errorForCode('PROMOTION_EXPIRED'), contains('expiré'));
     expect(
       AppStrings.errorForCode('CHECKOUT_CART_REQUIRED'),

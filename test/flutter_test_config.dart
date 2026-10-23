@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:speedygo_customer_app/core/constants/app_strings.dart';
 
 /// Loads production Inter weights + Material Icons so goldens are not Ahem tofu.
 Future<void> loadAuditCaptureFonts() async {
@@ -77,7 +78,7 @@ Future<void> loadAuditCaptureFonts() async {
     }
   }
 
-  // Arabic labels (disabled AR tile). Production iOS uses Geeza Pro / SF Arabic.
+  // Arabic labels. Production iOS uses Geeza Pro / SF Arabic.
   for (final path in [
     '/System/Library/Fonts/GeezaPro.ttc',
     '/System/Library/Fonts/Geeza Pro.ttc',
@@ -99,5 +100,8 @@ Future<void> loadAuditCaptureFonts() async {
 
 Future<void> testExecutable(FutureOr<void> Function() testMain) async {
   await loadAuditCaptureFonts();
+  setUp(() {
+    AppStrings.bind('fr');
+  });
   await testMain();
 }

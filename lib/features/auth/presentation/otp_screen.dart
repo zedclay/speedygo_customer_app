@@ -138,7 +138,7 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                                 height: 24 / 16,
                               ),
                         ),
-                        child: const Text(AppStrings.editNumber),
+                        child: Text(AppStrings.editNumber),
                       ),
                     ],
                   ),
@@ -246,7 +246,7 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
-                            child: const Text(AppStrings.resend),
+                            child: Text(AppStrings.resend),
                           ),
                         ),
                   if (session.errorMessage != null) ...[

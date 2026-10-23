@@ -26,7 +26,7 @@ void main() {
 
   testWidgets('live probe distinguishes phone from Home', (tester) async {
     await tester.pumpWidget(
-      const MaterialApp(
+      MaterialApp(
         home: Scaffold(body: Text(AppStrings.phoneTitle)),
       ),
     );
@@ -38,11 +38,11 @@ void main() {
     tester,
   ) async {
     await tester.pumpWidget(
-      const MaterialApp(
+      MaterialApp(
         home: Scaffold(
           body: Column(
             children: [
-              TextField(key: Key('home-search-field')),
+              const TextField(key: Key('home-search-field')),
               Text(AppStrings.restoreTitle),
               Text(AppStrings.restoreLoading),
             ],

@@ -191,7 +191,7 @@ void main() {
     expect(find.text(AppStrings.continueLabel), findsOneWidget);
   });
 
-  testWidgets('language screen fits iPhone SE and keeps Arabic disabled', (
+  testWidgets('language screen fits iPhone SE and can select Arabic', (
     tester,
   ) async {
     _iphoneSe(tester);
@@ -208,9 +208,9 @@ void main() {
     expect(find.text(AppStrings.languageTitle), findsOneWidget);
     expect(find.text(AppStrings.languageFrench), findsOneWidget);
     expect(find.text(AppStrings.languageArabic), findsOneWidget);
-    expect(find.text(AppStrings.languageArabicDisabled), findsOneWidget);
+    expect(find.text(AppStrings.languageArabicDisabled), findsNothing);
     expect(find.text(AppStrings.continueLabel), findsOneWidget);
-    await tester.tap(find.text(AppStrings.languageArabic), warnIfMissed: false);
+    await tester.tap(find.byKey(const Key('language-option-ar')));
     await tester.pump();
     await tester.tap(
       find.widgetWithText(FilledButton, AppStrings.continueLabel),

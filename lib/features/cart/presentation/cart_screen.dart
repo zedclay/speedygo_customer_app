@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:speedygo_customer_app/app/theme/app_theme.dart';
 import 'package:speedygo_customer_app/core/constants/app_strings.dart';
 import 'package:speedygo_customer_app/core/money/money_format.dart';
+import 'package:speedygo_customer_app/core/widgets/bidi_ltr.dart';
 import 'package:speedygo_customer_app/core/navigation/app_routes.dart';
 import 'package:speedygo_customer_app/core/navigation/nav_actions.dart';
 import 'package:speedygo_customer_app/features/cart/application/cart_controller.dart';
@@ -27,14 +28,14 @@ class CartScreen extends ConsumerWidget {
           onPressed: () => popOrParent(context),
           icon: const Icon(Icons.arrow_back),
         ),
-        title: const Text(AppStrings.cartTitle),
+        title: Text(AppStrings.cartTitle),
         actions: [
           if (cart.cartExists)
             TextButton(
               onPressed: cart.mutating
                   ? null
                   : () => _confirmClear(context, ref),
-              child: const Text(AppStrings.clearCart),
+              child: Text(AppStrings.clearCart),
             ),
         ],
       ),
@@ -75,7 +76,7 @@ class CartScreen extends ConsumerWidget {
                 onPressed: () =>
                     context.push(AppRoutes.merchant(current.branchId)),
                 icon: const Icon(Icons.add_circle_outline),
-                label: const Text(AppStrings.addAnotherItem),
+                label: Text(AppStrings.addAnotherItem),
               ),
               const SizedBox(height: 8),
               _subtotalCard(context, current),
@@ -110,7 +111,7 @@ class CartScreen extends ConsumerWidget {
                   onPressed: cart.mutating || !current.cartReady
                       ? null
                       : () => context.push(AppRoutes.checkoutReview),
-                  child: const Text(AppStrings.checkoutAction),
+                  child: Text(AppStrings.checkoutAction),
                 ),
               ],
             ),
@@ -216,23 +217,27 @@ class CartScreen extends ConsumerWidget {
                               ?.copyWith(fontWeight: FontWeight.w600),
                         ),
                       ),
-                      Text(
-                        MoneyFormat.dzd(item.lineSubtotalMinor),
-                        style: Theme.of(context).textTheme.titleSmall
-                            ?.copyWith(fontWeight: FontWeight.w700),
+                      BidiLtr(
+                        child: Text(
+                          MoneyFormat.dzd(item.lineSubtotalMinor),
+                          style: Theme.of(context).textTheme.titleSmall
+                              ?.copyWith(fontWeight: FontWeight.w700),
+                        ),
                       ),
                     ],
                   ),
                   for (final option in item.selectedOptions)
-                    Text(
-                      _optionLine(option),
-                      style: Theme.of(context).textTheme.bodySmall
-                          ?.copyWith(color: AppColors.onSurfaceVariant),
+                    BidiLtr(
+                      child: Text(
+                        _optionLine(option),
+                        style: Theme.of(context).textTheme.bodySmall
+                            ?.copyWith(color: AppColors.onSurfaceVariant),
+                      ),
                     ),
                   if (!item.itemAvailable)
-                    const Text(
+                    Text(
                       AppStrings.cartItemUnavailable,
-                      style: TextStyle(color: AppColors.error),
+                      style: const TextStyle(color: AppColors.error),
                     ),
                   const SizedBox(height: 8),
                   Wrap(
@@ -247,7 +252,7 @@ class CartScreen extends ConsumerWidget {
                                   .read(cartControllerProvider.notifier)
                                   .removeItem(item.id),
                         icon: const Icon(Icons.delete_outline, size: 18),
-                        label: const Text(AppStrings.removeFromCart),
+                        label: Text(AppStrings.removeFromCart),
                         style: TextButton.styleFrom(
                           foregroundColor: AppColors.error,
                         ),
@@ -303,12 +308,14 @@ class CartScreen extends ConsumerWidget {
             const SizedBox(height: 12),
             Row(
               children: [
-                const Expanded(child: Text(AppStrings.cartMerchandiseSubtotal)),
-                Text(
-                  MoneyFormat.dzd(cart.cartSubtotalMinor),
-                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w700,
-                    color: AppColors.primary,
+                Expanded(child: Text(AppStrings.cartMerchandiseSubtotal)),
+                BidiLtr(
+                  child: Text(
+                    MoneyFormat.dzd(cart.cartSubtotalMinor),
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.w700,
+                      color: AppColors.primary,
+                    ),
                   ),
                 ),
               ],
@@ -338,16 +345,16 @@ class CartScreen extends ConsumerWidget {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text(AppStrings.clearCartConfirmTitle),
-          content: const Text(AppStrings.clearCartConfirmBody),
+          title: Text(AppStrings.clearCartConfirmTitle),
+          content: Text(AppStrings.clearCartConfirmBody),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context, false),
-              child: const Text(AppStrings.cancel),
+              child: Text(AppStrings.cancel),
             ),
             FilledButton(
               onPressed: () => Navigator.pop(context, true),
-              child: const Text(AppStrings.clearCart),
+              child: Text(AppStrings.clearCart),
             ),
           ],
         );

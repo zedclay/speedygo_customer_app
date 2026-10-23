@@ -161,7 +161,7 @@ void main() {
   test('timeout enters pending verification without auto re-POST', () async {
     final detail = sampleOrderDetail();
     final orders = FakeOrdersClient(
-      cancelError: const NetworkException(
+      cancelError: NetworkException(
         AppStrings.offline,
         code: 'NETWORK_TIMEOUT',
       ),
@@ -191,7 +191,7 @@ void main() {
     final detail = sampleOrderDetail();
     final cancelled = sampleOrderDetail(status: 'CANCELLED');
     final orders = FakeOrdersClient(
-      cancelError: const ApiException(
+      cancelError: ApiException(
         AppStrings.orderCancelPendingVerification,
         code: 'ORDER_CANCELLATION_SERVER_UNCERTAIN',
         statusCode: 503,
@@ -264,7 +264,7 @@ void main() {
   test('server denial maps to rejected without refund copy', () async {
     final detail = sampleOrderDetail();
     final orders = FakeOrdersClient(
-      cancelError: const ApiException(
+      cancelError: ApiException(
         AppStrings.orderCancelNotEligible,
         code: 'ORDER_CANCELLATION_NOT_ALLOWED',
         statusCode: 409,

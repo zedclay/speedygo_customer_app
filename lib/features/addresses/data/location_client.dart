@@ -16,7 +16,7 @@ class DeviceLocation {
 class LocationUnavailableException extends UnexpectedException {
   const LocationUnavailableException()
     : super(
-        'La position n’est pas disponible pour le moment. Saisissez les coordonnées manuellement.',
+        'La position n’est pas disponible pour le moment. Choisissez le point sur la carte.',
         code: 'LOCATION_UNAVAILABLE',
       );
 }

@@ -22,7 +22,7 @@ class OpenNowFilterChip extends ConsumerWidget {
         alignment: Alignment.centerLeft,
         child: FilterChip(
           key: const Key('open-now-filter'),
-          label: const Text(AppStrings.storefrontsOpenNow),
+          label: Text(AppStrings.storefrontsOpenNow),
           selected: selected,
           showCheckmark: true,
           checkmarkColor: AppColors.primary,

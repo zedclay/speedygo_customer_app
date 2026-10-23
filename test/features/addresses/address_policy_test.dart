@@ -19,4 +19,19 @@ void main() {
     expect(AddressPolicy.validateLongitude('3.0588'), isNull);
     expect(AddressPolicy.parseCoordinate('36,75'), 36.75);
   });
+
+  test('rejects the 0,0 substitute and composes readable extras', () {
+    expect(AddressPolicy.isUsablePoint(0, 0), isFalse);
+    expect(AddressPolicy.isUsablePoint(35.1939, -0.6417), isTrue);
+    expect(
+      AddressPolicy.composeAddressText(
+        street: 'Cité 1500 Logements',
+        building: '12',
+        floor: '3',
+        entrance: 'B',
+        landmark: 'Mosquée',
+      ),
+      'Cité 1500 Logements\nBâtiment 12 · Étage 3 · Entrée B\nMosquée',
+    );
+  });
 }

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:speedygo_customer_app/app/theme/app_theme.dart';
 import 'package:speedygo_customer_app/core/constants/app_strings.dart';
+import 'package:speedygo_customer_app/core/widgets/bidi_ltr.dart';
 import 'package:speedygo_customer_app/core/navigation/app_routes.dart';
 import 'package:speedygo_customer_app/core/navigation/nav_actions.dart';
 import 'package:speedygo_customer_app/features/auth/application/active_sessions_controller.dart';
@@ -77,7 +78,7 @@ class ActiveSessionsScreen extends ConsumerWidget {
             key: const Key('sessions-retry'),
             onPressed: () =>
                 ref.read(activeSessionsControllerProvider.notifier).refresh(),
-            child: const Text(AppStrings.retry),
+            child: Text(AppStrings.retry),
           ),
         ],
       );
@@ -177,10 +178,12 @@ class ActiveSessionsScreen extends ConsumerWidget {
                           color: AppColors.outline,
                         ),
                       ),
-                      Text(
-                        phone ?? '—',
-                        style: Theme.of(context).textTheme.titleMedium
-                            ?.copyWith(fontWeight: FontWeight.w600),
+                      BidiLtr(
+                        child: Text(
+                          phone ?? '—',
+                          style: Theme.of(context).textTheme.titleMedium
+                              ?.copyWith(fontWeight: FontWeight.w600),
+                        ),
                       ),
                     ],
                   ),
@@ -217,11 +220,11 @@ class ActiveSessionsScreen extends ConsumerWidget {
           const SizedBox(height: 8),
         ],
         if (active.isEmpty)
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 24),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 24),
             child: Text(
               AppStrings.securityEmpty,
-              key: Key('sessions-empty'),
+              key: const Key('sessions-empty'),
               textAlign: TextAlign.center,
             ),
           )
@@ -246,7 +249,7 @@ class ActiveSessionsScreen extends ConsumerWidget {
                 ? null
                 : () => _confirmLogoutAll(context, ref),
             icon: const Icon(Icons.no_accounts_outlined),
-            label: const Text(AppStrings.securityLogoutAll),
+            label: Text(AppStrings.securityLogoutAll),
             style: OutlinedButton.styleFrom(
               foregroundColor: AppColors.primary,
               side: const BorderSide(color: AppColors.primary),
@@ -263,7 +266,7 @@ class ActiveSessionsScreen extends ConsumerWidget {
             key: const Key('sessions-report'),
             onPressed: () => context.push(AppRoutes.supportNew),
             icon: const Icon(Icons.report_problem_outlined, size: 20),
-            label: const Text(AppStrings.securityReportSuspicious),
+            label: Text(AppStrings.securityReportSuspicious),
             style: TextButton.styleFrom(
               foregroundColor: AppColors.error,
               textStyle: Theme.of(context).textTheme.labelLarge,
@@ -296,12 +299,12 @@ class ActiveSessionsScreen extends ConsumerWidget {
           TextButton(
             key: const Key('sessions-revoke-cancel'),
             onPressed: () => Navigator.of(context).pop(false),
-            child: const Text(AppStrings.cancel),
+            child: Text(AppStrings.cancel),
           ),
           FilledButton(
             key: const Key('sessions-revoke-confirm'),
             onPressed: () => Navigator.of(context).pop(true),
-            child: const Text(AppStrings.securityRevokeConfirm),
+            child: Text(AppStrings.securityRevokeConfirm),
           ),
         ],
       ),
@@ -318,18 +321,18 @@ class ActiveSessionsScreen extends ConsumerWidget {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text(AppStrings.securityLogoutAllTitle),
-        content: const Text(AppStrings.securityLogoutAllBody),
+        title: Text(AppStrings.securityLogoutAllTitle),
+        content: Text(AppStrings.securityLogoutAllBody),
         actions: [
           TextButton(
             key: const Key('sessions-logout-all-cancel'),
             onPressed: () => Navigator.of(context).pop(false),
-            child: const Text(AppStrings.cancel),
+            child: Text(AppStrings.cancel),
           ),
           FilledButton(
             key: const Key('sessions-logout-all-confirm'),
             onPressed: () => Navigator.of(context).pop(true),
-            child: const Text(AppStrings.securityLogoutAllConfirm),
+            child: Text(AppStrings.securityLogoutAllConfirm),
           ),
         ],
       ),

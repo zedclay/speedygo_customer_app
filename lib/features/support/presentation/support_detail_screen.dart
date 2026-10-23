@@ -143,7 +143,7 @@ class _SupportDetailScreenState extends ConsumerState<SupportDetailScreen> {
                             ).notifier,
                           )
                           .reconcileAfterUncertain(),
-                      child: const Text(AppStrings.supportRefresh),
+                      child: Text(AppStrings.supportRefresh),
                     ),
                   ),
                 _composer(state, bottomInset),
@@ -170,7 +170,7 @@ class _SupportDetailScreenState extends ConsumerState<SupportDetailScreen> {
                     supportDetailControllerProvider(widget.ticketId).notifier,
                   )
                   .refresh(),
-              child: const Text(AppStrings.retry),
+              child: Text(AppStrings.retry),
             ),
           ],
         ),

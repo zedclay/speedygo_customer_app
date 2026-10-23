@@ -13,7 +13,7 @@ class HomeBottomBar extends StatelessWidget {
   final int selectedIndex;
   final ValueChanged<int> onSelect;
 
-  static const _items = [
+  static List<(IconData, IconData, String)> get _items => [
     (Icons.home_outlined, Icons.home, AppStrings.tabHome),
     (Icons.search_outlined, Icons.search, AppStrings.tabSearch),
     (Icons.receipt_long_outlined, Icons.receipt_long, AppStrings.tabOrders),

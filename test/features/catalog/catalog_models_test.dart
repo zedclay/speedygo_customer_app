@@ -160,5 +160,35 @@ void main() {
       'openNow': true,
     });
     expect(const CatalogQuery(openNow: false).toParams().containsKey('openNow'), isFalse);
+    expect(
+      const CatalogQuery(
+        addressId: 'aaaaaaaa-aaaa-7aaa-8aaa-aaaaaaaaaaaa',
+        wilayaCode: '22',
+      ).toParams(),
+      {
+        'limit': 50,
+        'offset': 0,
+        'sort': 'name',
+        'addressId': 'aaaaaaaa-aaaa-7aaa-8aaa-aaaaaaaaaaaa',
+        'wilayaCode': '22',
+      },
+    );
+  });
+
+  test('parses storefront coverage without inventing a zone', () {
+    final page = parseStorefrontPage({
+      'items': [],
+      'limit': 50,
+      'offset': 0,
+      'total': 0,
+      'coverage': {
+        'inCoverage': false,
+        'zoneCount': 0,
+        'reason': 'OUTSIDE',
+      },
+    });
+    expect(page.coverage?.reason, 'OUTSIDE');
+    expect(page.coverage?.isOutside, isTrue);
+    expect(page.items, isEmpty);
   });
 }

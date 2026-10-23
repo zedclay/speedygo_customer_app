@@ -114,7 +114,7 @@ class OrdersListController extends Notifier<OrdersListState> {
       if (generation != _generation) {
         return;
       }
-      state = const OrdersListState(
+      state = OrdersListState(
         loading: false,
         errorMessage: AppStrings.ordersLoadError,
       );
@@ -154,7 +154,7 @@ class OrdersListController extends Notifier<OrdersListState> {
       }
       state = state.copyWith(
         loadingMore: false,
-        loadMoreError: const UnexpectedException(AppStrings.ordersLoadError),
+        loadMoreError: UnexpectedException(AppStrings.ordersLoadError),
       );
     } finally {
       if (generation == _generation) {

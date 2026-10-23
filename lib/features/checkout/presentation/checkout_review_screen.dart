@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:speedygo_customer_app/app/theme/app_theme.dart';
 import 'package:speedygo_customer_app/core/constants/app_strings.dart';
 import 'package:speedygo_customer_app/core/money/money_format.dart';
+import 'package:speedygo_customer_app/core/widgets/bidi_ltr.dart';
 import 'package:speedygo_customer_app/core/navigation/app_routes.dart';
 import 'package:speedygo_customer_app/core/navigation/nav_actions.dart';
 import 'package:speedygo_customer_app/features/addresses/application/address_controller.dart';
@@ -72,7 +73,7 @@ class _CheckoutReviewScreenState extends ConsumerState<CheckoutReviewScreen> {
           onPressed: () => popOrParent(context),
           icon: const Icon(Icons.arrow_back),
         ),
-        title: const Text(AppStrings.checkoutReviewTitle),
+        title: Text(AppStrings.checkoutReviewTitle),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
@@ -161,16 +162,18 @@ class _CheckoutReviewScreenState extends ConsumerState<CheckoutReviewScreen> {
                               ?.copyWith(fontWeight: FontWeight.w600),
                         ),
                       ),
-                      Text(
-                        MoneyFormat.dzd(
-                          checkout.preview!.customerTotalMinor,
+                      BidiLtr(
+                        child: Text(
+                          MoneyFormat.dzd(
+                            checkout.preview!.customerTotalMinor,
+                          ),
+                          key: const Key('checkout-sticky-total'),
+                          style: Theme.of(context).textTheme.titleMedium
+                              ?.copyWith(
+                                color: AppColors.primary,
+                                fontWeight: FontWeight.w700,
+                              ),
                         ),
-                        key: const Key('checkout-sticky-total'),
-                        style: Theme.of(context).textTheme.titleMedium
-                            ?.copyWith(
-                              color: AppColors.primary,
-                              fontWeight: FontWeight.w700,
-                            ),
                       ),
                     ],
                   ),
@@ -299,12 +302,14 @@ class _CheckoutReviewScreenState extends ConsumerState<CheckoutReviewScreen> {
                         ?.copyWith(fontWeight: FontWeight.w600),
                   ),
                   for (final option in item.selectedOptions)
-                    Text(
-                      _checkoutOptionLine(option),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context).textTheme.bodySmall
-                          ?.copyWith(color: AppColors.onSurfaceVariant),
+                    BidiLtr(
+                      child: Text(
+                        _checkoutOptionLine(option),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.bodySmall
+                            ?.copyWith(color: AppColors.onSurfaceVariant),
+                      ),
                     ),
                   Text(
                     '×${item.quantity}',
@@ -314,10 +319,12 @@ class _CheckoutReviewScreenState extends ConsumerState<CheckoutReviewScreen> {
                 ],
               ),
             ),
-            Text(
-              MoneyFormat.dzd(item.lineSubtotalMinor),
-              style: Theme.of(context).textTheme.titleSmall
-                  ?.copyWith(fontWeight: FontWeight.w700),
+            BidiLtr(
+              child: Text(
+                MoneyFormat.dzd(item.lineSubtotalMinor),
+                style: Theme.of(context).textTheme.titleSmall
+                    ?.copyWith(fontWeight: FontWeight.w700),
+              ),
             ),
           ],
         ),
@@ -460,7 +467,7 @@ class _CheckoutReviewScreenState extends ConsumerState<CheckoutReviewScreen> {
               child: OutlinedButton(
                 key: const Key('checkout-verify-orders'),
                 onPressed: () => context.go(AppRoutes.orders),
-                child: const Text(AppStrings.orderSubmissionViewOrders),
+                child: Text(AppStrings.orderSubmissionViewOrders),
               ),
             ),
             const SizedBox(width: 8),
@@ -478,7 +485,7 @@ class _CheckoutReviewScreenState extends ConsumerState<CheckoutReviewScreen> {
                   ref.read(orderSubmissionControllerProvider.notifier).reset();
                   context.go(AppRoutes.orderConfirmation(order.id));
                 },
-                child: const Text(AppStrings.orderSubmissionCheckAgain),
+                child: Text(AppStrings.orderSubmissionCheckAgain),
               ),
             ),
           ],
@@ -529,7 +536,7 @@ class _CheckoutReviewScreenState extends ConsumerState<CheckoutReviewScreen> {
                         : () => ref
                               .read(checkoutControllerProvider.notifier)
                               .removePromo(),
-                    child: const Text(AppStrings.checkoutPromoRemove),
+                    child: Text(AppStrings.checkoutPromoRemove),
                   ),
                 ],
               )
@@ -540,7 +547,7 @@ class _CheckoutReviewScreenState extends ConsumerState<CheckoutReviewScreen> {
                 enabled: !checkout.loading,
                 textCapitalization: TextCapitalization.characters,
                 scrollPadding: const EdgeInsets.fromLTRB(20, 20, 20, 140),
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   hintText: AppStrings.checkoutPromoHint,
                 ),
               ),
@@ -552,7 +559,7 @@ class _CheckoutReviewScreenState extends ConsumerState<CheckoutReviewScreen> {
                     : () => ref
                           .read(checkoutControllerProvider.notifier)
                           .applyPromo(_promo.text),
-                child: const Text(AppStrings.checkoutPromoApply),
+                child: Text(AppStrings.checkoutPromoApply),
               ),
             ],
           ],
@@ -564,8 +571,8 @@ class _CheckoutReviewScreenState extends ConsumerState<CheckoutReviewScreen> {
   Widget _totals(BuildContext context, CheckoutUiState checkout) {
     final preview = checkout.preview;
     if (checkout.loading && preview == null) {
-      return const Padding(
-        padding: EdgeInsets.symmetric(vertical: 16),
+      return Padding(
+        padding: const EdgeInsets.symmetric(vertical: 16),
         child: Text(AppStrings.checkoutVerifying, textAlign: TextAlign.center),
       );
     }
@@ -634,12 +641,14 @@ class _CheckoutReviewScreenState extends ConsumerState<CheckoutReviewScreen> {
                 : null,
           ),
         ),
-        Text(
-          negative ? '−$amount' : amount,
-          key: Key(key),
-          style: Theme.of(context).textTheme.titleMedium?.copyWith(
-            fontWeight: FontWeight.w700,
-            color: emphasize ? AppColors.primary : null,
+        BidiLtr(
+          child: Text(
+            negative ? '−$amount' : amount,
+            key: Key(key),
+            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+              fontWeight: FontWeight.w700,
+              color: emphasize ? AppColors.primary : null,
+            ),
           ),
         ),
       ],

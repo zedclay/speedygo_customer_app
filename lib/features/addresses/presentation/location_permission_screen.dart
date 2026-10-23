@@ -182,7 +182,7 @@ class _LocationPermissionScreenState
             ),
           ),
           const SizedBox(height: 32),
-          const _BenefitCard(
+          _BenefitCard(
             icon: Icons.my_location,
             iconBg: AppColors.surfaceContainer,
             iconColor: AppColors.primary,
@@ -190,7 +190,7 @@ class _LocationPermissionScreenState
             body: AppStrings.locationBenefitCoordsBody,
           ),
           const SizedBox(height: 16),
-          const _BenefitCard(
+          _BenefitCard(
             icon: Icons.speed,
             iconBg: AppColors.tertiaryFixed,
             iconColor: AppColors.tertiary,
@@ -242,7 +242,7 @@ class _LocationPermissionScreenState
               const SizedBox(height: 8),
               TextButton(
                 onPressed: _busy ? null : () => popOrParent(context),
-                child: const Text(AppStrings.enterAddressManually),
+                child: Text(AppStrings.enterAddressManually),
               ),
             ],
           ),

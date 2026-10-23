@@ -130,16 +130,16 @@ class NavDirectoryScreen extends StatelessWidget {
           onPressed: () => popOrParent(context),
           icon: const Icon(Icons.arrow_back),
         ),
-        title: const Text(AppStrings.allScreens),
+        title: Text(AppStrings.allScreens),
       ),
       body: ListView(
         children: [
-          const Padding(
-            padding: EdgeInsets.fromLTRB(16, 8, 16, 8),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
             child: Text(AppStrings.previewBanner),
           ),
-          const Padding(
-            padding: EdgeInsets.fromLTRB(16, 0, 16, 16),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
             child: Text(AppStrings.allScreensHint),
           ),
           for (final group in groups.entries) ...[

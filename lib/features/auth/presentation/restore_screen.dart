@@ -124,7 +124,7 @@ class RestoreScreen extends ConsumerWidget {
                                         fontSize: 14,
                                       ),
                                 ),
-                                child: const Text(
+                                child: Text(
                                   AppStrings.restoreOtherAccount,
                                 ),
                               ),

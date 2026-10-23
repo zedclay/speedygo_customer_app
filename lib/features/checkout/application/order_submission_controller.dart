@@ -144,7 +144,7 @@ class OrderSubmissionController extends Notifier<OrderSubmissionState> {
       final fingerprint = checkoutPreviewFingerprint(refreshed.preview!);
       _displayedFingerprint = fingerprint;
       if (priorFingerprint != null && priorFingerprint != fingerprint) {
-        state = const OrderSubmissionState(
+        state = OrderSubmissionState(
           phase: OrderSubmissionPhase.reconfirmationRequired,
           reconfirmationMessage: AppStrings.checkoutReconfirmRequired,
         );
@@ -243,7 +243,7 @@ class OrderSubmissionController extends Notifier<OrderSubmissionState> {
       ref.read(checkoutControllerProvider.notifier).applyPreview(updated);
       _displayedFingerprint = checkoutPreviewFingerprint(updated);
     }
-    state = const OrderSubmissionState(
+    state = OrderSubmissionState(
       phase: OrderSubmissionPhase.reconfirmationRequired,
       reconfirmationMessage: AppStrings.orderReconfirmationRequired,
     );

@@ -64,18 +64,44 @@ bool _reqBool(Map<String, dynamic> json, String key) {
   throw CatalogParseException('$key must be a boolean');
 }
 
+class DeliveryCoverage {
+  const DeliveryCoverage({
+    required this.inCoverage,
+    required this.zoneCount,
+    required this.reason,
+  });
+
+  final bool inCoverage;
+  final int zoneCount;
+  final String reason;
+
+  bool get isOutside => reason == 'OUTSIDE' || reason == 'AMBIGUOUS';
+
+  factory DeliveryCoverage.fromJson(Map<String, dynamic> json) {
+    return DeliveryCoverage(
+      inCoverage: json['inCoverage'] == true,
+      zoneCount: json['zoneCount'] is int
+          ? json['zoneCount'] as int
+          : int.tryParse(json['zoneCount']?.toString() ?? '') ?? 0,
+      reason: json['reason']?.toString() ?? 'UNFILTERED',
+    );
+  }
+}
+
 class CatalogPage<T> {
   const CatalogPage({
     required this.items,
     required this.limit,
     required this.offset,
     required this.total,
+    this.coverage,
   });
 
   final List<T> items;
   final int limit;
   final int offset;
   final int total;
+  final DeliveryCoverage? coverage;
 
   bool get hasMore => offset + items.length < total;
 }
@@ -440,7 +466,18 @@ class CatalogSearchHit {
 }
 
 CatalogPage<StorefrontSummary> parseStorefrontPage(Map<String, dynamic> json) {
-  return _page(json, (item) => StorefrontSummary.fromJson(item));
+  final page = _page(json, (item) => StorefrontSummary.fromJson(item));
+  final raw = json['coverage'];
+  if (raw is! Map) {
+    return page;
+  }
+  return CatalogPage(
+    items: page.items,
+    limit: page.limit,
+    offset: page.offset,
+    total: page.total,
+    coverage: DeliveryCoverage.fromJson(Map<String, dynamic>.from(raw)),
+  );
 }
 
 CatalogPage<CatalogProduct> parseProductPage(Map<String, dynamic> json) {

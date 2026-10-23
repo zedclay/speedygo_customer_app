@@ -3,7 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:speedygo_customer_app/app/theme/app_theme.dart';
 import 'package:speedygo_customer_app/core/constants/app_strings.dart';
-import 'package:speedygo_customer_app/core/money/money_format.dart';
+import 'package:speedygo_customer_app/core/widgets/bidi_ltr.dart';
+import 'package:speedygo_customer_app/core/widgets/money_text.dart';
 import 'package:speedygo_customer_app/core/navigation/app_routes.dart';
 import 'package:speedygo_customer_app/core/navigation/nav_actions.dart';
 import 'package:speedygo_customer_app/features/orders/application/order_tracking_controller.dart';
@@ -139,7 +140,7 @@ class _OrderTrackingScreenState extends ConsumerState<OrderTrackingScreen>
                     orderTrackingControllerProvider(widget.orderId).notifier,
                   )
                   .refresh(),
-              child: const Text(AppStrings.retry),
+              child: Text(AppStrings.retry),
             ),
           ],
         ),
@@ -328,11 +329,13 @@ class _OrderTrackingScreenState extends ConsumerState<OrderTrackingScreen>
                       color: AppColors.onSurfaceVariant,
                     ),
                   ),
-                  Text(
-                    '#${order.publicReference}',
-                    key: const Key('tracking-reference'),
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.w700,
+                  BidiLtr(
+                    child: Text(
+                      '#${order.publicReference}',
+                      key: const Key('tracking-reference'),
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                   ),
                 ],
@@ -341,8 +344,8 @@ class _OrderTrackingScreenState extends ConsumerState<OrderTrackingScreen>
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Text(
-                  MoneyFormat.dzd(order.financial.customerTotalMinor),
+                MoneyText(
+                  order.financial.customerTotalMinor,
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
                     color: AppColors.primary,
                     fontWeight: FontWeight.w700,
@@ -564,7 +567,7 @@ class _OrderTrackingScreenState extends ConsumerState<OrderTrackingScreen>
             if (location != null) ...[
               const SizedBox(height: 8),
               Text(
-                '${location.latitude.toStringAsFixed(5)}, ${location.longitude.toStringAsFixed(5)}',
+                AppStrings.trackingPositionUpdated,
                 key: const Key('tracking-coordinates'),
               ),
               Text(
@@ -789,7 +792,7 @@ class _StickyActions extends StatelessWidget {
               FilledButton(
                 key: const Key('tracking-open-detail'),
                 onPressed: () => context.push(AppRoutes.order(order.id)),
-                child: const Text(AppStrings.trackingOpenDetail),
+                child: Text(AppStrings.trackingOpenDetail),
               ),
               if (order.canCustomerCancel) ...[
                 const SizedBox(height: 4),

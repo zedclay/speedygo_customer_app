@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:speedygo_customer_app/app/theme/app_theme.dart';
 import 'package:speedygo_customer_app/core/constants/app_strings.dart';
 import 'package:speedygo_customer_app/core/money/money_format.dart';
+import 'package:speedygo_customer_app/core/widgets/bidi_ltr.dart';
 import 'package:speedygo_customer_app/core/navigation/app_routes.dart';
 import 'package:speedygo_customer_app/features/catalog/presentation/widgets/catalog_placeholders.dart';
 import 'package:speedygo_customer_app/features/orders/application/orders_list_controller.dart';
@@ -88,7 +89,7 @@ class _OrdersTabScreenState extends ConsumerState<OrdersTabScreen>
               indicatorColor: AppColors.primary,
               indicatorWeight: 3,
               indicatorSize: TabBarIndicatorSize.label,
-              tabs: const [
+              tabs: [
                 Tab(text: AppStrings.ordersTabInProgress),
                 Tab(text: AppStrings.ordersTabCompleted),
                 Tab(text: AppStrings.ordersTabCancelled),
@@ -132,7 +133,7 @@ class _OrdersTabScreenState extends ConsumerState<OrdersTabScreen>
         children: [
           SizedBox(
             height: MediaQuery.sizeOf(context).height * 0.45,
-            child: const CatalogStatusView(
+            child: CatalogStatusView(
               message: AppStrings.ordersEmpty,
               icon: Icons.receipt_long_outlined,
             ),
@@ -145,7 +146,7 @@ class _OrdersTabScreenState extends ConsumerState<OrdersTabScreen>
         physics: const AlwaysScrollableScrollPhysics(),
         padding: const EdgeInsets.fromLTRB(16, 24, 16, 32),
         children: [
-          const CatalogStatusView(
+          CatalogStatusView(
             message: AppStrings.ordersEmptyFiltered,
             icon: Icons.filter_list_off_outlined,
           ),
@@ -278,9 +279,11 @@ class _OrderTile extends StatelessWidget {
                 Row(
                   children: [
                     Expanded(
-                      child: Text(
-                        MoneyFormat.dzd(order.financial.customerTotalMinor),
-                        style: Theme.of(context).textTheme.titleMedium,
+                      child: BidiLtr(
+                        child: Text(
+                          MoneyFormat.dzd(order.financial.customerTotalMinor),
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
                       ),
                     ),
                     Icon(

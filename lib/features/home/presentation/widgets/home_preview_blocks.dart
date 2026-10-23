@@ -31,11 +31,11 @@ class HomePreviewBannerStrip extends StatelessWidget {
 class HomePreviewCategoryStrip extends StatelessWidget {
   const HomePreviewCategoryStrip({super.key});
 
-  static const _items = [
+  static List<(String, IconData, Color, Color)> get _items => [
     (
       AppStrings.categoryRestaurants,
       Icons.restaurant,
-      Color(0x1A0A4096),
+      const Color(0x1A0A4096),
       AppColors.primary,
     ),
     (
@@ -348,22 +348,22 @@ class HomePreviewMerchantCard extends StatelessWidget {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Expanded(
+                  Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           AppStrings.previewMerchantName,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: 20,
                             height: 28 / 20,
                           ),
                         ),
-                        SizedBox(height: 2),
+                        const SizedBox(height: 2),
                         Text(
                           AppStrings.previewMerchantCuisine,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: AppColors.onSurfaceVariant,
                             fontSize: 14,
                             height: 20 / 14,

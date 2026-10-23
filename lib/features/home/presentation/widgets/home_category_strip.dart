@@ -44,6 +44,33 @@ String resolvedCommerceIconKey(String iconKey, {String? slug}) {
   }
 }
 
+/// Home/category labels keyed by stable API slug. Unknown kinds keep the API name.
+String commerceVerticalDisplayName(CommerceVertical vertical) {
+  final slug = vertical.slug.trim().toLowerCase();
+  if (slug == 'restaurants' || slug.endsWith('-restaurants')) {
+    return AppStrings.categoryRestaurants;
+  }
+  if (slug == 'desserts' || slug.endsWith('-desserts')) {
+    return AppStrings.categoryDesserts;
+  }
+  if (slug == 'bakeries' ||
+      slug == 'boulangeries' ||
+      slug.endsWith('-bakeries') ||
+      slug.endsWith('-boulangeries')) {
+    return AppStrings.categoryBakeries;
+  }
+  if (slug == 'groceries' ||
+      slug == 'epiceries' ||
+      slug.endsWith('-groceries') ||
+      slug.endsWith('-epiceries')) {
+    return AppStrings.categoryGroceries;
+  }
+  if (slug == 'pharmacies' || slug.endsWith('-pharmacies')) {
+    return AppStrings.categoryPharmacies;
+  }
+  return vertical.name;
+}
+
 ({IconData icon, Color background, Color foreground}) commerceVerticalStyle(
   String iconKey, {
   String? slug,
@@ -170,7 +197,7 @@ class HomeCategoryStrip extends StatelessWidget {
                           fit: BoxFit.scaleDown,
                           alignment: Alignment.topCenter,
                           child: Text(
-                            vertical.name,
+                            commerceVerticalDisplayName(vertical),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             textAlign: TextAlign.center,

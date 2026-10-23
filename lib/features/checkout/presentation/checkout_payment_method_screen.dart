@@ -147,7 +147,7 @@ class CheckoutPaymentMethodScreen extends ConsumerWidget {
               ),
               onPressed: () => popOrParent(context),
               icon: const Icon(Icons.arrow_forward),
-              label: const Text(AppStrings.checkoutContinue),
+              label: Text(AppStrings.checkoutContinue),
             ),
           ),
         ),
