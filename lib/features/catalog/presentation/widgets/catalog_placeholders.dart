@@ -68,13 +68,13 @@ class CatalogStatusView extends StatelessWidget {
     super.key,
     required this.message,
     this.onRetry,
-    this.retryLabel = AppStrings.retry,
+    this.retryLabel,
     this.icon,
   });
 
   final String message;
   final VoidCallback? onRetry;
-  final String retryLabel;
+  final String? retryLabel;
   final IconData? icon;
 
   @override
@@ -96,7 +96,10 @@ class CatalogStatusView extends StatelessWidget {
           ),
           if (onRetry != null) ...[
             const SizedBox(height: 16),
-            FilledButton(onPressed: onRetry, child: Text(retryLabel)),
+            FilledButton(
+              onPressed: onRetry,
+              child: Text(retryLabel ?? AppStrings.retry),
+            ),
           ],
         ],
       ),
@@ -134,7 +137,7 @@ class CatalogLoadMoreBar extends StatelessWidget {
             const SizedBox(height: 8),
             OutlinedButton(
               onPressed: loadingMore ? null : onLoadMore,
-              child: const Text(AppStrings.retry),
+              child: Text(AppStrings.retry),
             ),
           ],
         ),
@@ -160,7 +163,7 @@ class CatalogLoadMoreBar extends StatelessWidget {
       child: Center(
         child: OutlinedButton(
           onPressed: onLoadMore,
-          child: const Text(AppStrings.loadMore),
+          child: Text(AppStrings.loadMore),
         ),
       ),
     );

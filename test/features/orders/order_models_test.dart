@@ -15,6 +15,9 @@ void main() {
     expect(request.expectedMerchandiseSubtotalMinor, 1400);
     expect(request.expectedDeliveryFeeMinor, 500);
     expect(request.expectedCustomerTotalMinor, 1900);
+    expect(request.toJson()['expectedMerchandiseSubtotal'], '14.00');
+    expect(request.toJson()['expectedDeliveryFee'], '5.00');
+    expect(request.toJson()['expectedCustomerTotal'], '19.00');
   });
 
   test('CreateOrderRequest includes promo when set', () {

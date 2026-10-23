@@ -24,11 +24,11 @@ class AddressPickerScreen extends ConsumerWidget {
           onPressed: () => popOrParent(context),
           icon: const Icon(Icons.arrow_back),
         ),
-        title: const Text(AppStrings.addressPickerTitle),
+        title: Text(AppStrings.addressPickerTitle),
         actions: [
           TextButton(
             onPressed: () => context.push(AppRoutes.addressForm),
-            child: const Text(AppStrings.addAddressShort),
+            child: Text(AppStrings.addAddressShort),
           ),
         ],
       ),
@@ -63,9 +63,9 @@ class AddressPickerScreen extends ConsumerWidget {
     return ListView(
       padding: const EdgeInsets.fromLTRB(16, 8, 16, 32),
       children: [
-        const Text(
+        Text(
           AppStrings.addressSelectionHint,
-          style: TextStyle(color: AppColors.onSurfaceVariant),
+          style: const TextStyle(color: AppColors.onSurfaceVariant),
         ),
         const SizedBox(height: 16),
         for (final address in book.addresses) ...[

@@ -9,9 +9,8 @@ import 'package:speedygo_customer_app/core/navigation/app_routes.dart';
 import 'package:speedygo_customer_app/core/widgets/sg_primary_button.dart';
 import 'package:speedygo_customer_app/features/auth/application/session_controller.dart';
 
-/// First-run: `s_lection_de_la_langue_speedygo_c_002`.
-/// Settings: `param_tres_de_la_langue_speedygo` (FR only; AR disabled honest).
-class LanguageScreen extends ConsumerWidget {
+/// First-run and settings language picker. French and Arabic are both live.
+class LanguageScreen extends ConsumerStatefulWidget {
   const LanguageScreen({super.key, this.settings = false});
 
   final bool settings;
@@ -30,27 +29,56 @@ class LanguageScreen extends ConsumerWidget {
     offset: Offset(0, 2),
   );
 
-  Future<void> _continue(BuildContext context, WidgetRef ref) async {
+  @override
+  ConsumerState<LanguageScreen> createState() => _LanguageScreenState();
+}
+
+class _LanguageScreenState extends ConsumerState<LanguageScreen> {
+  late String _selected;
+
+  @override
+  void initState() {
+    super.initState();
+    _selected = AppLocale.sanitize(
+      ref.read(sessionControllerProvider).locale,
+    );
+  }
+
+  Future<void> _continue() async {
     await ref
         .read(sessionControllerProvider.notifier)
-        .markLanguageSeen(locale: AppLocale.french);
-    if (settings && context.mounted) {
+        .markLanguageSeen(locale: _selected);
+    if (widget.settings && mounted && context.canPop()) {
       context.pop();
     }
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    if (settings) {
-      return _SettingsLanguageBody(onSave: () => _continue(context, ref));
+  Widget build(BuildContext context) {
+    if (widget.settings) {
+      return _SettingsLanguageBody(
+        selected: _selected,
+        onSelect: (code) => setState(() => _selected = code),
+        onSave: _continue,
+      );
     }
-    return _FirstRunLanguageBody(onContinue: () => _continue(context, ref));
+    return _FirstRunLanguageBody(
+      selected: _selected,
+      onSelect: (code) => setState(() => _selected = code),
+      onContinue: _continue,
+    );
   }
 }
 
 class _FirstRunLanguageBody extends StatelessWidget {
-  const _FirstRunLanguageBody({required this.onContinue});
+  const _FirstRunLanguageBody({
+    required this.selected,
+    required this.onSelect,
+    required this.onContinue,
+  });
 
+  final String selected;
+  final ValueChanged<String> onSelect;
   final VoidCallback onContinue;
 
   @override
@@ -114,22 +142,25 @@ class _FirstRunLanguageBody extends StatelessWidget {
                             SizedBox(
                               height: constraints.maxHeight < 560 ? 24 : 40,
                             ),
-                            const _LanguageTile(
-                              selected: true,
+                            _LanguageTile(
+                              key: const Key('language-option-fr'),
+                              selected: selected == AppLocale.french,
                               enabled: true,
                               title: AppStrings.languageFrench,
                               subtitle: AppStrings.languageFrenchHint,
                               style: _LanguageTileStyle.firstRun,
+                              onTap: () => onSelect(AppLocale.french),
                             ),
                             const SizedBox(height: 16),
-                            const _LanguageTile(
-                              selected: false,
-                              enabled: false,
+                            _LanguageTile(
+                              key: const Key('language-option-ar'),
+                              selected: selected == AppLocale.arabic,
+                              enabled: true,
                               title: AppStrings.languageArabic,
                               subtitle: AppStrings.languageArabicHint,
-                              badge: AppStrings.languageArabicDisabled,
                               rtl: true,
                               style: _LanguageTileStyle.firstRun,
+                              onTap: () => onSelect(AppLocale.arabic),
                             ),
                           ],
                         ),
@@ -174,8 +205,14 @@ class _FirstRunLanguageBody extends StatelessWidget {
 }
 
 class _SettingsLanguageBody extends ConsumerWidget {
-  const _SettingsLanguageBody({required this.onSave});
+  const _SettingsLanguageBody({
+    required this.selected,
+    required this.onSelect,
+    required this.onSave,
+  });
 
+  final String selected;
+  final ValueChanged<String> onSelect;
   final VoidCallback onSave;
 
   @override
@@ -234,21 +271,25 @@ class _SettingsLanguageBody extends ConsumerWidget {
                   ),
                 ),
                 const SizedBox(height: 32),
-                const _LanguageTile(
-                  selected: true,
+                _LanguageTile(
+                  key: const Key('language-option-fr'),
+                  selected: selected == AppLocale.french,
                   enabled: true,
                   title: AppStrings.languageFrench,
                   subtitle: AppStrings.languageFrenchHintSettings,
                   style: _LanguageTileStyle.settings,
+                  onTap: () => onSelect(AppLocale.french),
                 ),
                 const SizedBox(height: 16),
-                const _LanguageTile(
-                  selected: false,
-                  enabled: false,
+                _LanguageTile(
+                  key: const Key('language-option-ar'),
+                  selected: selected == AppLocale.arabic,
+                  enabled: true,
                   title: AppStrings.languageArabicLabel,
                   subtitle: AppStrings.languageArabicHintSettings,
-                  badge: AppStrings.languageArabicDisabled,
+                  rtl: true,
                   style: _LanguageTileStyle.settings,
+                  onTap: () => onSelect(AppLocale.arabic),
                 ),
                 const SizedBox(height: 40),
                 Text(
@@ -260,7 +301,7 @@ class _SettingsLanguageBody extends ConsumerWidget {
                   ),
                 ),
                 const SizedBox(height: 16),
-                const _DirectionPreview(),
+                _DirectionPreview(arabicSelected: selected == AppLocale.arabic),
                 const SizedBox(height: 40),
                 DecoratedBox(
                   decoration: BoxDecoration(
@@ -330,7 +371,9 @@ class _SettingsLanguageBody extends ConsumerWidget {
 }
 
 class _DirectionPreview extends StatelessWidget {
-  const _DirectionPreview();
+  const _DirectionPreview({required this.arabicSelected});
+
+  final bool arabicSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -367,7 +410,7 @@ class _DirectionPreview extends StatelessWidget {
                 ),
                 const SizedBox(width: 12),
                 Opacity(
-                  opacity: 0.4,
+                  opacity: arabicSelected ? 1 : 0.4,
                   child: Row(
                     children: [
                       Text(
@@ -531,12 +574,13 @@ enum _LanguageTileStyle { firstRun, settings }
 
 class _LanguageTile extends StatelessWidget {
   const _LanguageTile({
+    super.key,
     required this.selected,
     required this.enabled,
     required this.title,
     required this.subtitle,
     required this.style,
-    this.badge,
+    required this.onTap,
     this.rtl = false,
   });
 
@@ -544,9 +588,9 @@ class _LanguageTile extends StatelessWidget {
   final bool enabled;
   final String title;
   final String subtitle;
-  final String? badge;
   final bool rtl;
   final _LanguageTileStyle style;
+  final VoidCallback onTap;
 
   static const _arabicFallback = [
     'Geeza Pro',
@@ -580,6 +624,7 @@ class _LanguageTile extends StatelessWidget {
     return Semantics(
       enabled: enabled,
       selected: selected,
+      button: true,
       child: Opacity(
         opacity: enabled || selected ? 1 : 0.72,
         child: Material(
@@ -587,7 +632,10 @@ class _LanguageTile extends StatelessWidget {
           elevation: isSettings || selected ? 0 : 1,
           shadowColor: const Color(0x0A000000),
           shape: shape,
-          child: Padding(
+          child: InkWell(
+            onTap: enabled ? onTap : null,
+            customBorder: shape,
+            child: Padding(
             padding: const EdgeInsets.all(20),
             child: Row(
               children: [
@@ -626,29 +674,6 @@ class _LanguageTile extends StatelessWidget {
                               _usesArabicScript ? _arabicFallback : null,
                         ),
                       ),
-                      if (badge != null) ...[
-                        const SizedBox(height: 8),
-                        DecoratedBox(
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFF1F5F9),
-                            borderRadius: BorderRadius.circular(99),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 10,
-                              vertical: 4,
-                            ),
-                            child: Text(
-                              badge!,
-                              style: Theme.of(context).textTheme.labelSmall
-                                  ?.copyWith(
-                                    color: LanguageScreen._muted,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                            ),
-                          ),
-                        ),
-                      ],
                     ],
                   ),
                 ),
@@ -683,6 +708,7 @@ class _LanguageTile extends StatelessWidget {
             ),
           ),
         ),
+      ),
       ),
     );
   }

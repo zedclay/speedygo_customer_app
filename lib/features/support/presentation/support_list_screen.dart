@@ -42,7 +42,7 @@ class SupportListScreen extends ConsumerWidget {
         key: const Key('support-list-new'),
         onPressed: () => context.push(AppRoutes.supportNew),
         icon: const Icon(Icons.add),
-        label: const Text(AppStrings.supportNewRequest),
+        label: Text(AppStrings.supportNewRequest),
       ),
       body: RefreshIndicator(
         onRefresh: () =>
@@ -70,7 +70,7 @@ class SupportListScreen extends ConsumerWidget {
           FilledButton(
             onPressed: () =>
                 ref.read(supportListControllerProvider.notifier).refresh(),
-            child: const Text(AppStrings.retry),
+            child: Text(AppStrings.retry),
           ),
         ],
       );
@@ -79,14 +79,14 @@ class SupportListScreen extends ConsumerWidget {
       return ListView(
         physics: const AlwaysScrollableScrollPhysics(),
         padding: const EdgeInsets.all(24),
-        children: const [
-          SizedBox(height: 48),
-          Icon(
+        children: [
+          const SizedBox(height: 48),
+          const Icon(
             Icons.support_agent,
             size: 48,
             color: AppColors.outlineVariant,
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           Text(
             AppStrings.supportEmpty,
             textAlign: TextAlign.center,

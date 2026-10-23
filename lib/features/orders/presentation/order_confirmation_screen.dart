@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:speedygo_customer_app/app/theme/app_theme.dart';
 import 'package:speedygo_customer_app/core/constants/app_strings.dart';
-import 'package:speedygo_customer_app/core/money/money_format.dart';
+import 'package:speedygo_customer_app/core/widgets/money_text.dart';
 import 'package:speedygo_customer_app/core/navigation/app_routes.dart';
 import 'package:speedygo_customer_app/features/orders/application/last_created_order.dart';
 import 'package:speedygo_customer_app/features/orders/application/order_detail_controller.dart';
@@ -42,7 +42,7 @@ class OrderConfirmationScreen extends ConsumerWidget {
       backgroundColor: AppColors.surface,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Text(AppStrings.orderConfirmationTitle),
+        title: Text(AppStrings.orderConfirmationTitle),
       ),
       body: order != null
           ? _SuccessBody(
@@ -124,7 +124,7 @@ class _ConfirmationActions extends StatelessWidget {
                   key: const Key('order-confirmation-continue-payment'),
                   onPressed: () =>
                       context.push(AppRoutes.orderPayment(order.id)),
-                  child: const Text(AppStrings.paymentContinue),
+                  child: Text(AppStrings.paymentContinue),
                 ),
                 const SizedBox(height: 8),
               ],
@@ -137,13 +137,13 @@ class _ConfirmationActions extends StatelessWidget {
                         foregroundColor: AppColors.primary,
                       )
                     : null,
-                child: const Text(AppStrings.orderConfirmationViewDetail),
+                child: Text(AppStrings.orderConfirmationViewDetail),
               ),
               const SizedBox(height: 8),
               TextButton(
                 key: const Key('order-confirmation-home'),
                 onPressed: () => context.go(AppRoutes.home),
-                child: const Text(AppStrings.orderConfirmationBackHome),
+                child: Text(AppStrings.orderConfirmationBackHome),
               ),
             ],
           ),
@@ -337,8 +337,8 @@ class _SuccessBody extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          Text(
-                            MoneyFormat.dzd(order.financial.customerTotalMinor),
+                          MoneyText(
+                            order.financial.customerTotalMinor,
                             key: const Key('order-confirmation-total'),
                             style: theme.textTheme.titleMedium?.copyWith(
                               color: AppColors.primary,
@@ -438,9 +438,9 @@ class _ErrorBody extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Text(AppStrings.orderLoadError, textAlign: TextAlign.center),
+            Text(AppStrings.orderLoadError, textAlign: TextAlign.center),
             const SizedBox(height: 16),
-            FilledButton(onPressed: onRetry, child: const Text(AppStrings.retry)),
+            FilledButton(onPressed: onRetry, child: Text(AppStrings.retry)),
           ],
         ),
       ),

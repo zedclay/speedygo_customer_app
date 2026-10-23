@@ -1,20 +1,17 @@
 import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:speedygo_customer_app/features/addresses/application/address_controller.dart';
 import 'package:speedygo_customer_app/features/auth/application/auth_infrastructure.dart';
-import 'package:speedygo_customer_app/features/auth/application/session_controller.dart';
 import 'package:speedygo_customer_app/features/catalog/application/catalog_feed.dart';
+import 'package:speedygo_customer_app/features/catalog/application/catalog_scope.dart';
 import 'package:speedygo_customer_app/features/catalog/data/catalog_api.dart';
 import 'package:speedygo_customer_app/features/catalog/data/catalog_models.dart';
 
+export 'package:speedygo_customer_app/features/catalog/application/catalog_scope.dart';
+
 final catalogApiProvider = Provider<CatalogClient>((ref) {
   return CatalogApi(ref.watch(authInfrastructureProvider).dio);
-});
-
-/// Account-scoped cache key. Logout / switch account increments generation.
-final catalogScopeProvider = Provider<String>((ref) {
-  final session = ref.watch(sessionControllerProvider);
-  return '${session.generation}:${session.customer?.profile?.id ?? ''}';
 });
 
 class SelectedCommerceVertical extends Notifier<String?> {
@@ -82,6 +79,21 @@ class StorefrontListController
       }
       unawaited(refresh());
     });
+    ref.listen<AddressSelectionState>(addressSelectionProvider, (
+      previous,
+      next,
+    ) {
+      if (previous?.addressId == next.addressId) {
+        return;
+      }
+      unawaited(refresh());
+    });
+    ref.listen<String>(launchWilayaCodeProvider, (previous, next) {
+      if (previous == next) {
+        return;
+      }
+      unawaited(refresh());
+    });
     _loadMoreInFlight = false;
     Future<void>.microtask(() {
       if (!ref.mounted) {
@@ -93,10 +105,16 @@ class StorefrontListController
   }
 
   CatalogQuery _query({int offset = 0}) {
+    final addressId = ref.read(addressSelectionProvider).addressId;
     return CatalogQuery(
       offset: offset,
       verticalId: ref.read(selectedCommerceVerticalIdProvider),
       openNow: ref.read(openNowFilterProvider),
+      addressId: addressId,
+      // Wilaya is discovery-only and must not AND-filter same-zone branches.
+      wilayaCode: (addressId == null || addressId.isEmpty)
+          ? ref.read(launchWilayaCodeProvider)
+          : null,
     );
   }
 
@@ -110,6 +128,7 @@ class StorefrontListController
       total: 0,
       clearError: true,
       clearLoadMoreError: true,
+      clearCoverage: true,
     );
     try {
       final page = await ref
@@ -123,6 +142,7 @@ class StorefrontListController
         total: page.total,
         limit: page.limit,
         loading: false,
+        coverage: page.coverage,
       );
     } catch (error) {
       if (seq != _seq) {
@@ -210,10 +230,15 @@ class StorefrontResultsController
 
   CatalogQuery _query({int offset = 0}) {
     final id = verticalId.trim();
+    final addressId = ref.read(addressSelectionProvider).addressId;
     return CatalogQuery(
       offset: offset,
       verticalId: id.isEmpty ? null : id,
       openNow: ref.read(openNowFilterProvider),
+      addressId: addressId,
+      wilayaCode: (addressId == null || addressId.isEmpty)
+          ? ref.read(launchWilayaCodeProvider)
+          : null,
     );
   }
 
@@ -227,6 +252,7 @@ class StorefrontResultsController
       total: 0,
       clearError: true,
       clearLoadMoreError: true,
+      clearCoverage: true,
     );
     try {
       final page = await ref
@@ -240,6 +266,7 @@ class StorefrontResultsController
         total: page.total,
         limit: page.limit,
         loading: false,
+        coverage: page.coverage,
       );
     } catch (error) {
       if (seq != _seq) {

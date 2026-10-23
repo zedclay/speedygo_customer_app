@@ -11,7 +11,7 @@ import 'package:speedygo_customer_app/features/addresses/domain/address_policy.d
 import 'package:speedygo_customer_app/features/auth/application/auth_infrastructure.dart';
 import 'package:speedygo_customer_app/features/auth/application/session_controller.dart';
 import 'package:speedygo_customer_app/features/auth/data/models.dart';
-import 'package:speedygo_customer_app/features/catalog/application/catalog_providers.dart';
+import 'package:speedygo_customer_app/features/catalog/application/catalog_scope.dart';
 import 'package:speedygo_customer_app/features/catalog/data/catalog_ids.dart';
 
 final addressApiProvider = Provider<AddressClient>((ref) {

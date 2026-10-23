@@ -63,7 +63,7 @@ void main() {
 
   testWidgets('home error can be retried', (tester) async {
     final catalog = FakeCatalogClient(
-      listError: const NetworkException(AppStrings.offline, code: 'NETWORK'),
+      listError: NetworkException(AppStrings.offline, code: 'NETWORK'),
     );
     await tester.pumpWidget(readyApp(catalog: catalog));
     await tester.pumpAndSettle();

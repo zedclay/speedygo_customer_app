@@ -305,6 +305,7 @@ void main() {
       'CHECKOUT_BRANCH_NOT_OPERATIONAL',
       'CHECKOUT_BRANCH_CLOSED',
       'CHECKOUT_BRANCH_HOURS_NOT_CONFIGURED',
+      'CHECKOUT_BRANCH_OUTSIDE_ZONE',
       'PROMOTION_CODE_INVALID',
     ];
     for (final code in codes) {

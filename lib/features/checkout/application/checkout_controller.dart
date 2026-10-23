@@ -52,6 +52,7 @@ class CheckoutUiState {
       case 'CHECKOUT_DELIVERY_ZONE_AMBIGUOUS':
       case 'CHECKOUT_PRICING_RULE_NOT_FOUND':
       case 'CHECKOUT_PRICING_CONFIGURATION_INVALID':
+      case 'CHECKOUT_BRANCH_OUTSIDE_ZONE':
         return CheckoutRecovery.openAddress;
       default:
         if (missingAddress) {
@@ -115,7 +116,6 @@ class CheckoutController extends Notifier<CheckoutUiState> {
   @override
   CheckoutUiState build() {
     ref.watch(catalogScopeProvider);
-    _seq += 1;
     ref.listen(cartControllerProvider, (previous, next) {
       unawaited(refresh());
     });
@@ -244,7 +244,11 @@ class CheckoutController extends Notifier<CheckoutUiState> {
           .preview(
             CheckoutPreviewRequest(addressId: addressId, promoCode: promo),
           );
-      if (seq != _seq || !ref.mounted) {
+      if (!ref.mounted) {
+        return;
+      }
+      // A newer preview superseded this one — leave that in-flight request alone.
+      if (seq != _seq) {
         return;
       }
       state = CheckoutUiState(
@@ -254,7 +258,10 @@ class CheckoutController extends Notifier<CheckoutUiState> {
         cartFingerprint: fingerprint,
       );
     } catch (error) {
-      if (seq != _seq || !ref.mounted) {
+      if (!ref.mounted) {
+        return;
+      }
+      if (seq != _seq) {
         return;
       }
       final parsed = _parse(error);

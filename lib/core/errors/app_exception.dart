@@ -1,3 +1,5 @@
+import 'package:speedygo_customer_app/core/constants/app_strings.dart';
+
 sealed class AppException implements Exception {
   const AppException(this.message, {this.code, this.statusCode});
 
@@ -30,11 +32,8 @@ class ApiException extends AppException {
 /// Refresh request timed out after it may have reached the server.
 /// Do not retry the same refresh token.
 class RefreshAmbiguousException extends AppException {
-  const RefreshAmbiguousException()
-    : super(
-        'Reconnectez-vous pour continuer. L’ancienne session n’est plus utilisable ici.',
-        code: 'AUTH_REFRESH_AMBIGUOUS',
-      );
+  RefreshAmbiguousException()
+    : super(AppStrings.reauthRequired, code: 'AUTH_REFRESH_AMBIGUOUS');
 }
 
 class UnexpectedException extends AppException {

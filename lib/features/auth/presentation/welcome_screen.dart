@@ -19,7 +19,7 @@ class _WelcomeScreenState extends ConsumerState<WelcomeScreen> {
   static const _muted = Color(0xFF64748B);
   static const _dotInactive = Color(0xFFCBD5E1);
 
-  static const _slides = [
+  static List<(String, String, String, String)> get _slides => [
     (
       AppStrings.welcomeDiscoverEyebrow,
       AppStrings.welcomeDiscoverTitle,

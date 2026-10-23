@@ -27,7 +27,7 @@ final _tinyPng = Uint8List.fromList([
 
 void main() {
   final outDir = Directory(
-    '/Users/mac/Downloads/speedygo_project/apps/customer_app/audit/visuals/ui_cleanup',
+    '${Directory.current.path}/audit/visuals/ui_cleanup',
   );
 
   setUpAll(() => outDir.createSync(recursive: true));

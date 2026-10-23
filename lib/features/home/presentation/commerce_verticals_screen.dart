@@ -8,6 +8,7 @@ import 'package:speedygo_customer_app/core/navigation/nav_actions.dart';
 import 'package:speedygo_customer_app/features/catalog/application/catalog_providers.dart';
 import 'package:speedygo_customer_app/features/catalog/data/catalog_models.dart';
 import 'package:speedygo_customer_app/features/home/presentation/commerce_vertical_presentation.dart';
+import 'package:speedygo_customer_app/features/home/presentation/widgets/home_category_strip.dart';
 import 'package:speedygo_customer_app/features/home/presentation/widgets/home_chrome.dart';
 
 class CommerceVerticalsScreen extends ConsumerStatefulWidget {
@@ -50,7 +51,7 @@ class _CommerceVerticalsScreenState
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Text(
+                  Text(
                     AppStrings.categoriesLoadError,
                     textAlign: TextAlign.center,
                   ),
@@ -58,7 +59,7 @@ class _CommerceVerticalsScreenState
                   FilledButton(
                     onPressed: () =>
                         ref.invalidate(commerceVerticalsProvider),
-                    child: const Text(AppStrings.retry),
+                    child: Text(AppStrings.retry),
                   ),
                 ],
               ),
@@ -150,7 +151,7 @@ class _CategoriesBody extends StatelessWidget {
         ),
         Expanded(
           child: items.isEmpty
-              ? const Center(child: Text(AppStrings.categoriesEmpty))
+              ? Center(child: Text(AppStrings.categoriesEmpty))
               : ListView(
                   controller: scrollController,
                   padding: const EdgeInsets.fromLTRB(
@@ -364,7 +365,7 @@ class _RestaurantsFeatureCard extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              vertical.name,
+                              commerceVerticalDisplayName(vertical),
                               style: Theme.of(context).textTheme.titleLarge
                                   ?.copyWith(
                                     color: Colors.white,
@@ -485,7 +486,7 @@ class _CategoryTile extends StatelessWidget {
               ),
               const SizedBox(height: 12),
               Text(
-                vertical.name,
+                commerceVerticalDisplayName(vertical),
                 textAlign: TextAlign.center,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,

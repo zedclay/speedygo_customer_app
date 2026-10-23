@@ -47,7 +47,7 @@ class NavCatalog {
       purpose: 'Premier lancement. Variante de param_tres_de_la_langue.',
       group: 'Auth',
       protected: false,
-      links: const [
+      links: [
         NavLink(label: AppStrings.continueLabel, location: AppRoutes.welcome),
         NavLink(
           label: AppStrings.languageTermsLink,
@@ -233,7 +233,7 @@ class NavCatalog {
         NavLink(label: 'Infos', location: AppRoutes.merchantInfo(branch)),
         NavLink(label: 'Menu', location: AppRoutes.merchantMenu(branch)),
         NavLink(label: 'Avis', location: AppRoutes.merchantReviews(branch)),
-        const NavLink(
+        NavLink(
           label: 'Favori',
           blockedMessage: AppStrings.favoritesUnavailable,
         ),
@@ -278,7 +278,7 @@ class NavCatalog {
           label: 'Personnaliser',
           location: AppRoutes.productConfigure(product),
         ),
-        const NavLink(
+        NavLink(
           label: 'Ajouter au panier',
           blockedMessage: AppStrings.navBlocked,
         ),
@@ -294,7 +294,7 @@ class NavCatalog {
       purpose: 'Options. Pas d’écriture panier.',
       group: 'Découverte',
       paramKeys: const ['productId'],
-      links: const [
+      links: [
         NavLink(
           label: 'Valider les options',
           blockedMessage: AppStrings.navBlocked,
@@ -302,7 +302,7 @@ class NavCatalog {
         NavLink(label: 'Voir le panier', location: AppRoutes.cart),
       ],
     ),
-    const NavEntry(
+    NavEntry(
       id: 'favorites',
       designDir: 'favoris_speedygo',
       title: 'Favoris',
@@ -332,7 +332,7 @@ class NavCatalog {
         NavLink(label: 'Vérifier ma commande', location: AppRoutes.checkoutReview),
       ],
     ),
-    const NavEntry(
+    NavEntry(
       id: 'cart',
       designDir: 'panier_speedygo_c_025',
       title: 'Panier',
@@ -344,13 +344,13 @@ class NavCatalog {
       links: [
         const NavLink(label: 'Révision', location: AppRoutes.checkoutReview),
         const NavLink(label: 'Instructions', location: AppRoutes.checkoutNotes),
-        const NavLink(
+        NavLink(
           label: 'Vider le panier',
           blockedMessage: AppStrings.navBlocked,
         ),
       ],
     ),
-    const NavEntry(
+    NavEntry(
       id: 'checkout-notes',
       designDir: 'instructions_sp_ciales_speedygo',
       title: 'Instructions spéciales',
@@ -407,7 +407,7 @@ class NavCatalog {
         ),
       ],
     ),
-    const NavEntry(
+    NavEntry(
       id: 'checkout-address-picker',
       designDir: 's_lecteur_d_adresse_speedygo_reference',
       title: AppStrings.addressPickerTitle,
@@ -428,7 +428,7 @@ class NavCatalog {
         ),
       ],
     ),
-    const NavEntry(
+    NavEntry(
       id: 'addresses',
       designDir: 'adresses_enregistr_es_speedygo',
       title: AppStrings.addressesTitle,
@@ -445,7 +445,7 @@ class NavCatalog {
         ),
       ],
     ),
-    const NavEntry(
+    NavEntry(
       id: 'address-form',
       designDir: 'ajouter_ou_modifier_une_adresse_speedygo',
       title: AppStrings.addAddress,
@@ -460,7 +460,7 @@ class NavCatalog {
         const NavLink(label: 'Carte', location: AppRoutes.addressConfirm),
       ],
     ),
-    const NavEntry(
+    NavEntry(
       id: 'address-confirm',
       designDir: 'confirmation_de_l_emplacement_speedygo',
       title: AppStrings.confirmLocationTitle,
@@ -471,7 +471,7 @@ class NavCatalog {
       group: 'Adresse',
       links: const [],
     ),
-    const NavEntry(
+    NavEntry(
       id: 'location-permission',
       designDir: 'permission_de_localisation_speedygo',
       title: AppStrings.locationPermissionTitle,
@@ -516,7 +516,7 @@ class NavCatalog {
         ),
       ],
     ),
-    const NavEntry(
+    NavEntry(
       id: 'checkout-redirect',
       designDir: 'redirection_vers_le_paiement_speedygo',
       title: 'Paiement sécurisé',
@@ -543,7 +543,7 @@ class NavCatalog {
       purpose: 'POST /customer/orders non appelé. Pas de confirmation réelle.',
       group: 'Commande',
       links: [
-        const NavLink(
+        NavLink(
           label: 'Envoyer la commande',
           blockedMessage: AppStrings.submitUnavailable,
         ),
@@ -735,7 +735,7 @@ class NavCatalog {
       purpose: 'Mapping snapshot livraison non confirmé.',
       group: 'Suivi',
       paramKeys: const ['orderId'],
-      links: const [
+      links: [
         NavLink(
           label: 'Enregistrer',
           blockedMessage: AppStrings.navProductDecision,
@@ -779,7 +779,7 @@ class NavCatalog {
       group: 'Suivi',
       paramKeys: const ['orderId'],
       links: [
-        const NavLink(
+        NavLink(
           label: 'Envoyer la note',
           blockedMessage: AppStrings.submitUnavailable,
         ),
@@ -799,7 +799,7 @@ class NavCatalog {
       purpose: 'Compose. Pas d’envoi.',
       group: 'Suivi',
       paramKeys: const ['orderId'],
-      links: const [
+      links: [
         NavLink(
           label: AppStrings.ratingPublish,
           blockedMessage: AppStrings.submitUnavailable,
@@ -838,7 +838,7 @@ class NavCatalog {
         ),
       ],
     ),
-    const NavEntry(
+    NavEntry(
       id: 'alerts-permission',
       designDir: 'notifications_speedygo',
       title: 'Autorisations notifications',
@@ -892,7 +892,7 @@ class NavCatalog {
       purpose: 'Réglage in-app. Variante du picker premier lancement.',
       group: 'Compte',
     ),
-    const NavEntry(
+    NavEntry(
       id: 'account-notifications',
       designDir: 'param_tres_des_notifications_speedygo',
       title: 'Paramètres de notification',
@@ -958,7 +958,7 @@ class NavCatalog {
       group: 'Compte',
       protected: false,
     ),
-    const NavEntry(
+    NavEntry(
       id: 'account-delete',
       designDir: 'suppression_du_compte_speedygo',
       title: 'Supprimer mon compte',
@@ -974,7 +974,7 @@ class NavCatalog {
         ),
       ],
     ),
-    const NavEntry(
+    NavEntry(
       id: 'support-new',
       designDir: 'signaler_un_probl_me_speedygo',
       title: 'Signaler un problème',
@@ -984,7 +984,7 @@ class NavCatalog {
       purpose: 'POST /customer/support non appelé. Pas de n° public.',
       group: 'Support',
       links: [
-        const NavLink(
+        NavLink(
           label: 'Envoyer le ticket',
           blockedMessage: AppStrings.submitUnavailable,
         ),
@@ -1004,7 +1004,7 @@ class NavCatalog {
       purpose: 'Messages non envoyés.',
       group: 'Support',
       paramKeys: const ['ticketId'],
-      links: const [
+      links: [
         NavLink(
           label: 'Envoyer un message',
           blockedMessage: AppStrings.submitUnavailable,

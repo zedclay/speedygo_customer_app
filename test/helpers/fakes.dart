@@ -871,7 +871,7 @@ class FakeCartClient implements CartClient {
     }
     final current = bootstrap?.cart;
     if (current != null && current.branchId != offer.branchId) {
-      throw const ApiException(
+      throw ApiException(
         AppStrings.cartBranchConflict,
         code: 'CART_BRANCH_MISMATCH',
         statusCode: 409,
@@ -1092,7 +1092,7 @@ class FakeAddressClient implements AddressClient {
   final creates = <CreateAddressRequest>[];
   var _seq = 0;
 
-  ApiException get _notFound => const ApiException(
+  ApiException get _notFound => ApiException(
     AppStrings.addressNotFound,
     code: 'CUSTOMER_ADDRESS_NOT_FOUND',
     statusCode: 404,

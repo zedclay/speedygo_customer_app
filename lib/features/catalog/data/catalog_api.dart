@@ -15,6 +15,8 @@ class CatalogQuery {
     this.categoryId,
     this.verticalId,
     this.openNow = false,
+    this.addressId,
+    this.wilayaCode,
   });
 
   final int limit;
@@ -22,6 +24,8 @@ class CatalogQuery {
   final String? categoryId;
   final String? verticalId;
   final bool openNow;
+  final String? addressId;
+  final String? wilayaCode;
 
   Map<String, dynamic> toParams() {
     final safeLimit = limit < 1 ? 1 : (limit > maxLimit ? maxLimit : limit);
@@ -37,6 +41,9 @@ class CatalogQuery {
       if (verticalId != null && verticalId!.isNotEmpty)
         'verticalId': verticalId,
       if (openNow) 'openNow': true,
+      if (addressId != null && addressId!.isNotEmpty) 'addressId': addressId,
+      if (wilayaCode != null && wilayaCode!.isNotEmpty)
+        'wilayaCode': wilayaCode,
     };
   }
 }

@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:speedygo_customer_app/app/theme/app_theme.dart';
 import 'package:speedygo_customer_app/core/constants/app_strings.dart';
 import 'package:speedygo_customer_app/core/money/money_format.dart';
+import 'package:speedygo_customer_app/core/widgets/bidi_ltr.dart';
 import 'package:speedygo_customer_app/core/navigation/app_routes.dart';
 import 'package:speedygo_customer_app/core/navigation/nav_actions.dart';
 import 'package:speedygo_customer_app/features/checkout/application/electronic_payment_availability.dart';
@@ -273,7 +274,7 @@ class _OrderPaymentScreenState extends ConsumerState<OrderPaymentScreen>
             key: const Key('payment-go-confirmation'),
             onPressed: () =>
                 context.go(AppRoutes.orderConfirmation(widget.orderId)),
-            child: const Text(AppStrings.paymentGoConfirmation),
+            child: Text(AppStrings.paymentGoConfirmation),
           ),
         ),
       );
@@ -319,7 +320,7 @@ class _OrderPaymentScreenState extends ConsumerState<OrderPaymentScreen>
                           ).notifier,
                         )
                         .refresh(),
-              child: const Text(AppStrings.paymentCheckStatus),
+              child: Text(AppStrings.paymentCheckStatus),
             ),
           ],
         ),
@@ -369,13 +370,15 @@ class _OrderPaymentScreenState extends ConsumerState<OrderPaymentScreen>
       children: [
         Expanded(child: Text(label)),
         Flexible(
-          child: Text(
-            value,
-            key: key == null ? null : Key(key),
-            textAlign: TextAlign.end,
-            style: Theme.of(
-              context,
-            ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700),
+          child: BidiLtr(
+            child: Text(
+              value,
+              key: key == null ? null : Key(key),
+              textAlign: TextAlign.end,
+              style: Theme.of(
+                context,
+              ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700),
+            ),
           ),
         ),
       ],

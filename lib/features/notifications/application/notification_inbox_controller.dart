@@ -19,6 +19,7 @@ class NotificationInboxState {
     this.loadingMore = false,
     this.mutating = false,
     this.errorMessage,
+    this.loadMoreError,
   });
 
   final List<NotificationItem> items;
@@ -28,6 +29,7 @@ class NotificationInboxState {
   final bool loadingMore;
   final bool mutating;
   final String? errorMessage;
+  final String? loadMoreError;
 
   bool get hasMore => items.length < total;
 
@@ -39,7 +41,9 @@ class NotificationInboxState {
     bool? loadingMore,
     bool? mutating,
     String? errorMessage,
+    String? loadMoreError,
     bool clearError = false,
+    bool clearLoadMoreError = false,
   }) {
     return NotificationInboxState(
       items: items ?? this.items,
@@ -49,6 +53,9 @@ class NotificationInboxState {
       loadingMore: loadingMore ?? this.loadingMore,
       mutating: mutating ?? this.mutating,
       errorMessage: clearError ? null : (errorMessage ?? this.errorMessage),
+      loadMoreError: clearLoadMoreError
+          ? null
+          : (loadMoreError ?? this.loadMoreError),
     );
   }
 }
@@ -75,9 +82,13 @@ class NotificationInboxController extends Notifier<NotificationInboxState> {
   Future<void> refresh({bool quiet = false}) async {
     final generation = _generation;
     if (!quiet || state.items.isEmpty) {
-      state = state.copyWith(loading: true, clearError: true);
+      state = state.copyWith(
+        loading: true,
+        clearError: true,
+        clearLoadMoreError: true,
+      );
     } else {
-      state = state.copyWith(clearError: true);
+      state = state.copyWith(clearError: true, clearLoadMoreError: true);
     }
     try {
       final page = await ref.read(notificationsApiProvider).list(
@@ -88,16 +99,12 @@ class NotificationInboxController extends Notifier<NotificationInboxState> {
         return;
       }
       state = NotificationInboxState(
-        items: page.items,
+        items: _uniqueById(page.items),
         total: page.total,
         unreadCount: page.unreadCount,
         loading: false,
       );
-      if (ref.mounted) {
-        ref
-            .read(notificationUnreadCountProvider.notifier)
-            .apply(page.unreadCount);
-      }
+      _applyUnread(page.unreadCount);
     } on AppException catch (error) {
       if (generation != _generation) {
         return;
@@ -122,7 +129,10 @@ class NotificationInboxController extends Notifier<NotificationInboxState> {
       return;
     }
     final generation = _generation;
-    state = state.copyWith(loadingMore: true, clearError: true);
+    state = state.copyWith(
+      loadingMore: true,
+      clearLoadMoreError: true,
+    );
     try {
       final page = await ref.read(notificationsApiProvider).list(
             limit: pageSize,
@@ -132,24 +142,20 @@ class NotificationInboxController extends Notifier<NotificationInboxState> {
         return;
       }
       state = NotificationInboxState(
-        items: [...state.items, ...page.items],
+        items: _mergeUnique(state.items, page.items),
         total: page.total,
         unreadCount: page.unreadCount,
         loading: false,
         loadingMore: false,
       );
-      if (ref.mounted) {
-        ref
-            .read(notificationUnreadCountProvider.notifier)
-            .apply(page.unreadCount);
-      }
+      _applyUnread(page.unreadCount);
     } on AppException catch (error) {
       if (generation != _generation) {
         return;
       }
       state = state.copyWith(
         loadingMore: false,
-        errorMessage: error.message,
+        loadMoreError: error.message,
       );
     } catch (_) {
       if (generation != _generation) {
@@ -157,7 +163,7 @@ class NotificationInboxController extends Notifier<NotificationInboxState> {
       }
       state = state.copyWith(
         loadingMore: false,
-        errorMessage: AppStrings.notificationsLoadError,
+        loadMoreError: AppStrings.notificationsLoadError,
       );
     }
   }
@@ -176,19 +182,19 @@ class NotificationInboxController extends Notifier<NotificationInboxState> {
 
     _markInFlight = true;
     final generation = _generation;
-    final optimistic = [...state.items];
+    final previousItems = state.items;
+    final previousUnread = state.unreadCount;
+    final optimistic = [...previousItems];
     optimistic[index] = optimistic[index].copyWith(read: true);
     final optimisticUnread =
-        state.unreadCount > 0 ? state.unreadCount - 1 : 0;
+        previousUnread > 0 ? previousUnread - 1 : 0;
     state = state.copyWith(
       items: optimistic,
       unreadCount: optimisticUnread,
       mutating: true,
       clearError: true,
     );
-    if (ref.mounted) {
-      ref.read(notificationUnreadCountProvider.notifier).apply(optimisticUnread);
-    }
+    _applyUnread(optimisticUnread);
 
     try {
       final updated =
@@ -208,23 +214,27 @@ class NotificationInboxController extends Notifier<NotificationInboxState> {
         return;
       }
       if (isNotificationMutationUncertain(error)) {
-        await _reconcileAfterUncertain(generation);
+        await _reconcileAfterUncertain(
+          generation,
+          previousItems,
+          previousUnread,
+        );
         return;
       }
-      state = state.copyWith(
-        mutating: false,
-        errorMessage: error.message,
+      _restoreSnapshot(
+        previousItems,
+        previousUnread,
+        error.message,
       );
-      await refresh(quiet: true);
     } catch (_) {
       if (generation != _generation) {
         return;
       }
-      state = state.copyWith(
-        mutating: false,
-        errorMessage: AppStrings.notificationsMarkReadError,
+      _restoreSnapshot(
+        previousItems,
+        previousUnread,
+        AppStrings.notificationsMarkReadError,
       );
-      await refresh(quiet: true);
     } finally {
       if (generation == _generation) {
         _markInFlight = false;
@@ -238,18 +248,17 @@ class NotificationInboxController extends Notifier<NotificationInboxState> {
     }
     _markInFlight = true;
     final generation = _generation;
-    final previous = state.items;
+    final previousItems = state.items;
+    final previousUnread = state.unreadCount;
     state = state.copyWith(
       items: [
-        for (final item in previous) item.copyWith(read: true),
+        for (final item in previousItems) item.copyWith(read: true),
       ],
       unreadCount: 0,
       mutating: true,
       clearError: true,
     );
-    if (ref.mounted) {
-      ref.read(notificationUnreadCountProvider.notifier).apply(0);
-    }
+    _applyUnread(0);
     try {
       await ref.read(notificationsApiProvider).markAllRead();
       if (generation != _generation) {
@@ -262,23 +271,27 @@ class NotificationInboxController extends Notifier<NotificationInboxState> {
         return;
       }
       if (isNotificationMutationUncertain(error)) {
-        await _reconcileAfterUncertain(generation);
+        await _reconcileAfterUncertain(
+          generation,
+          previousItems,
+          previousUnread,
+        );
         return;
       }
-      state = state.copyWith(
-        mutating: false,
-        errorMessage: error.message,
+      _restoreSnapshot(
+        previousItems,
+        previousUnread,
+        error.message,
       );
-      await refresh(quiet: true);
     } catch (_) {
       if (generation != _generation) {
         return;
       }
-      state = state.copyWith(
-        mutating: false,
-        errorMessage: AppStrings.notificationsMarkReadError,
+      _restoreSnapshot(
+        previousItems,
+        previousUnread,
+        AppStrings.notificationsMarkReadError,
       );
-      await refresh(quiet: true);
     } finally {
       if (generation == _generation) {
         _markInFlight = false;
@@ -286,12 +299,38 @@ class NotificationInboxController extends Notifier<NotificationInboxState> {
     }
   }
 
-  Future<void> _reconcileAfterUncertain(int generation) async {
+  void _restoreSnapshot(
+    List<NotificationItem> items,
+    int unreadCount,
+    String message,
+  ) {
+    state = state.copyWith(
+      items: items,
+      unreadCount: unreadCount,
+      mutating: false,
+      errorMessage: message,
+    );
+    _applyUnread(unreadCount);
+  }
+
+  Future<void> _reconcileAfterUncertain(
+    int generation,
+    List<NotificationItem> previousItems,
+    int previousUnread,
+  ) async {
     await refresh(quiet: true);
     if (generation != _generation) {
       return;
     }
-    state = state.copyWith(mutating: false, clearError: true);
+    if (state.errorMessage != null) {
+      _restoreSnapshot(
+        previousItems,
+        previousUnread,
+        state.errorMessage!,
+      );
+      return;
+    }
+    state = state.copyWith(mutating: false);
   }
 
   Future<void> _reconcileUnread(int generation) async {
@@ -302,15 +341,36 @@ class NotificationInboxController extends Notifier<NotificationInboxState> {
         return;
       }
       state = state.copyWith(unreadCount: count.unreadCount);
-      if (ref.mounted) {
-        ref
-            .read(notificationUnreadCountProvider.notifier)
-            .apply(count.unreadCount);
-      }
+      _applyUnread(count.unreadCount);
     } catch (_) {
       // Keep list unreadCount; dedicated count is best-effort.
     }
   }
+
+  void _applyUnread(int count) {
+    if (!ref.mounted) {
+      return;
+    }
+    ref.read(notificationUnreadCountProvider.notifier).apply(count);
+  }
+}
+
+List<NotificationItem> _uniqueById(List<NotificationItem> items) {
+  return _mergeUnique(const [], items);
+}
+
+List<NotificationItem> _mergeUnique(
+  List<NotificationItem> current,
+  List<NotificationItem> incoming,
+) {
+  final seen = {for (final item in current) item.id};
+  final merged = [...current];
+  for (final item in incoming) {
+    if (seen.add(item.id)) {
+      merged.add(item);
+    }
+  }
+  return merged;
 }
 
 final notificationInboxControllerProvider =
@@ -348,7 +408,7 @@ class NotificationUnreadCountController extends Notifier<int?> {
       if (generation != _generation) {
         return;
       }
-      state = response.unreadCount;
+      state = response.unreadCount < 0 ? 0 : response.unreadCount;
     } catch (_) {
       if (generation != _generation) {
         return;

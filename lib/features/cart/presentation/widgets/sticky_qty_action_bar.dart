@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:speedygo_customer_app/app/theme/app_theme.dart';
+import 'package:speedygo_customer_app/core/widgets/bidi_ltr.dart';
 import 'package:speedygo_customer_app/core/widgets/sg_snackbar.dart';
 import 'package:speedygo_customer_app/features/cart/presentation/widgets/quantity_stepper.dart';
 
@@ -198,9 +199,11 @@ class _ActionButton extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 8),
-                Text(
-                  priceLabel,
-                  style: const TextStyle(fontWeight: FontWeight.w600),
+                BidiLtr(
+                  child: Text(
+                    priceLabel,
+                    style: const TextStyle(fontWeight: FontWeight.w600),
+                  ),
                 ),
               ],
             )
@@ -223,9 +226,11 @@ class _ActionButton extends StatelessWidget {
                     color: AppColors.onPrimaryContainer.withValues(alpha: 0.3),
                   ),
                 ),
-                Text(
-                  priceLabel,
-                  style: const TextStyle(fontWeight: FontWeight.w600),
+                BidiLtr(
+                  child: Text(
+                    priceLabel,
+                    style: const TextStyle(fontWeight: FontWeight.w600),
+                  ),
                 ),
               ],
             ),

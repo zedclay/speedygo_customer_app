@@ -4,6 +4,8 @@ import 'package:go_router/go_router.dart';
 import 'package:speedygo_customer_app/app/theme/app_theme.dart';
 import 'package:speedygo_customer_app/core/constants/app_strings.dart';
 import 'package:speedygo_customer_app/core/money/money_format.dart';
+import 'package:speedygo_customer_app/core/widgets/bidi_ltr.dart';
+import 'package:speedygo_customer_app/core/widgets/money_text.dart';
 import 'package:speedygo_customer_app/core/navigation/app_routes.dart';
 import 'package:speedygo_customer_app/core/navigation/nav_actions.dart';
 import 'package:speedygo_customer_app/features/cart/data/cart_models.dart';
@@ -62,12 +64,12 @@ class OrderDetailScreen extends ConsumerWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Text(AppStrings.orderLoadError),
+              Text(AppStrings.orderLoadError),
               const SizedBox(height: 16),
               FilledButton(
                 onPressed: () =>
                     ref.invalidate(orderDetailControllerProvider(orderId)),
-                child: const Text(AppStrings.retry),
+                child: Text(AppStrings.retry),
               ),
             ],
           ),
@@ -159,11 +161,13 @@ class _StatusHeader extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 4),
-            Text(
-              '#${order.publicReference}',
-              key: const Key('order-detail-reference'),
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: AppColors.onSurfaceVariant,
+            BidiLtr(
+              child: Text(
+                '#${order.publicReference}',
+                key: const Key('order-detail-reference'),
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  color: AppColors.onSurfaceVariant,
+                ),
               ),
             ),
             if (dateLabel.isNotEmpty) ...[
@@ -346,8 +350,8 @@ class _ItemRow extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 8),
-                  Text(
-                    MoneyFormat.dzd(item.lineTotalMinor),
+                  MoneyText(
+                    item.lineTotalMinor,
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.w600,
                       color: AppColors.primary,
@@ -367,11 +371,22 @@ class _ItemRow extends StatelessWidget {
                 ),
               ],
               const SizedBox(height: 4),
-              Text(
-                '${MoneyFormat.dzd(item.unitPriceMinor)} ${AppStrings.orderUnitPriceLabel}',
-                style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                  color: AppColors.outline,
-                ),
+              Wrap(
+                crossAxisAlignment: WrapCrossAlignment.center,
+                children: [
+                  MoneyText(
+                    item.unitPriceMinor,
+                    style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                      color: AppColors.outline,
+                    ),
+                  ),
+                  Text(
+                    ' ${AppStrings.orderUnitPriceLabel}',
+                    style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                      color: AppColors.outline,
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
@@ -500,11 +515,13 @@ class _TotalsCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                Text(
-                  MoneyFormat.dzd(order.financial.customerTotalMinor),
-                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                    fontWeight: FontWeight.w700,
-                    color: AppColors.primary,
+                BidiLtr(
+                  child: Text(
+                    MoneyFormat.dzd(order.financial.customerTotalMinor),
+                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                      fontWeight: FontWeight.w700,
+                      color: AppColors.primary,
+                    ),
                   ),
                 ),
               ],
@@ -534,8 +551,8 @@ class _MoneyRow extends StatelessWidget {
             ),
           ),
         ),
-        Text(
-          MoneyFormat.dzd(amountMinor),
+        MoneyText(
+          amountMinor,
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
             color: AppColors.onSurfaceVariant,
           ),
@@ -607,7 +624,7 @@ class _CancellationOutcome extends StatelessWidget {
                 padding: EdgeInsets.symmetric(vertical: 8),
                 child: LinearProgressIndicator(),
               ),
-              error: (_, _) => const Text(AppStrings.orderRefundsLoadError),
+              error: (_, _) => Text(AppStrings.orderRefundsLoadError),
               data: (payload) {
                 if (payload == null || !payload.hasRefunds) {
                   return Text(
@@ -621,12 +638,26 @@ class _CancellationOutcome extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     for (final item in payload.refunds) ...[
-                      Text(
-                        '${customerRefundStatusLabel(item.status)} · ${MoneyFormat.dzd(item.amountMinor)}',
+                      Wrap(
                         key: Key('order-detail-refund-${item.refundId}'),
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          fontWeight: FontWeight.w600,
-                        ),
+                        crossAxisAlignment: WrapCrossAlignment.center,
+                        children: [
+                          Text(
+                            customerRefundStatusLabel(item.status),
+                            style: Theme.of(context).textTheme.bodyMedium
+                                ?.copyWith(fontWeight: FontWeight.w600),
+                          ),
+                          Text(
+                            ' · ',
+                            style: Theme.of(context).textTheme.bodyMedium
+                                ?.copyWith(fontWeight: FontWeight.w600),
+                          ),
+                          MoneyText(
+                            item.amountMinor,
+                            style: Theme.of(context).textTheme.bodyMedium
+                                ?.copyWith(fontWeight: FontWeight.w600),
+                          ),
+                        ],
                       ),
                       const SizedBox(height: 4),
                       Text(
@@ -674,7 +705,7 @@ class _StickyActions extends StatelessWidget {
               ),
             ),
             onPressed: () => context.push(AppRoutes.orderRate(orderId)),
-            child: const Text(AppStrings.ratingEntry),
+            child: Text(AppStrings.ratingEntry),
           ),
         ),
       );
@@ -694,7 +725,7 @@ class _StickyActions extends StatelessWidget {
               ),
             ),
             onPressed: () => context.push(AppRoutes.orderCancel(orderId)),
-            child: const Text(AppStrings.orderCancelEntry),
+            child: Text(AppStrings.orderCancelEntry),
           ),
         ),
       );
@@ -717,7 +748,7 @@ class _StickyActions extends StatelessWidget {
               ),
             ),
             onPressed: () => context.push(AppRoutes.orderPayment(orderId)),
-            child: const Text(AppStrings.paymentContinue),
+            child: Text(AppStrings.paymentContinue),
           ),
         ),
       );
@@ -761,7 +792,7 @@ class _StickyActions extends StatelessWidget {
                   onPressed: () =>
                       context.push(AppRoutes.orderTracking(orderId)),
                   icon: const Icon(Icons.route),
-                  label: const Text(AppStrings.trackingEntry),
+                  label: Text(AppStrings.trackingEntry),
                 ),
                 if (secondary.isNotEmpty) ...[
                   const SizedBox(height: 12),

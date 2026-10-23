@@ -26,17 +26,17 @@ class AddressListScreen extends ConsumerWidget {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text(AppStrings.deleteAddressTitle),
-        content: const Text(AppStrings.deleteAddressBody),
+        title: Text(AppStrings.deleteAddressTitle),
+        content: Text(AppStrings.deleteAddressBody),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
-            child: const Text(AppStrings.cancel),
+            child: Text(AppStrings.cancel),
           ),
           TextButton(
             key: const Key('confirm-delete-address'),
             onPressed: () => Navigator.of(context).pop(true),
-            child: const Text(AppStrings.confirmDelete),
+            child: Text(AppStrings.confirmDelete),
           ),
         ],
       ),
@@ -286,14 +286,13 @@ class _AddressCard extends StatelessWidget {
                 ),
                 if (address.isDefault) ...[
                   const SizedBox(width: 8),
-                  const _Badge(
-                    label: AppStrings.defaultAddressBadge,
+                  _Badge(label: AppStrings.defaultAddressBadge,
                     uppercase: true,
                   ),
                 ],
                 if (selected) ...[
                   const SizedBox(width: 8),
-                  const _Badge(label: AppStrings.selectedAddressBadge),
+                  _Badge(label: AppStrings.selectedAddressBadge),
                 ],
                 IconButton(
                   key: Key('edit-address-${address.id}'),
@@ -335,7 +334,7 @@ class _AddressCard extends StatelessWidget {
                     ),
                   ),
                   icon: const Icon(Icons.check_circle_outline, size: 20),
-                  label: const Text(AppStrings.setAsDefault),
+                  label: Text(AppStrings.setAsDefault),
                 ),
               ),
             ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:speedygo_customer_app/app/theme/app_theme.dart';
+import 'package:speedygo_customer_app/core/constants/app_strings.dart';
 import 'package:speedygo_customer_app/features/catalog/data/catalog_models.dart';
 import 'package:speedygo_customer_app/features/home/presentation/widgets/home_category_strip.dart';
 
@@ -57,15 +58,15 @@ class CategoriesLayout {
 String? commerceVerticalSubtitle(String slug) {
   switch (commerceVerticalKind(slug)) {
     case 'restaurants':
-      return 'Burgers, Pizzas, Traditionnel...';
+      return AppStrings.categoryRestaurantsSubtitle;
     case 'desserts':
-      return 'Gâteaux, Desserts';
+      return AppStrings.categoryDessertsSubtitle;
     case 'bakeries':
-      return 'Pain, Viennoiseries';
+      return AppStrings.categoryBakeriesSubtitle;
     case 'groceries':
-      return 'Produits locaux';
+      return AppStrings.categoryGroceriesSubtitle;
     case 'pharmacies':
-      return 'Santé, Soins';
+      return AppStrings.categoryPharmaciesSubtitle;
     default:
       return null;
   }
@@ -119,6 +120,9 @@ List<CommerceVertical> filterVerticalsByQuery(
     return List<CommerceVertical>.from(items);
   }
   return items
-      .where((item) => item.name.toLowerCase().contains(q))
+        .where((item) {
+          final localized = commerceVerticalDisplayName(item).toLowerCase();
+          return localized.contains(q) || item.name.toLowerCase().contains(q);
+        })
       .toList(growable: false);
 }

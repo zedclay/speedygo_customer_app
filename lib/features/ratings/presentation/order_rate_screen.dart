@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:speedygo_customer_app/app/theme/app_theme.dart';
 import 'package:speedygo_customer_app/core/constants/app_strings.dart';
+import 'package:speedygo_customer_app/core/widgets/bidi_ltr.dart';
 import 'package:speedygo_customer_app/core/navigation/app_routes.dart';
 import 'package:speedygo_customer_app/core/navigation/nav_actions.dart';
 import 'package:speedygo_customer_app/core/widgets/sg_snackbar.dart';
@@ -56,10 +57,12 @@ class OrderRateScreen extends ConsumerWidget {
               ),
             ),
             if (order != null)
-              Text(
-                'Commande #${order.publicReference}',
-                style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                  color: AppColors.onSurfaceVariant,
+              BidiLtr(
+                child: Text(
+                  '${AppStrings.orderReferenceLabel} #${order.publicReference}',
+                  style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                    color: AppColors.onSurfaceVariant,
+                  ),
                 ),
               ),
           ],
@@ -247,7 +250,7 @@ class OrderRateScreen extends ConsumerWidget {
                       onPressed: () => ref
                           .read(orderRatingControllerProvider(orderId).notifier)
                           .reconcileAfterUncertain(),
-                      child: const Text(AppStrings.supportRefresh),
+                      child: Text(AppStrings.supportRefresh),
                     ),
                 ],
               ],
@@ -274,7 +277,7 @@ class OrderRateScreen extends ConsumerWidget {
               onPressed: () => ref
                   .read(orderRatingControllerProvider(orderId).notifier)
                   .refresh(),
-              child: const Text(AppStrings.retry),
+              child: Text(AppStrings.retry),
             ),
           ],
         ),

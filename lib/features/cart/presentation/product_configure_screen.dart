@@ -5,6 +5,8 @@ import 'package:speedygo_customer_app/app/theme/app_theme.dart';
 import 'package:speedygo_customer_app/core/constants/app_strings.dart';
 import 'package:speedygo_customer_app/core/errors/app_exception.dart';
 import 'package:speedygo_customer_app/core/money/money_format.dart';
+import 'package:speedygo_customer_app/core/widgets/bidi_ltr.dart';
+import 'package:speedygo_customer_app/core/widgets/money_text.dart';
 import 'package:speedygo_customer_app/core/navigation/app_routes.dart';
 import 'package:speedygo_customer_app/core/navigation/nav_actions.dart';
 import 'package:speedygo_customer_app/features/cart/application/cart_controller.dart';
@@ -55,7 +57,7 @@ class _ProductConfigureScreenState
             icon: const Icon(Icons.arrow_back),
           ),
         ),
-        body: const CatalogStatusView(message: AppStrings.productUnavailable),
+        body: CatalogStatusView(message: AppStrings.productUnavailable),
       );
     }
 
@@ -75,7 +77,7 @@ class _ProductConfigureScreenState
           onPressed: () => popOrParent(context),
           icon: const Icon(Icons.arrow_back),
         ),
-        title: const Text(AppStrings.customizeTitle),
+        title: Text(AppStrings.customizeTitle),
         actions: const [CartBadgeButton()],
       ),
       body: detail.when(
@@ -204,8 +206,8 @@ class _ProductConfigureScreenState
                   Row(
                     children: [
                       Expanded(
-                        child: Text(
-                          MoneyFormat.dzd(product.priceMinor),
+                        child: MoneyText(
+                          product.priceMinor,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: Theme.of(context).textTheme.titleMedium
@@ -340,17 +342,19 @@ class _ProductConfigureScreenState
                   children: [
                     Text(option.name),
                     if (!option.available)
-                      const Text(AppStrings.optionUnavailable),
+                      Text(AppStrings.optionUnavailable),
                   ],
                 ),
               ),
-              Text(
-                extra,
-                style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                  color: selected
-                      ? AppColors.primary
-                      : AppColors.onSurfaceVariant,
-                  fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
+              BidiLtr(
+                child: Text(
+                  extra,
+                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                    color: selected
+                        ? AppColors.primary
+                        : AppColors.onSurfaceVariant,
+                    fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
+                  ),
                 ),
               ),
             ],
@@ -402,16 +406,16 @@ class _ProductConfigureScreenState
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text(AppStrings.cartTitle),
-          content: const Text(AppStrings.cartBranchConflict),
+          title: Text(AppStrings.cartTitle),
+          content: Text(AppStrings.cartBranchConflict),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context, false),
-              child: const Text(AppStrings.cartKeepExisting),
+              child: Text(AppStrings.cartKeepExisting),
             ),
             FilledButton(
               onPressed: () => Navigator.pop(context, true),
-              child: const Text(AppStrings.cartGoToExisting),
+              child: Text(AppStrings.cartGoToExisting),
             ),
           ],
         );

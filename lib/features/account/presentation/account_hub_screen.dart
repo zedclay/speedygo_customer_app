@@ -143,7 +143,7 @@ class AccountHubScreen extends ConsumerWidget {
               child: TextButton.icon(
                 onPressed: () => context.push(AppRoutes.accountDelete),
                 icon: const Icon(Icons.delete_forever, size: 18),
-                label: const Text(AppStrings.accountDeleteTitle),
+                label: Text(AppStrings.accountDeleteTitle),
                 style: TextButton.styleFrom(
                   foregroundColor: AppColors.outline,
                   textStyle: Theme.of(context).textTheme.labelLarge,

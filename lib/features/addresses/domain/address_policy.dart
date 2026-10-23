@@ -39,11 +39,39 @@ class AddressPolicy {
   }
 
   static bool isValidLatitude(double value) {
-    return value >= minLatitude && value <= maxLatitude;
+    return value.isFinite && value >= minLatitude && value <= maxLatitude;
   }
 
   static bool isValidLongitude(double value) {
-    return value >= minLongitude && value <= maxLongitude;
+    return value.isFinite && value >= minLongitude && value <= maxLongitude;
+  }
+
+  static bool isUsablePoint(double latitude, double longitude) {
+    if (!isValidLatitude(latitude) || !isValidLongitude(longitude)) {
+      return false;
+    }
+    return latitude != 0 || longitude != 0;
+  }
+
+  static String composeAddressText({
+    required String street,
+    String building = '',
+    String floor = '',
+    String entrance = '',
+    String landmark = '',
+  }) {
+    final line = street.trim();
+    final extras = <String>[
+      if (building.trim().isNotEmpty) 'Bâtiment ${building.trim()}',
+      if (floor.trim().isNotEmpty) 'Étage ${floor.trim()}',
+      if (entrance.trim().isNotEmpty) 'Entrée ${entrance.trim()}',
+    ];
+    final parts = <String>[
+      if (line.isNotEmpty) line,
+      if (extras.isNotEmpty) extras.join(' · '),
+      if (landmark.trim().isNotEmpty) landmark.trim(),
+    ];
+    return parts.join('\n');
   }
 
   static String? validateLatitude(String raw) {

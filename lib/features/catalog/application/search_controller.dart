@@ -91,7 +91,7 @@ class CatalogSearchController extends Notifier<CatalogSearchState> {
       _debounce = null;
       state = state.copyWith(
         phase: SearchPhase.error,
-        error: const ApiException(
+        error: ApiException(
           AppStrings.searchQueryInvalid,
           code: 'CUSTOMER_SEARCH_QUERY_INVALID',
         ),
@@ -142,7 +142,7 @@ class CatalogSearchController extends Notifier<CatalogSearchState> {
         phase: SearchPhase.error,
         error: error is AppException
             ? error
-            : const UnexpectedException(AppStrings.unexpected),
+            : UnexpectedException(AppStrings.unexpected),
         loadingMore: false,
         clearPage: true,
       );
@@ -194,7 +194,7 @@ class CatalogSearchController extends Notifier<CatalogSearchState> {
         loadingMore: false,
         loadMoreError: error is AppException
             ? error
-            : const UnexpectedException(AppStrings.unexpected),
+            : UnexpectedException(AppStrings.unexpected),
       );
     }
   }

@@ -4,6 +4,7 @@ import 'package:speedygo_customer_app/core/constants/app_strings.dart';
 import 'package:speedygo_customer_app/core/errors/app_exception.dart';
 import 'package:speedygo_customer_app/features/addresses/data/address_selection_store.dart';
 import 'package:speedygo_customer_app/features/addresses/data/location_client.dart';
+import 'package:speedygo_customer_app/features/addresses/presentation/address_form_screen.dart';
 import 'package:speedygo_customer_app/features/auth/data/models.dart';
 import 'package:speedygo_customer_app/features/home/presentation/home_screen.dart';
 
@@ -46,6 +47,8 @@ FakeCustomerClient _customer({List<CustomerAddress> addresses = const []}) {
     );
 }
 
+Finder _key(String value) => find.byKey(Key(value), skipOffstage: false);
+
 void main() {
   testWidgets(
     'empty list offers add and Home stays usable without an address',
@@ -67,7 +70,7 @@ void main() {
 
   testWidgets('list error can be retried', (tester) async {
     final api = FakeAddressClient()
-      ..listError = const ApiException(
+      ..listError = ApiException(
         AppStrings.addressesLoadError,
         code: 'NETWORK',
       );
@@ -121,14 +124,8 @@ void main() {
       find.byKey(const Key('address-text-field')),
       '12 chemin test Revue',
     );
-    await tester.enterText(
-      find.byKey(const Key('address-latitude-field')),
-      '36.7538',
-    );
-    await tester.enterText(
-      find.byKey(const Key('address-longitude-field')),
-      '3.0588',
-    );
+    await tester.enterText(_key('address-latitude-field'), '36.7538');
+    await tester.enterText(_key('address-longitude-field'), '3.0588');
     await tester.tap(find.byKey(const Key('address-save-button')));
     await tester.pumpAndSettle();
     expect(api.createCount, 1);
@@ -157,15 +154,15 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.text(AppStrings.tabHome));
     await tester.pumpAndSettle();
-    expect(find.text('Domicile'), findsOneWidget);
-    expect(selection.value, isNull);
+    expect(find.text('Revue test Hydra edit'), findsOneWidget);
+    expect(selection.value?.addressId, 'addr-created-1');
   });
 
   testWidgets('recoverable create failure keeps the typed form', (
     tester,
   ) async {
     final api = FakeAddressClient()
-      ..createError = const ApiException(
+      ..createError = ApiException(
         AppStrings.addressInvalid,
         code: 'CUSTOMER_ADDRESS_INVALID',
       );
@@ -185,16 +182,11 @@ void main() {
       find.byKey(const Key('address-text-field')),
       'Texte conservé',
     );
-    await tester.enterText(
-      find.byKey(const Key('address-latitude-field')),
-      '36.75',
-    );
-    await tester.enterText(
-      find.byKey(const Key('address-longitude-field')),
-      '3.05',
-    );
+    await tester.enterText(_key('address-latitude-field'), '36.75');
+    await tester.enterText(_key('address-longitude-field'), '3.05');
     await tester.tap(find.byKey(const Key('address-save-button')));
     await tester.pumpAndSettle();
+    expect(api.createCount, 1);
     expect(find.text(AppStrings.addressInvalid), findsOneWidget);
     expect(find.text('Revue keep'), findsOneWidget);
     expect(find.text('Texte conservé'), findsOneWidget);
@@ -214,6 +206,16 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.byKey(const Key('add-address-button')));
     await tester.pumpAndSettle();
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('use-my-location')),
+      400,
+      scrollable: find
+          .descendant(
+            of: find.byType(AddressFormScreen),
+            matching: find.byType(Scrollable),
+          )
+          .first,
+    );
     await tester.tap(find.byKey(const Key('use-my-location')));
     await tester.pumpAndSettle();
     expect(location.requestCount, 0);
@@ -239,6 +241,16 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.text(AppStrings.addAddressShort));
     await tester.pumpAndSettle();
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('use-my-location')),
+      400,
+      scrollable: find
+          .descendant(
+            of: find.byType(AddressFormScreen),
+            matching: find.byType(Scrollable),
+          )
+          .first,
+    );
     await tester.tap(find.byKey(const Key('use-my-location')));
     await tester.pumpAndSettle();
     await tester.tap(find.byKey(const Key('allow-location-button')));
@@ -266,6 +278,16 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.byKey(const Key('add-address-button')));
     await tester.pumpAndSettle();
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('use-my-location')),
+      400,
+      scrollable: find
+          .descendant(
+            of: find.byType(AddressFormScreen),
+            matching: find.byType(Scrollable),
+          )
+          .first,
+    );
     await tester.tap(find.byKey(const Key('use-my-location')));
     await tester.pumpAndSettle();
     await tester.tap(find.byKey(const Key('allow-location-button')));
@@ -408,6 +430,16 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.byKey(const Key('add-address-button')));
     await tester.pumpAndSettle();
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('use-my-location')),
+      400,
+      scrollable: find
+          .descendant(
+            of: find.byType(AddressFormScreen),
+            matching: find.byType(Scrollable),
+          )
+          .first,
+    );
     await tester.tap(find.byKey(const Key('use-my-location')));
     await tester.pumpAndSettle();
     await tester.tap(find.byKey(const Key('allow-location-button')));
@@ -416,13 +448,10 @@ void main() {
     expect(find.byKey(const Key('confirm-latitude')), findsOneWidget);
     await tester.tap(find.byKey(const Key('confirm-location-button')));
     await tester.pumpAndSettle();
-    expect(find.byKey(const Key('address-latitude-field')), findsOneWidget);
+    expect(_key('address-latitude-field'), findsOneWidget);
     expect(api.createCount, 0);
     expect(
-      tester
-          .widget<TextField>(find.byKey(const Key('address-latitude-field')))
-          .controller!
-          .text,
+      tester.widget<TextField>(_key('address-latitude-field')).controller!.text,
       contains('36.7538'),
     );
   });

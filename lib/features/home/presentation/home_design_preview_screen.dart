@@ -72,7 +72,7 @@ class HomeDesignPreviewScreen extends ConsumerWidget {
                         const SizedBox(height: 32),
                         const HomePreviewPromoBanner(),
                         const SizedBox(height: 32),
-                        const HomeSectionTitle(
+                        HomeSectionTitle(
                           title: AppStrings.nearbyMerchants,
                           trailing: Icon(
                             Icons.tune,

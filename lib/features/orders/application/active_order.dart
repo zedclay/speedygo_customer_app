@@ -48,11 +48,9 @@ class ActiveOrderController extends AsyncNotifier<ActiveOrderSnapshot?> {
       return ActiveOrderSnapshot(
         orderId: match.id,
         publicReference: match.publicReference,
-        statusLabel: activeOrderStatusLabel(
-          fulfillmentStatus: match.fulfillmentStatus,
-          deliveryStatus: delivery?.status,
-          orderStatus: match.status,
-        ),
+        fulfillmentStatus: match.fulfillmentStatus,
+        orderStatus: match.status,
+        deliveryStatus: delivery?.status,
       );
     } catch (_) {
       return null;

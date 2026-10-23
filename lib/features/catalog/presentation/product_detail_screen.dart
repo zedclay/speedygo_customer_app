@@ -6,6 +6,7 @@ import 'package:speedygo_customer_app/core/constants/app_strings.dart';
 import 'package:speedygo_customer_app/core/errors/app_exception.dart';
 import 'package:speedygo_customer_app/core/money/money_calc.dart';
 import 'package:speedygo_customer_app/core/money/money_format.dart';
+import 'package:speedygo_customer_app/core/widgets/bidi_ltr.dart';
 import 'package:speedygo_customer_app/core/navigation/app_routes.dart';
 import 'package:speedygo_customer_app/core/navigation/nav_actions.dart';
 import 'package:speedygo_customer_app/features/cart/application/cart_controller.dart';
@@ -50,7 +51,7 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
             icon: const Icon(Icons.arrow_back),
           ),
         ),
-        body: const CatalogStatusView(message: AppStrings.productUnavailable),
+        body: CatalogStatusView(message: AppStrings.productUnavailable),
       );
     }
 
@@ -338,16 +339,16 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
           context: context,
           builder: (context) {
             return AlertDialog(
-              title: const Text(AppStrings.cartTitle),
-              content: const Text(AppStrings.cartBranchConflict),
+              title: Text(AppStrings.cartTitle),
+              content: Text(AppStrings.cartBranchConflict),
               actions: [
                 TextButton(
                   onPressed: () => Navigator.pop(context, false),
-                  child: const Text(AppStrings.cartKeepExisting),
+                  child: Text(AppStrings.cartKeepExisting),
                 ),
                 FilledButton(
                   onPressed: () => Navigator.pop(context, true),
-                  child: const Text(AppStrings.cartGoToExisting),
+                  child: Text(AppStrings.cartGoToExisting),
                 ),
               ],
             );
@@ -429,12 +430,14 @@ class _ProductIdentity extends StatelessWidget {
     final priceCol = Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
-        Text(
-          priceLabel,
-          style: theme.textTheme.headlineSmall?.copyWith(
-            color: AppColors.primary,
-            fontWeight: FontWeight.w700,
-            height: 32 / 24,
+        BidiLtr(
+          child: Text(
+            priceLabel,
+            style: theme.textTheme.headlineSmall?.copyWith(
+              color: AppColors.primary,
+              fontWeight: FontWeight.w700,
+              height: 32 / 24,
+            ),
           ),
         ),
         Text(

@@ -192,7 +192,7 @@ void main() {
             child: FilledButton(
               key: const Key('save-sticky'),
               onPressed: () {},
-              child: const Text(AppStrings.saveAddress),
+              child: Text(AppStrings.saveAddress),
             ),
           ),
         ),

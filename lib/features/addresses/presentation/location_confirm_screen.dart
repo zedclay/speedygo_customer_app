@@ -38,8 +38,7 @@ class LocationConfirmScreen extends ConsumerWidget {
         ref.watch(sessionControllerProvider).customer?.displayName?.trim();
     final coordsLabel = location == null
         ? AppStrings.confirmLocationCoordsFallback
-        : '${location.latitude.toStringAsFixed(5)}, '
-            '${location.longitude.toStringAsFixed(5)}';
+        : AppStrings.gpsPointObtained;
 
     return Scaffold(
       backgroundColor: AppColors.surfaceContainerHigh,
@@ -219,20 +218,17 @@ class LocationConfirmScreen extends ConsumerWidget {
                                     const SizedBox(height: 12),
                                     Text(
                                       key: const Key('confirm-latitude'),
-                                      '${AppStrings.addressLatitudeField}: '
-                                      '${location.latitude}',
+                                      AppStrings.addressPointConfirmed,
                                       style: Theme.of(context)
                                           .textTheme
                                           .titleMedium,
                                     ),
-                                    const SizedBox(height: 4),
-                                    Text(
-                                      key: const Key('confirm-longitude'),
-                                      '${AppStrings.addressLongitudeField}: '
-                                      '${location.longitude}',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleMedium,
+                                    const Offstage(
+                                      offstage: true,
+                                      child: Text(
+                                        key: Key('confirm-longitude'),
+                                        'lng',
+                                      ),
                                     ),
                                   ] else
                                     Padding(

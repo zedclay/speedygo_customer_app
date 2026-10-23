@@ -11,7 +11,9 @@ import 'package:speedygo_customer_app/features/addresses/application/address_con
 import 'package:speedygo_customer_app/features/addresses/data/address_models.dart';
 import 'package:speedygo_customer_app/features/addresses/data/location_client.dart';
 import 'package:speedygo_customer_app/features/addresses/domain/address_policy.dart';
+import 'package:speedygo_customer_app/features/addresses/presentation/location_picker_screen.dart';
 import 'package:speedygo_customer_app/features/auth/data/models.dart';
+import 'package:speedygo_customer_app/features/catalog/application/catalog_scope.dart';
 
 class AddressFormScreen extends ConsumerStatefulWidget {
   const AddressFormScreen({super.key, this.addressId});
@@ -25,13 +27,17 @@ class AddressFormScreen extends ConsumerStatefulWidget {
 class _AddressFormScreenState extends ConsumerState<AddressFormScreen> {
   final _label = TextEditingController();
   final _addressText = TextEditingController();
+  final _building = TextEditingController();
+  final _floor = TextEditingController();
+  final _entrance = TextEditingController();
+  final _landmark = TextEditingController();
   final _latitude = TextEditingController();
   final _longitude = TextEditingController();
   String? _labelError;
   String? _textError;
-  String? _latError;
-  String? _lngError;
+  String? _pointError;
   var _hydrated = false;
+  var _pointConfirmed = false;
 
   bool get _isEdit {
     final id = widget.addressId;
@@ -48,6 +54,10 @@ class _AddressFormScreenState extends ConsumerState<AddressFormScreen> {
   void dispose() {
     _label.dispose();
     _addressText.dispose();
+    _building.dispose();
+    _floor.dispose();
+    _entrance.dispose();
+    _landmark.dispose();
     _latitude.dispose();
     _longitude.dispose();
     super.dispose();
@@ -68,28 +78,37 @@ class _AddressFormScreenState extends ConsumerState<AddressFormScreen> {
   void _applyAddress(CustomerAddress address) {
     _label.text = address.label;
     _addressText.text = address.addressText;
-    if (address.latitude != null) {
-      _latitude.text = address.latitude.toString();
-    }
-    if (address.longitude != null) {
-      _longitude.text = address.longitude.toString();
+    if (address.latitude != null && address.longitude != null) {
+      _applyPoint(address.latitude!, address.longitude!);
     }
   }
 
+  void _applyPoint(double latitude, double longitude) {
+    _latitude.text = latitude.toString();
+    _longitude.text = longitude.toString();
+    _pointConfirmed = AddressPolicy.isUsablePoint(latitude, longitude);
+    _pointError = _pointConfirmed ? null : AppStrings.addressPointRequired;
+  }
+
   void _applyFix(DeviceLocation fix) {
-    _latitude.text = fix.latitude.toString();
-    _longitude.text = fix.longitude.toString();
-    setState(() {
-      _latError = null;
-      _lngError = null;
-    });
+    _applyPoint(fix.latitude, fix.longitude);
+    setState(() {});
   }
 
   bool _validate() {
     final labelError = AddressPolicy.validateLabel(_label.text);
-    final textError = AddressPolicy.validateAddressText(_addressText.text);
-    final latError = AddressPolicy.validateLatitude(_latitude.text);
-    final lngError = AddressPolicy.validateLongitude(_longitude.text);
+    final composed = AddressPolicy.composeAddressText(
+      street: _addressText.text,
+      building: _building.text,
+      floor: _floor.text,
+      entrance: _entrance.text,
+      landmark: _landmark.text,
+    );
+    final textError = AddressPolicy.validateAddressText(composed);
+    final lat = AddressPolicy.parseCoordinate(_latitude.text);
+    final lng = AddressPolicy.parseCoordinate(_longitude.text);
+    final pointOk =
+        lat != null && lng != null && AddressPolicy.isUsablePoint(lat, lng);
     setState(() {
       _labelError = switch (labelError) {
         'empty' => AppStrings.addressLabelRequired,
@@ -101,13 +120,35 @@ class _AddressFormScreenState extends ConsumerState<AddressFormScreen> {
         'tooLong' => AppStrings.addressTextTooLong,
         _ => null,
       };
-      _latError = latError == null ? null : AppStrings.addressLatitudeInvalid;
-      _lngError = lngError == null ? null : AppStrings.addressLongitudeInvalid;
+      _pointError = pointOk ? null : AppStrings.addressPointRequired;
     });
-    return _labelError == null &&
-        _textError == null &&
-        _latError == null &&
-        _lngError == null;
+    return _labelError == null && _textError == null && pointOk;
+  }
+
+  Future<void> _openPicker() async {
+    final lat = AddressPolicy.parseCoordinate(_latitude.text);
+    final lng = AddressPolicy.parseCoordinate(_longitude.text);
+    final result = await Navigator.of(context).push<LocationPickResult>(
+      MaterialPageRoute(
+        builder: (_) => LocationPickerScreen(
+          initialLatitude: lat,
+          initialLongitude: lng,
+          addressHint: _addressText.text.trim(),
+        ),
+      ),
+    );
+    if (!mounted || result == null) {
+      return;
+    }
+    setState(() {
+      _applyPoint(result.latitude, result.longitude);
+      final formatted = result.formattedAddress?.trim();
+      if (formatted != null &&
+          formatted.isNotEmpty &&
+          _addressText.text.trim().isEmpty) {
+        _addressText.text = formatted;
+      }
+    });
   }
 
   Future<void> _save() async {
@@ -116,13 +157,20 @@ class _AddressFormScreenState extends ConsumerState<AddressFormScreen> {
     }
     final latitude = AddressPolicy.parseCoordinate(_latitude.text)!;
     final longitude = AddressPolicy.parseCoordinate(_longitude.text)!;
+    final addressText = AddressPolicy.composeAddressText(
+      street: _addressText.text,
+      building: _building.text,
+      floor: _floor.text,
+      entrance: _entrance.text,
+      landmark: _landmark.text,
+    );
     final book = ref.read(addressBookProvider.notifier);
     final ok = _isEdit
         ? await book.update(
             addressId: widget.addressId!,
             request: UpdateAddressRequest(
               label: _label.text.trim(),
-              addressText: _addressText.text.trim(),
+              addressText: addressText,
               latitude: latitude,
               longitude: longitude,
             ),
@@ -130,14 +178,44 @@ class _AddressFormScreenState extends ConsumerState<AddressFormScreen> {
         : await book.create(
             CreateAddressRequest(
               label: _label.text.trim(),
-              addressText: _addressText.text.trim(),
+              addressText: addressText,
               latitude: latitude,
               longitude: longitude,
             ),
           );
-    if (ok && mounted) {
+    if (!mounted) {
+      return;
+    }
+    if (ok) {
+      CustomerAddress? match;
+      for (final address in ref.read(addressBookProvider).addresses) {
+        if (AddressPolicy.sameDraft(
+          label: _label.text.trim(),
+          addressText: addressText,
+          latitude: latitude,
+          longitude: longitude,
+          otherLabel: address.label,
+          otherAddressText: address.addressText,
+          otherLatitude: address.latitude,
+          otherLongitude: address.longitude,
+        )) {
+          match = address;
+          break;
+        }
+      }
+      if (match != null) {
+        await ref.read(addressSelectionProvider.notifier).select(match.id);
+      }
+      if (!mounted) {
+        return;
+      }
       SgSnack.success(context, message: AppStrings.addressSaved);
       popOrParent(context);
+      return;
+    }
+    final actionError = ref.read(addressBookProvider).actionError;
+    if (actionError != null) {
+      SgSnack.error(context, message: actionError);
     }
   }
 
@@ -208,10 +286,18 @@ class _AddressFormScreenState extends ConsumerState<AddressFormScreen> {
                 16,
                 16,
                 16,
-                128 + keyboardBottom,
+                180 + keyboardBottom,
               ),
               keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
               children: [
+                if (book.actionError != null) ...[
+                  Text(
+                    book.actionError!,
+                    key: const Key('address-form-error'),
+                    style: const TextStyle(color: AppColors.error),
+                  ),
+                  const SizedBox(height: 16),
+                ],
                 Text(
                   AppStrings.addressTypeLabel.toUpperCase(),
                   style: Theme.of(context).textTheme.labelMedium?.copyWith(
@@ -244,6 +330,33 @@ class _AddressFormScreenState extends ConsumerState<AddressFormScreen> {
                       onTap: () => _selectChip(AppStrings.addressLabelOther),
                     ),
                   ],
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  AppStrings.addressWilayaField,
+                  style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                    color: AppColors.onSurfaceVariant,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                FilterChip(
+                  key: const Key('address-wilaya-field'),
+                  selected:
+                      ref.watch(launchWilayaCodeProvider) ==
+                      LaunchWilaya.sidiBelAbbes,
+                  label: const Text('Sidi Bel Abbès'),
+                  onSelected: book.mutating
+                      ? null
+                      : (_) => ref
+                            .read(launchWilayaCodeProvider.notifier)
+                            .select(LaunchWilaya.sidiBelAbbes),
+                ),
+                Text(
+                  AppStrings.addressWilayaHint,
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: AppColors.onSurfaceVariant,
+                  ),
                 ),
                 if (book.addresses.isEmpty) ...[
                   const SizedBox(height: 12),
@@ -284,63 +397,41 @@ class _AddressFormScreenState extends ConsumerState<AddressFormScreen> {
                     counterText: '',
                   ),
                 ),
-                const SizedBox(height: 24),
+                const SizedBox(height: 16),
                 Text(
                   AppStrings.addressCoordsHint,
                   style: Theme.of(context).textTheme.bodySmall
                       ?.copyWith(color: AppColors.onSurfaceVariant),
                 ),
                 const SizedBox(height: 12),
-                Builder(
-                  builder: (context) {
-                    final stackFields =
-                        MediaQuery.sizeOf(context).width < 390 ||
-                        MediaQuery.textScalerOf(context).scale(16) > 18;
-                    final latField = TextField(
-                      key: const Key('address-latitude-field'),
-                      controller: _latitude,
-                      keyboardType: const TextInputType.numberWithOptions(
-                        decimal: true,
-                        signed: true,
-                      ),
-                      scrollPadding: fieldScrollPadding,
-                      decoration: InputDecoration(
-                        labelText: AppStrings.addressLatitudeField,
-                        errorText: _latError,
-                      ),
-                    );
-                    final lngField = TextField(
-                      key: const Key('address-longitude-field'),
-                      controller: _longitude,
-                      keyboardType: const TextInputType.numberWithOptions(
-                        decimal: true,
-                        signed: true,
-                      ),
-                      scrollPadding: fieldScrollPadding,
-                      decoration: InputDecoration(
-                        labelText: AppStrings.addressLongitudeField,
-                        errorText: _lngError,
-                      ),
-                    );
-                    if (stackFields) {
-                      return Column(
-                        children: [
-                          latField,
-                          const SizedBox(height: 12),
-                          lngField,
-                        ],
-                      );
-                    }
-                    return Row(
-                      children: [
-                        Expanded(child: latField),
-                        const SizedBox(width: 12),
-                        Expanded(child: lngField),
-                      ],
-                    );
-                  },
+                OutlinedButton.icon(
+                  key: const Key('address-choose-map'),
+                  onPressed: book.mutating ? null : _openPicker,
+                  style: OutlinedButton.styleFrom(
+                    minimumSize: const Size.fromHeight(48),
+                    foregroundColor: AppColors.primary,
+                    side: BorderSide(
+                      color: AppColors.primary.withValues(alpha: 0.3),
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  icon: const Icon(Icons.map_outlined),
+                  label: Text(
+                    _pointConfirmed
+                        ? AppStrings.addressPointConfirmed
+                        : AppStrings.addressChooseOnMap,
+                  ),
                 ),
-                const SizedBox(height: 16),
+                if (_pointError != null) ...[
+                  const SizedBox(height: 8),
+                  Text(
+                    _pointError!,
+                    style: const TextStyle(color: AppColors.error),
+                  ),
+                ],
+                const SizedBox(height: 12),
                 OutlinedButton.icon(
                   key: const Key('use-my-location'),
                   onPressed: book.mutating
@@ -357,11 +448,76 @@ class _AddressFormScreenState extends ConsumerState<AddressFormScreen> {
                     ),
                   ),
                   icon: const Icon(Icons.my_location),
-                  label: const Text(AppStrings.useMyLocation),
+                  label: Text(AppStrings.useMyLocation),
+                ),
+                Offstage(
+                  offstage: true,
+                  child: Column(
+                    children: [
+                      TextField(
+                        key: const Key('address-latitude-field'),
+                        controller: _latitude,
+                        onChanged: (_) {
+                          final lat = AddressPolicy.parseCoordinate(
+                            _latitude.text,
+                          );
+                          final lng = AddressPolicy.parseCoordinate(
+                            _longitude.text,
+                          );
+                          setState(() {
+                            _pointConfirmed =
+                                lat != null &&
+                                lng != null &&
+                                AddressPolicy.isUsablePoint(lat, lng);
+                          });
+                        },
+                      ),
+                      TextField(
+                        key: const Key('address-longitude-field'),
+                        controller: _longitude,
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 12),
+                TextField(
+                  key: const Key('address-building-field'),
+                  controller: _building,
+                  scrollPadding: fieldScrollPadding,
+                  decoration: InputDecoration(
+                    labelText: AppStrings.addressBuildingField,
+                  ),
+                ),
+                const SizedBox(height: 12),
+                TextField(
+                  key: const Key('address-floor-field'),
+                  controller: _floor,
+                  scrollPadding: fieldScrollPadding,
+                  decoration: InputDecoration(
+                    labelText: AppStrings.addressFloorField,
+                  ),
+                ),
+                const SizedBox(height: 12),
+                TextField(
+                  key: const Key('address-entrance-field'),
+                  controller: _entrance,
+                  scrollPadding: fieldScrollPadding,
+                  decoration: InputDecoration(
+                    labelText: AppStrings.addressEntranceField,
+                  ),
+                ),
+                const SizedBox(height: 12),
+                TextField(
+                  key: const Key('address-landmark-field'),
+                  controller: _landmark,
+                  scrollPadding: fieldScrollPadding,
+                  decoration: InputDecoration(
+                    labelText: AppStrings.addressLandmarkField,
+                  ),
                 ),
                 if (book.reconciling) ...[
                   const SizedBox(height: 16),
-                  const Text(AppStrings.addressReconciling),
+                  Text(AppStrings.addressReconciling),
                 ],
                 if (book.actionError != null) ...[
                   const SizedBox(height: 16),
@@ -377,20 +533,19 @@ class _AddressFormScreenState extends ConsumerState<AddressFormScreen> {
           : Padding(
               padding: EdgeInsets.only(bottom: keyboardBottom),
               child: SafeArea(
-              // Home indicator only; keyboard offset is the Padding above.
-              maintainBottomViewPadding: true,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
-                child: SgPrimaryButton(
-                  key: const Key('address-save-button'),
-                  label: book.mutating
-                      ? AppStrings.addressSaving
-                      : AppStrings.saveAddress,
-                  loading: book.mutating,
-                  onPressed: book.mutating ? null : _save,
+                maintainBottomViewPadding: true,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
+                  child: SgPrimaryButton(
+                    key: const Key('address-save-button'),
+                    label: book.mutating
+                        ? AppStrings.addressSaving
+                        : AppStrings.saveAddress,
+                    loading: book.mutating,
+                    onPressed: book.mutating ? null : _save,
+                  ),
                 ),
               ),
-            ),
             ),
     );
   }

@@ -9,7 +9,7 @@ AppException mapDioError(Object error) {
   if (error is DioException) {
     if (error.type == DioExceptionType.connectionError ||
         error.type == DioExceptionType.connectionTimeout) {
-      return const NetworkException(AppStrings.offline, code: 'NETWORK');
+      return NetworkException(AppStrings.offline, code: 'NETWORK');
     }
     if (error.type == DioExceptionType.receiveTimeout ||
         error.type == DioExceptionType.sendTimeout) {
@@ -23,9 +23,9 @@ AppException mapDioError(Object error) {
     if (response != null) {
       return parseApiException(response.statusCode, response.data);
     }
-    return const NetworkException(AppStrings.offline, code: 'NETWORK');
+    return NetworkException(AppStrings.offline, code: 'NETWORK');
   }
-  return const UnexpectedException(AppStrings.unexpected);
+  return UnexpectedException(AppStrings.unexpected);
 }
 
 ApiException parseApiException(int? statusCode, Object? data) {

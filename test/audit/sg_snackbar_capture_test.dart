@@ -13,7 +13,7 @@ import 'package:speedygo_customer_app/features/home/presentation/widgets/home_bo
 /// Mocked visual captures for SpeedyGo snackbars (no live business writes).
 void main() {
   final outDir = Directory(
-    '/Users/mac/Downloads/speedygo_project/apps/customer_app/audit/visuals/snackbar',
+    '${Directory.current.path}/audit/visuals/snackbar',
   );
 
   setUpAll(() => outDir.createSync(recursive: true));
@@ -117,7 +117,7 @@ void main() {
             );
           },
           home: Scaffold(
-            appBar: AppBar(title: const Text(AppStrings.customizeTitle)),
+            appBar: AppBar(title: Text(AppStrings.customizeTitle)),
             body: Column(
               children: [
                 Expanded(
@@ -219,7 +219,7 @@ void main() {
           child: FilledButton(
             key: const Key('address-save-button'),
             onPressed: () {},
-            child: const Text(AppStrings.saveAddress),
+            child: Text(AppStrings.saveAddress),
           ),
         ),
       ),
@@ -265,7 +265,7 @@ void main() {
                   }
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: const Text(AppStrings.cartAdded),
+                      content: Text(AppStrings.cartAdded),
                       action: SnackBarAction(
                         label: AppStrings.viewCart,
                         onPressed: () {},
