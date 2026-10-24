@@ -1127,6 +1127,10 @@ class FakeAddressClient implements AddressClient {
       addressText: request.addressText,
       latitude: request.latitude,
       longitude: request.longitude,
+      building: emptyToNull(request.building),
+      floor: emptyToNull(request.floor),
+      entrance: emptyToNull(request.entrance),
+      landmark: emptyToNull(request.landmark),
       isDefault: addresses.isEmpty,
     );
     addresses = [...addresses, created];
@@ -1147,11 +1151,23 @@ class FakeAddressClient implements AddressClient {
       throw _notFound;
     }
     final current = addresses[index];
-    final updated = current.copyWith(
+    final updated = CustomerAddress(
+      id: current.id,
       label: request.label ?? current.label,
       addressText: request.addressText ?? current.addressText,
       latitude: request.latitude ?? current.latitude,
       longitude: request.longitude ?? current.longitude,
+      isDefault: current.isDefault,
+      building: request.patchDetails
+          ? emptyToNull(request.building)
+          : current.building,
+      floor: request.patchDetails ? emptyToNull(request.floor) : current.floor,
+      entrance: request.patchDetails
+          ? emptyToNull(request.entrance)
+          : current.entrance,
+      landmark: request.patchDetails
+          ? emptyToNull(request.landmark)
+          : current.landmark,
     );
     addresses = [...addresses]..[index] = updated;
     return updated;

@@ -202,10 +202,18 @@ class AddressBookController extends Notifier<AddressUiState> {
           addressText: request.addressText,
           latitude: request.latitude,
           longitude: request.longitude,
+          building: request.building,
+          floor: request.floor,
+          entrance: request.entrance,
+          landmark: request.landmark,
           otherLabel: address.label,
           otherAddressText: address.addressText,
           otherLatitude: address.latitude,
           otherLongitude: address.longitude,
+          otherBuilding: address.building,
+          otherFloor: address.floor,
+          otherEntrance: address.entrance,
+          otherLandmark: address.landmark,
         ),
       );
       _commit(

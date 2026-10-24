@@ -78,6 +78,10 @@ class _AddressFormScreenState extends ConsumerState<AddressFormScreen> {
   void _applyAddress(CustomerAddress address) {
     _label.text = address.label;
     _addressText.text = address.addressText;
+    _building.text = address.building ?? '';
+    _floor.text = address.floor ?? '';
+    _entrance.text = address.entrance ?? '';
+    _landmark.text = address.landmark ?? '';
     if (address.latitude != null && address.longitude != null) {
       _applyPoint(address.latitude!, address.longitude!);
     }
@@ -97,14 +101,7 @@ class _AddressFormScreenState extends ConsumerState<AddressFormScreen> {
 
   bool _validate() {
     final labelError = AddressPolicy.validateLabel(_label.text);
-    final composed = AddressPolicy.composeAddressText(
-      street: _addressText.text,
-      building: _building.text,
-      floor: _floor.text,
-      entrance: _entrance.text,
-      landmark: _landmark.text,
-    );
-    final textError = AddressPolicy.validateAddressText(composed);
+    final textError = AddressPolicy.validateAddressText(_addressText.text);
     final lat = AddressPolicy.parseCoordinate(_latitude.text);
     final lng = AddressPolicy.parseCoordinate(_longitude.text);
     final pointOk =
@@ -157,13 +154,7 @@ class _AddressFormScreenState extends ConsumerState<AddressFormScreen> {
     }
     final latitude = AddressPolicy.parseCoordinate(_latitude.text)!;
     final longitude = AddressPolicy.parseCoordinate(_longitude.text)!;
-    final addressText = AddressPolicy.composeAddressText(
-      street: _addressText.text,
-      building: _building.text,
-      floor: _floor.text,
-      entrance: _entrance.text,
-      landmark: _landmark.text,
-    );
+    final addressText = _addressText.text.trim();
     final book = ref.read(addressBookProvider.notifier);
     final ok = _isEdit
         ? await book.update(
@@ -173,6 +164,11 @@ class _AddressFormScreenState extends ConsumerState<AddressFormScreen> {
               addressText: addressText,
               latitude: latitude,
               longitude: longitude,
+              building: _building.text,
+              floor: _floor.text,
+              entrance: _entrance.text,
+              landmark: _landmark.text,
+              patchDetails: true,
             ),
           )
         : await book.create(
@@ -181,6 +177,10 @@ class _AddressFormScreenState extends ConsumerState<AddressFormScreen> {
               addressText: addressText,
               latitude: latitude,
               longitude: longitude,
+              building: _building.text,
+              floor: _floor.text,
+              entrance: _entrance.text,
+              landmark: _landmark.text,
             ),
           );
     if (!mounted) {
@@ -194,10 +194,18 @@ class _AddressFormScreenState extends ConsumerState<AddressFormScreen> {
           addressText: addressText,
           latitude: latitude,
           longitude: longitude,
+          building: _building.text,
+          floor: _floor.text,
+          entrance: _entrance.text,
+          landmark: _landmark.text,
           otherLabel: address.label,
           otherAddressText: address.addressText,
           otherLatitude: address.latitude,
           otherLongitude: address.longitude,
+          otherBuilding: address.building,
+          otherFloor: address.floor,
+          otherEntrance: address.entrance,
+          otherLandmark: address.landmark,
         )) {
           match = address;
           break;
@@ -483,36 +491,44 @@ class _AddressFormScreenState extends ConsumerState<AddressFormScreen> {
                 TextField(
                   key: const Key('address-building-field'),
                   controller: _building,
+                  maxLength: AddressPolicy.buildingMaxLength,
                   scrollPadding: fieldScrollPadding,
                   decoration: InputDecoration(
                     labelText: AppStrings.addressBuildingField,
+                    counterText: '',
                   ),
                 ),
                 const SizedBox(height: 12),
                 TextField(
                   key: const Key('address-floor-field'),
                   controller: _floor,
+                  maxLength: AddressPolicy.floorMaxLength,
                   scrollPadding: fieldScrollPadding,
                   decoration: InputDecoration(
                     labelText: AppStrings.addressFloorField,
+                    counterText: '',
                   ),
                 ),
                 const SizedBox(height: 12),
                 TextField(
                   key: const Key('address-entrance-field'),
                   controller: _entrance,
+                  maxLength: AddressPolicy.entranceMaxLength,
                   scrollPadding: fieldScrollPadding,
                   decoration: InputDecoration(
                     labelText: AppStrings.addressEntranceField,
+                    counterText: '',
                   ),
                 ),
                 const SizedBox(height: 12),
                 TextField(
                   key: const Key('address-landmark-field'),
                   controller: _landmark,
+                  maxLength: AddressPolicy.landmarkMaxLength,
                   scrollPadding: fieldScrollPadding,
                   decoration: InputDecoration(
                     labelText: AppStrings.addressLandmarkField,
+                    counterText: '',
                   ),
                 ),
                 if (book.reconciling) ...[
