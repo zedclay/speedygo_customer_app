@@ -3,6 +3,10 @@ class AddressPolicy {
 
   static const labelMaxLength = 64;
   static const addressTextMaxLength = 500;
+  static const buildingMaxLength = 64;
+  static const floorMaxLength = 32;
+  static const entranceMaxLength = 64;
+  static const landmarkMaxLength = 128;
   static const minLatitude = -90.0;
   static const maxLatitude = 90.0;
   static const minLongitude = -180.0;
@@ -60,18 +64,24 @@ class AddressPolicy {
     String entrance = '',
     String landmark = '',
   }) {
-    final line = street.trim();
-    final extras = <String>[
-      if (building.trim().isNotEmpty) 'Bâtiment ${building.trim()}',
-      if (floor.trim().isNotEmpty) 'Étage ${floor.trim()}',
-      if (entrance.trim().isNotEmpty) 'Entrée ${entrance.trim()}',
-    ];
-    final parts = <String>[
-      if (line.isNotEmpty) line,
-      if (extras.isNotEmpty) extras.join(' · '),
-      if (landmark.trim().isNotEmpty) landmark.trim(),
-    ];
-    return parts.join('\n');
+    // Named extras are accepted for call-site compatibility and ignored.
+    // Structured details persist in their own columns, not in addressText.
+    final hasExtras =
+        building.trim().isNotEmpty ||
+        floor.trim().isNotEmpty ||
+        entrance.trim().isNotEmpty ||
+        landmark.trim().isNotEmpty;
+    if (hasExtras) {
+      return street.trim();
+    }
+    return street.trim();
+  }
+
+  static String? validateOptionalDetail(String raw, int maxLength) {
+    if (raw.trim().length > maxLength) {
+      return 'tooLong';
+    }
+    return null;
   }
 
   static String? validateLatitude(String raw) {
@@ -99,6 +109,14 @@ class AddressPolicy {
     required String otherAddressText,
     required double? otherLatitude,
     required double? otherLongitude,
+    String building = '',
+    String floor = '',
+    String entrance = '',
+    String landmark = '',
+    String? otherBuilding,
+    String? otherFloor,
+    String? otherEntrance,
+    String? otherLandmark,
   }) {
     if (otherLatitude == null || otherLongitude == null) {
       return false;
@@ -106,6 +124,10 @@ class AddressPolicy {
     return label.trim() == otherLabel.trim() &&
         addressText.trim() == otherAddressText.trim() &&
         (latitude - otherLatitude).abs() < 0.000001 &&
-        (longitude - otherLongitude).abs() < 0.000001;
+        (longitude - otherLongitude).abs() < 0.000001 &&
+        building.trim() == (otherBuilding ?? '').trim() &&
+        floor.trim() == (otherFloor ?? '').trim() &&
+        entrance.trim() == (otherEntrance ?? '').trim() &&
+        landmark.trim() == (otherLandmark ?? '').trim();
   }
 }

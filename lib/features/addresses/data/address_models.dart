@@ -18,24 +18,41 @@ class AddressUncertainException extends UnexpectedException {
       );
 }
 
+String? emptyToNull(String? value) {
+  final trimmed = value?.trim() ?? '';
+  return trimmed.isEmpty ? null : trimmed;
+}
+
 class CreateAddressRequest {
   const CreateAddressRequest({
     required this.label,
     required this.addressText,
     required this.latitude,
     required this.longitude,
+    this.building = '',
+    this.floor = '',
+    this.entrance = '',
+    this.landmark = '',
   });
 
   final String label;
   final String addressText;
   final double latitude;
   final double longitude;
+  final String building;
+  final String floor;
+  final String entrance;
+  final String landmark;
 
   Map<String, dynamic> toJson() => {
     'label': label,
     'addressText': addressText,
     'latitude': latitude,
     'longitude': longitude,
+    'building': emptyToNull(building),
+    'floor': emptyToNull(floor),
+    'entrance': emptyToNull(entrance),
+    'landmark': emptyToNull(landmark),
   };
 }
 
@@ -45,12 +62,22 @@ class UpdateAddressRequest {
     this.addressText,
     this.latitude,
     this.longitude,
+    this.building,
+    this.floor,
+    this.entrance,
+    this.landmark,
+    this.patchDetails = false,
   });
 
   final String? label;
   final String? addressText;
   final double? latitude;
   final double? longitude;
+  final String? building;
+  final String? floor;
+  final String? entrance;
+  final String? landmark;
+  final bool patchDetails;
 
   Map<String, dynamic> toJson() {
     return {
@@ -58,6 +85,10 @@ class UpdateAddressRequest {
       if (addressText != null) 'addressText': addressText,
       if (latitude != null) 'latitude': latitude,
       if (longitude != null) 'longitude': longitude,
+      if (patchDetails) 'building': emptyToNull(building),
+      if (patchDetails) 'floor': emptyToNull(floor),
+      if (patchDetails) 'entrance': emptyToNull(entrance),
+      if (patchDetails) 'landmark': emptyToNull(landmark),
     };
   }
 }

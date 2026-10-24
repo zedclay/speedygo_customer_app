@@ -494,4 +494,135 @@ void main() {
         tester.view.physicalSize.height / tester.view.devicePixelRatio;
     expect(rect.bottom, lessThanOrEqualTo(viewHeight - 280 + 0.5));
   });
+
+  testWidgets('save leave reopen keeps structured details and street text', (
+    tester,
+  ) async {
+    final api = FakeAddressClient();
+    await tester.pumpWidget(readyApp(customer: _customer(), addresses: api));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byIcon(Icons.person_outline));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text(AppStrings.addressesTitle));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('add-address-button')));
+    await tester.pumpAndSettle();
+    await tester.enterText(
+      find.byKey(const Key('address-label-field')),
+      'Domicile détails',
+    );
+    await tester.enterText(
+      find.byKey(const Key('address-text-field')),
+      'Cité 1500 Logements',
+    );
+    await tester.enterText(_key('address-latitude-field'), '35.1939');
+    await tester.enterText(_key('address-longitude-field'), '-0.6417');
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('address-building-field')),
+      300,
+      scrollable: find
+          .descendant(
+            of: find.byType(AddressFormScreen),
+            matching: find.byType(Scrollable),
+          )
+          .first,
+    );
+    await tester.enterText(_key('address-building-field'), 'Bloc Z');
+    await tester.enterText(_key('address-floor-field'), '3');
+    await tester.enterText(_key('address-entrance-field'), 'B');
+    await tester.enterText(_key('address-landmark-field'), 'Mosquée');
+    await tester.tap(find.byKey(const Key('address-save-button')));
+    await tester.pumpAndSettle();
+    expect(api.createCount, 1);
+    expect(api.creates.single.toJson(), containsPair('building', 'Bloc Z'));
+    expect(api.creates.single.toJson(), containsPair('addressText', 'Cité 1500 Logements'));
+    expect(api.addresses.single.building, 'Bloc Z');
+    expect(api.addresses.single.addressText, 'Cité 1500 Logements');
+
+    await tester.tap(find.byKey(const Key('edit-address-addr-created-1')));
+    await tester.pumpAndSettle();
+    expect(
+      tester.widget<TextField>(find.byKey(const Key('address-text-field'))).controller?.text,
+      'Cité 1500 Logements',
+    );
+    final formScrollable = find
+        .descendant(
+          of: find.byType(AddressFormScreen),
+          matching: find.byType(Scrollable),
+        )
+        .first;
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('address-building-field')),
+      300,
+      scrollable: formScrollable,
+    );
+    expect(
+      tester.widget<TextField>(_key('address-building-field')).controller?.text,
+      'Bloc Z',
+    );
+    expect(
+      tester.widget<TextField>(_key('address-floor-field')).controller?.text,
+      '3',
+    );
+    expect(
+      tester.widget<TextField>(_key('address-entrance-field')).controller?.text,
+      'B',
+    );
+    expect(
+      tester.widget<TextField>(_key('address-landmark-field')).controller?.text,
+      'Mosquée',
+    );
+    await tester.enterText(_key('address-floor-field'), '');
+    await tester.tap(find.byKey(const Key('address-save-button')));
+    await tester.pumpAndSettle();
+    expect(api.addresses.single.building, 'Bloc Z');
+    expect(api.addresses.single.floor, isNull);
+    expect(api.addresses.single.landmark, 'Mosquée');
+  });
+
+  testWidgets('wilaya chip does not move the confirmed pin', (tester) async {
+    final api = FakeAddressClient(addresses: [_home]);
+    await tester.pumpWidget(
+      readyApp(customer: _customer(addresses: [_home]), addresses: api),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.byIcon(Icons.person_outline));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text(AppStrings.addressesTitle));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('edit-address-addr-home')));
+    await tester.pumpAndSettle();
+    expect(
+      tester.widget<TextField>(_key('address-latitude-field')).controller?.text,
+      '36.75',
+    );
+    expect(
+      tester.widget<TextField>(_key('address-longitude-field')).controller?.text,
+      '3.05',
+    );
+    await tester.tap(find.byKey(const Key('address-wilaya-field')));
+    await tester.pumpAndSettle();
+    expect(
+      tester.widget<TextField>(_key('address-latitude-field')).controller?.text,
+      '36.75',
+    );
+    expect(
+      tester.widget<TextField>(_key('address-longitude-field')).controller?.text,
+      '3.05',
+    );
+  });
+
+  test('French and Arabic address detail labels stay distinct', () {
+    AppStrings.bind('fr');
+    expect(AppStrings.addressBuildingField, 'Bâtiment');
+    expect(AppStrings.addressFloorField, 'Étage');
+    expect(AppStrings.addressEntranceField, 'Entrée');
+    expect(AppStrings.addressLandmarkField, 'Point de repère');
+    AppStrings.bind('ar');
+    expect(AppStrings.addressBuildingField, 'المبنى');
+    expect(AppStrings.addressFloorField, 'الطابق');
+    expect(AppStrings.addressEntranceField, 'المدخل');
+    expect(AppStrings.addressLandmarkField, 'علامة مميّزة');
+    AppStrings.bind('fr');
+  });
 }

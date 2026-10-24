@@ -100,6 +100,10 @@ class CustomerAddress {
     required this.isDefault,
     this.latitude,
     this.longitude,
+    this.building,
+    this.floor,
+    this.entrance,
+    this.landmark,
   });
 
   final String id;
@@ -108,6 +112,10 @@ class CustomerAddress {
   final bool isDefault;
   final double? latitude;
   final double? longitude;
+  final String? building;
+  final String? floor;
+  final String? entrance;
+  final String? landmark;
 
   factory CustomerAddress.fromJson(Map<String, dynamic> json) {
     return CustomerAddress(
@@ -117,6 +125,10 @@ class CustomerAddress {
       isDefault: json['isDefault'] == true,
       latitude: _parseCoord(json['latitude']),
       longitude: _parseCoord(json['longitude']),
+      building: _optionalText(json['building']),
+      floor: _optionalText(json['floor']),
+      entrance: _optionalText(json['entrance']),
+      landmark: _optionalText(json['landmark']),
     );
   }
 
@@ -127,6 +139,10 @@ class CustomerAddress {
     bool? isDefault,
     double? latitude,
     double? longitude,
+    String? building,
+    String? floor,
+    String? entrance,
+    String? landmark,
   }) {
     return CustomerAddress(
       id: id ?? this.id,
@@ -135,6 +151,10 @@ class CustomerAddress {
       isDefault: isDefault ?? this.isDefault,
       latitude: latitude ?? this.latitude,
       longitude: longitude ?? this.longitude,
+      building: building ?? this.building,
+      floor: floor ?? this.floor,
+      entrance: entrance ?? this.entrance,
+      landmark: landmark ?? this.landmark,
     );
   }
 
@@ -146,6 +166,14 @@ class CustomerAddress {
     }
     return addressText.trim();
   }
+}
+
+String? _optionalText(Object? value) {
+  if (value == null) {
+    return null;
+  }
+  final text = value.toString().trim();
+  return text.isEmpty ? null : text;
 }
 
 double? _parseCoord(Object? value) {

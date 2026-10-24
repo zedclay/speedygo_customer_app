@@ -20,7 +20,7 @@ void main() {
     expect(AddressPolicy.parseCoordinate('36,75'), 36.75);
   });
 
-  test('rejects the 0,0 substitute and composes readable extras', () {
+  test('rejects the 0,0 substitute and keeps street text unstuffed', () {
     expect(AddressPolicy.isUsablePoint(0, 0), isFalse);
     expect(AddressPolicy.isUsablePoint(35.1939, -0.6417), isTrue);
     expect(
@@ -31,7 +31,40 @@ void main() {
         entrance: 'B',
         landmark: 'Mosquée',
       ),
-      'Cité 1500 Logements\nBâtiment 12 · Étage 3 · Entrée B\nMosquée',
+      'Cité 1500 Logements',
+    );
+  });
+
+  test('sameDraft includes structured details', () {
+    expect(
+      AddressPolicy.sameDraft(
+        label: 'Home',
+        addressText: 'Cité 1500',
+        latitude: 35.1939,
+        longitude: -0.6417,
+        building: '12',
+        otherLabel: 'Home',
+        otherAddressText: 'Cité 1500',
+        otherLatitude: 35.1939,
+        otherLongitude: -0.6417,
+        otherBuilding: '12',
+      ),
+      isTrue,
+    );
+    expect(
+      AddressPolicy.sameDraft(
+        label: 'Home',
+        addressText: 'Cité 1500',
+        latitude: 35.1939,
+        longitude: -0.6417,
+        building: '12',
+        otherLabel: 'Home',
+        otherAddressText: 'Cité 1500',
+        otherLatitude: 35.1939,
+        otherLongitude: -0.6417,
+        otherBuilding: '99',
+      ),
+      isFalse,
     );
   });
 }
