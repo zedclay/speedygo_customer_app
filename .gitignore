@@ -58,3 +58,6 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Firebase Android client config (downloaded locally; never commit).
+/android/app/google-services.json

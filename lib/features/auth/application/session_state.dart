@@ -25,6 +25,7 @@ class SessionState {
     this.busy = false,
     this.generation = 0,
     this.otpResendAvailableAt,
+    this.accountId,
   });
 
   final SessionPhase phase;
@@ -41,6 +42,7 @@ class SessionState {
   final bool busy;
   final int generation;
   final DateTime? otpResendAvailableAt;
+  final String? accountId;
 
   bool get isAuthenticated =>
       phase == SessionPhase.needsProfile || phase == SessionPhase.ready;
@@ -71,6 +73,7 @@ class SessionState {
     bool? busy,
     int? generation,
     DateTime? otpResendAvailableAt,
+    String? accountId,
     bool clearTokens = false,
     bool clearCustomer = false,
     bool clearPendingPhone = false,
@@ -78,6 +81,7 @@ class SessionState {
     bool clearError = false,
     bool clearLogoutFlag = false,
     bool clearOtpCooldown = false,
+    bool clearAccountId = false,
   }) {
     return SessionState(
       phase: phase ?? this.phase,
@@ -102,6 +106,7 @@ class SessionState {
       otpResendAvailableAt: clearOtpCooldown
           ? null
           : (otpResendAvailableAt ?? this.otpResendAvailableAt),
+      accountId: clearAccountId ? null : (accountId ?? this.accountId),
     );
   }
 

@@ -63,7 +63,11 @@ void main() {
     expect(AppStrings.phonePrefix, '+213');
     expect(AppStrings.promoCode, 'SPEEDY150');
     expect(AppStrings.locationSearchUnavailable, contains('غير مُعدّ'));
+    expect(AppStrings.locationSearchLoading, 'جاري البحث…');
+    expect(AppStrings.locationSearchFailed, contains('أعد المحاولة'));
     expect(AppStrings.locationMapTilesDev, contains('OSM'));
+    expect(AppStrings.locationMapUnavailable, contains('غير مُعدّ'));
+    expect(AppStrings.locationSearchDisabledOnDevMap, contains('معطّل'));
     expect(AppStrings.checkoutPaymentElectronicSoon, 'قريبًا');
     expect(AppStrings.categoryRestaurants, 'مطاعم');
     expect(AppStrings.categoryGroceries, 'بقالات');

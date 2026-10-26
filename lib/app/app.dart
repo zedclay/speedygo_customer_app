@@ -7,6 +7,7 @@ import 'package:speedygo_customer_app/app/theme/app_theme.dart';
 import 'package:speedygo_customer_app/core/constants/app_strings.dart';
 import 'package:speedygo_customer_app/core/navigation/app_locale.dart';
 import 'package:speedygo_customer_app/features/auth/application/session_controller.dart';
+import 'package:speedygo_customer_app/features/notifications/presentation/customer_push_host.dart';
 
 class SpeedyGoApp extends ConsumerWidget {
   const SpeedyGoApp({super.key});
@@ -52,7 +53,7 @@ class SpeedyGoApp extends ConsumerWidget {
             child: content,
           );
         }
-        return content;
+        return CustomerPushHost(child: content);
       },
       routerConfig: router,
     );

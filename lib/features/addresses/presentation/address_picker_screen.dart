@@ -128,6 +128,9 @@ class _PickerTile extends StatelessWidget {
                       address.displayLabel.isEmpty
                           ? AppStrings.deliverToSaved
                           : address.displayLabel,
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                      softWrap: true,
                       style: Theme.of(context).textTheme.titleMedium
                           ?.copyWith(fontWeight: FontWeight.w700),
                     ),

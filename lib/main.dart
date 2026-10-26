@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:speedygo_customer_app/app/app.dart';
+import 'package:speedygo_customer_app/features/notifications/application/customer_push_controller.dart';
+import 'package:speedygo_customer_app/features/notifications/data/push_messaging_gateway.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const ProviderScope(child: SpeedyGoApp()));
+  final push = await FirebasePushMessagingGateway.bootstrap();
+  runApp(
+    ProviderScope(
+      overrides: [pushMessagingGatewayProvider.overrideWithValue(push)],
+      child: const SpeedyGoApp(),
+    ),
+  );
 }

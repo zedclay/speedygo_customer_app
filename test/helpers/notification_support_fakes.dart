@@ -25,6 +25,9 @@ class FakeNotificationsClient implements NotificationsClient {
   Duration Function(int callCount)? listDelayForCall;
   Completer<void>? markReadGate;
   bool overlapOnLoadMore = false;
+  final registered = <String>[];
+  final deactivated = <String>[];
+  Set<String> conflictTokens = {};
   int Function(int limit, int offset)? listHook;
 
   @override
@@ -105,6 +108,26 @@ class FakeNotificationsClient implements NotificationsClient {
       }
     }
     return MarkAllReadResponse(marked: marked);
+  }
+
+  @override
+  Future<void> registerDeviceToken({
+    required String token,
+    required String platform,
+  }) async {
+    if (conflictTokens.contains(token)) {
+      throw const ApiException(
+        'Push token is registered to another account',
+        code: 'NOTIFICATION_INTEGRITY_CONFLICT',
+        statusCode: 409,
+      );
+    }
+    registered.add('$platform:$token');
+  }
+
+  @override
+  Future<void> deactivateDeviceToken({required String token}) async {
+    deactivated.add(token);
   }
 }
 

@@ -33,11 +33,17 @@ class GeoClient {
     required String q,
     String language = 'fr',
     int generation = 0,
+    String? sessionToken,
   }) async {
     try {
+      final token = sessionToken?.trim();
       final response = await _dio.get<Map<String, dynamic>>(
         ApiEndpoints.geoPlacesAutocompletePath,
-        queryParameters: {'q': q, 'language': language},
+        queryParameters: {
+          'q': q,
+          'language': language,
+          if (token != null && token.isNotEmpty) 'sessionToken': token,
+        },
       );
       final raw = response.data?['suggestions'];
       if (raw is! List) {
@@ -65,11 +71,17 @@ class GeoClient {
   Future<PlaceDetails> placeDetails({
     required String placeId,
     String language = 'fr',
+    String? sessionToken,
   }) async {
     try {
+      final token = sessionToken?.trim();
       final response = await _dio.get<Map<String, dynamic>>(
         ApiEndpoints.geoPlacesDetailsPath,
-        queryParameters: {'placeId': placeId, 'language': language},
+        queryParameters: {
+          'placeId': placeId,
+          'language': language,
+          if (token != null && token.isNotEmpty) 'sessionToken': token,
+        },
       );
       final data = response.data;
       final lat = (data?['latitude'] as num?)?.toDouble();

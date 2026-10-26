@@ -1329,6 +1329,8 @@ class AppStrings {
 
   static String get locationSearchHint => isArabic ? 'ابحث عن عنوان' : 'Rechercher une adresse';
 
+  static String get locationSearchLoading => isArabic ? 'جاري البحث…' : 'Recherche en cours…';
+
   static String get locationSearchUnavailable => isArabic ? 'البحث عن العنوان غير مُعدّ. حدّد النقطة على الخريطة.' : 'La recherche d’adresse n’est pas configurée. Choisissez le point sur la carte.';
 
   static String get locationSearchEmpty => isArabic ? 'لا توجد نتائج لهذا البحث.' : 'Aucun résultat pour cette recherche.';
@@ -1344,6 +1346,14 @@ class AppStrings {
   static String get locationCoverageInside => isArabic ? 'العنوان ضمن منطقة التوصيل.' : 'Adresse dans la zone de livraison.';
 
   static String get locationMapTilesDev => isArabic ? 'خريطة تطوير (بلاطات OSM). خرائط Google غير مفعّلة.' : 'Carte de développement (tuiles OSM). Google Maps n’est pas activé.';
+
+  static String get locationMapUnavailable => isArabic ? 'خرائط Google غير مُعدّة. لا يمكن تأكيد نقطة التوصيل هنا.' : 'Google Maps n’est pas configuré. Impossible de confirmer un point ici.';
+
+  static String get pushOrderInaccessible => isArabic
+      ? 'هذا الطلب غير موجود.'
+      : 'Cette commande est introuvable.';
+
+  static String get locationSearchDisabledOnDevMap => isArabic ? 'بحث Google معطّل على خريطة التطوير. حرّك الدبوس ثم أكّد.' : 'La recherche Google est désactivée sur la carte de développement. Déplacez l’épingle, puis confirmez.';
 
   static String get addressLabelRequired => isArabic ? 'أدخل تسمية.' : 'Saisissez un libellé.';
 

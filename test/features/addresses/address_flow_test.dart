@@ -68,6 +68,48 @@ void main() {
     },
   );
 
+  testWidgets('long address labels stay readable on a narrow phone', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(1170, 2532);
+    tester.view.devicePixelRatio = 3;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    const longHome = CustomerAddress(
+      id: 'addr-long',
+      label: 'Shared smoke home kept',
+      addressText: 'Cité 120 logements',
+      isDefault: true,
+      latitude: 36.75,
+      longitude: 3.05,
+    );
+    await tester.pumpWidget(
+      readyApp(
+        customer: _customer(addresses: [longHome]),
+        addresses: FakeAddressClient(addresses: [longHome]),
+      ),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.byIcon(Icons.person_outline));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text(AppStrings.addressesTitle));
+    await tester.pumpAndSettle();
+
+    final label = find.descendant(
+      of: find.byKey(const Key('address-card-addr-long')),
+      matching: find.text('Shared smoke home kept'),
+    );
+    expect(label, findsOneWidget);
+    final box = tester.getRect(label);
+    expect(
+      box.height,
+      lessThan(72),
+      reason: 'label must wrap as words, not one letter per line',
+    );
+    expect(box.width, greaterThan(120));
+  });
+
   testWidgets('list error can be retried', (tester) async {
     final api = FakeAddressClient()
       ..listError = ApiException(

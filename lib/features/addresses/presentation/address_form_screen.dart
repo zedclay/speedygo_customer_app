@@ -140,7 +140,10 @@ class _AddressFormScreenState extends ConsumerState<AddressFormScreen> {
     setState(() {
       _applyPoint(result.latitude, result.longitude);
       final formatted = result.formattedAddress?.trim();
-      if (formatted != null &&
+      // Autocomplete selected-street exception: fill empty street only.
+      // Never rewrite a saved addressText. Reverse-geocode text is not stored.
+      if (result.fromPlaceSelection &&
+          formatted != null &&
           formatted.isNotEmpty &&
           _addressText.text.trim().isEmpty) {
         _addressText.text = formatted;
