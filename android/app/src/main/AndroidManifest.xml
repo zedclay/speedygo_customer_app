@@ -2,6 +2,7 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
     <application
         android:label="speedygo_customer_app"
         android:name="${applicationName}"
@@ -33,6 +34,14 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+        <!-- Android-restricted Maps SDK key only. Never the Backend Places key. -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="${googleMapsApiKey}" />
+        <!-- Must match CUSTOMER_ORDER_ANDROID_CHANNEL_ID on the backend. -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="customer_order_updates" />
     </application>
     <!-- Required to query activities that can process text, see:
          https://developer.android.com/training/package-visibility and

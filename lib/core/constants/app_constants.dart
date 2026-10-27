@@ -101,6 +101,7 @@ class ApiEndpoints {
   static const String notificationsReadAllPath = '/notifications/read-all';
   static String notificationReadPath(String notificationId) =>
       '/notifications/$notificationId/read';
+  static const String deviceTokensPath = '/notifications/device-tokens';
 
   static String customerMerchantRatingSummaryPath(String merchantId) =>
       '/customer/merchants/$merchantId/ratings/summary';

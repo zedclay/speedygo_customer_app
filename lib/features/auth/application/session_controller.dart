@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
@@ -15,6 +16,7 @@ import 'package:speedygo_customer_app/features/auth/application/session_state.da
 import 'package:speedygo_customer_app/features/auth/data/auth_api.dart';
 import 'package:speedygo_customer_app/features/auth/data/customer_api.dart';
 import 'package:speedygo_customer_app/features/auth/data/models.dart';
+import 'package:speedygo_customer_app/features/notifications/application/customer_push_controller.dart';
 
 class SessionController extends Notifier<SessionState> {
   late SessionStore _store;
@@ -256,6 +258,11 @@ class SessionController extends Notifier<SessionState> {
   }
 
   Future<void> logout() async {
+    try {
+      await ref
+          .read(customerPushControllerProvider.notifier)
+          .deactivateForSignOut(callServer: true);
+    } catch (_) {}
     final previous = state.tokens;
     final generation = state.generation + 1;
     ref.read(sessionEpochProvider).value = generation;
@@ -287,6 +294,11 @@ class SessionController extends Notifier<SessionState> {
   }
 
   Future<void> switchAccount() async {
+    try {
+      await ref
+          .read(customerPushControllerProvider.notifier)
+          .deactivateForSignOut(callServer: true);
+    } catch (_) {}
     final generation = state.generation + 1;
     ref.read(sessionEpochProvider).value = generation;
     ref.read(tokenCacheProvider).current = null;
@@ -331,6 +343,11 @@ class SessionController extends Notifier<SessionState> {
     ref.read(sessionEpochProvider).value = generation;
     ref.read(tokenCacheProvider).current = null;
     await _store.clear();
+    unawaited(
+      ref
+          .read(customerPushControllerProvider.notifier)
+          .deactivateForSignOut(callServer: false),
+    );
     state = SessionState(
       phase: SessionPhase.signedOut,
       generation: generation,
@@ -364,6 +381,7 @@ class SessionController extends Notifier<SessionState> {
         tokens: tokens,
         customer: customer,
         signedInPhone: authMe.phone,
+        accountId: authMe.accountId,
         busy: false,
         clearError: true,
         welcomeSeen: fromRestore,

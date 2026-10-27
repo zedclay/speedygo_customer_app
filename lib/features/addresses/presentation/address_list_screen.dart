@@ -265,47 +265,70 @@ class _AddressCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(
-                  _labelIcon,
-                  color: address.isDefault
-                      ? AppColors.primary
-                      : AppColors.outline,
-                  size: 22,
+                Padding(
+                  padding: const EdgeInsets.only(top: 2),
+                  child: Icon(
+                    _labelIcon,
+                    color: address.isDefault
+                        ? AppColors.primary
+                        : AppColors.outline,
+                    size: 22,
+                  ),
                 ),
                 const SizedBox(width: 8),
                 Expanded(
-                  child: Text(
-                    address.displayLabel.isEmpty
-                        ? AppStrings.deliverToSaved
-                        : address.displayLabel,
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.w600,
-                    ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        address.displayLabel.isEmpty
+                            ? AppStrings.deliverToSaved
+                            : address.displayLabel,
+                        maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
+                        softWrap: true,
+                        style: Theme.of(context).textTheme.titleMedium
+                            ?.copyWith(fontWeight: FontWeight.w600),
+                      ),
+                      if (address.isDefault || selected) ...[
+                        const SizedBox(height: 8),
+                        Wrap(
+                          spacing: 8,
+                          runSpacing: 4,
+                          children: [
+                            if (address.isDefault)
+                              _Badge(
+                                label: AppStrings.defaultAddressBadge,
+                                uppercase: true,
+                              ),
+                            if (selected)
+                              _Badge(label: AppStrings.selectedAddressBadge),
+                          ],
+                        ),
+                      ],
+                    ],
                   ),
                 ),
-                if (address.isDefault) ...[
-                  const SizedBox(width: 8),
-                  _Badge(label: AppStrings.defaultAddressBadge,
-                    uppercase: true,
-                  ),
-                ],
-                if (selected) ...[
-                  const SizedBox(width: 8),
-                  _Badge(label: AppStrings.selectedAddressBadge),
-                ],
                 IconButton(
                   key: Key('edit-address-${address.id}'),
                   tooltip: AppStrings.editAddress,
                   onPressed: mutating ? null : onEdit,
-                  icon: const Icon(Icons.edit_outlined, color: AppColors.outline),
+                  icon: const Icon(
+                    Icons.edit_outlined,
+                    color: AppColors.outline,
+                  ),
                   visualDensity: VisualDensity.compact,
                 ),
                 IconButton(
                   key: Key('delete-address-${address.id}'),
                   tooltip: AppStrings.deleteAddress,
                   onPressed: mutating ? null : onDelete,
-                  icon: const Icon(Icons.delete_outline, color: AppColors.outline),
+                  icon: const Icon(
+                    Icons.delete_outline,
+                    color: AppColors.outline,
+                  ),
                   visualDensity: VisualDensity.compact,
                 ),
               ],

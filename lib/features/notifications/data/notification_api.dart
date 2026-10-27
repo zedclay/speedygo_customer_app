@@ -13,6 +13,13 @@ abstract class NotificationsClient {
   Future<NotificationItem> markRead(String notificationId);
 
   Future<MarkAllReadResponse> markAllRead();
+
+  Future<void> registerDeviceToken({
+    required String token,
+    required String platform,
+  });
+
+  Future<void> deactivateDeviceToken({required String token});
 }
 
 class NotificationsApi implements NotificationsClient {
@@ -122,6 +129,33 @@ class NotificationsApi implements NotificationsClient {
       code: 'HTTP_ERROR',
       statusCode: response.statusCode,
     );
+  }
+
+  @override
+  Future<void> registerDeviceToken({
+    required String token,
+    required String platform,
+  }) async {
+    try {
+      await _dio.put<Map<String, dynamic>>(
+        ApiEndpoints.deviceTokensPath,
+        data: {'token': token, 'platform': platform},
+      );
+    } catch (error) {
+      throw mapDioError(error);
+    }
+  }
+
+  @override
+  Future<void> deactivateDeviceToken({required String token}) async {
+    try {
+      await _dio.delete<Map<String, dynamic>>(
+        ApiEndpoints.deviceTokensPath,
+        data: {'token': token},
+      );
+    } catch (error) {
+      throw mapDioError(error);
+    }
   }
 
   Future<T> _get<T>(

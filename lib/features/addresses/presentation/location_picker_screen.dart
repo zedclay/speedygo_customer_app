@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:speedygo_customer_app/app/theme/app_theme.dart';
@@ -11,7 +10,9 @@ import 'package:speedygo_customer_app/features/addresses/application/address_con
 import 'package:speedygo_customer_app/features/addresses/data/geo_api.dart';
 import 'package:speedygo_customer_app/features/addresses/data/location_client.dart';
 import 'package:speedygo_customer_app/features/addresses/data/map_config.dart';
+import 'package:speedygo_customer_app/features/addresses/data/place_session_token.dart';
 import 'package:speedygo_customer_app/features/addresses/domain/address_policy.dart';
+import 'package:speedygo_customer_app/features/addresses/presentation/location_map_surface.dart';
 import 'package:speedygo_customer_app/features/auth/application/auth_infrastructure.dart';
 
 class LocationPickResult {
@@ -19,11 +20,13 @@ class LocationPickResult {
     required this.latitude,
     required this.longitude,
     this.formattedAddress,
+    this.fromPlaceSelection = false,
   });
 
   final double latitude;
   final double longitude;
   final String? formattedAddress;
+  final bool fromPlaceSelection;
 }
 
 final geoClientProvider = Provider<GeoClient>((ref) {
@@ -49,7 +52,7 @@ class LocationPickerScreen extends ConsumerStatefulWidget {
 }
 
 class _LocationPickerScreenState extends ConsumerState<LocationPickerScreen> {
-  final _mapController = MapController();
+  LocationMapController? _map;
   final _search = TextEditingController();
   late LatLng _center;
   late bool _selectionReady;
@@ -61,6 +64,10 @@ class _LocationPickerScreenState extends ConsumerState<LocationPickerScreen> {
   String? _searchMessage;
   List<PlaceSuggestion> _suggestions = const [];
   Timer? _debounce;
+  var _placeSessionToken = PlaceSessionToken.create();
+  String _lastQuery = '';
+  String? _placeFormatted;
+  var _movedSincePlaceSelect = true;
 
   bool get _hadConfirmedInitial {
     final lat = widget.initialLatitude;
@@ -89,7 +96,6 @@ class _LocationPickerScreenState extends ConsumerState<LocationPickerScreen> {
   void dispose() {
     _debounce?.cancel();
     _search.dispose();
-    _mapController.dispose();
     super.dispose();
   }
 
@@ -97,25 +103,22 @@ class _LocationPickerScreenState extends ConsumerState<LocationPickerScreen> {
     FocusManager.instance.primaryFocus?.unfocus();
   }
 
-  void _onMapEvent(MapEvent event) {
-    if (event is MapEventMoveEnd ||
-        event is MapEventMove ||
-        event is MapEventFlingAnimationEnd) {
-      _unfocusSearch();
-      final next = event.camera.center;
-      final moved =
-          (next.latitude - _center.latitude).abs() > 1e-7 ||
-          (next.longitude - _center.longitude).abs() > 1e-7;
-      if (!moved && !_hadConfirmedInitial) {
-        return;
-      }
-      setState(() {
-        _center = next;
-        _selectionReady = true;
-        _generation += 1;
-        _suggestions = const [];
-      });
+  void _onCameraIdle(double latitude, double longitude) {
+    final next = LatLng(latitude, longitude);
+    final moved =
+        (next.latitude - _center.latitude).abs() > 1e-7 ||
+        (next.longitude - _center.longitude).abs() > 1e-7;
+    if (!moved && !_hadConfirmedInitial) {
+      return;
     }
+    setState(() {
+      _center = next;
+      _selectionReady = true;
+      _generation += 1;
+      _suggestions = const [];
+      _movedSincePlaceSelect = true;
+      _placeSessionToken = PlaceSessionToken.create();
+    });
   }
 
   Future<void> _useMyLocation() async {
@@ -164,7 +167,11 @@ class _LocationPickerScreenState extends ConsumerState<LocationPickerScreen> {
         return;
       }
       final target = LatLng(fix.latitude, fix.longitude);
-      _mapController.move(target, CustomerMapConfig.confirmedZoom);
+      await _map?.moveTo(
+        target.latitude,
+        target.longitude,
+        CustomerMapConfig.confirmedZoom,
+      );
       setState(() {
         _center = target;
         _selectionReady = true;
@@ -191,12 +198,16 @@ class _LocationPickerScreenState extends ConsumerState<LocationPickerScreen> {
   }
 
   void _onSearchChanged(String raw) {
+    if (!ref.read(mapRuntimeConfigProvider).placesLookupEnabled) {
+      return;
+    }
     _debounce?.cancel();
     final q = raw.trim();
     if (q.length < 2) {
       setState(() {
         _suggestions = const [];
         _searchMessage = null;
+        _lastQuery = '';
       });
       return;
     }
@@ -206,10 +217,19 @@ class _LocationPickerScreenState extends ConsumerState<LocationPickerScreen> {
     });
   }
 
+  bool get _searchCanRetry =>
+      _lastQuery.length >= 2 &&
+      (_searchMessage == AppStrings.locationSearchFailed ||
+          _searchMessage == AppStrings.locationSearchUnavailable);
+
   Future<void> _runSearch(String q, int generation) async {
+    if (!ref.read(mapRuntimeConfigProvider).placesLookupEnabled) {
+      return;
+    }
     setState(() {
       _searchBusy = true;
-      _searchMessage = null;
+      _lastQuery = q;
+      _searchMessage = AppStrings.locationSearchLoading;
     });
     try {
       final hits = await ref
@@ -218,6 +238,7 @@ class _LocationPickerScreenState extends ConsumerState<LocationPickerScreen> {
             q: q,
             language: AppStrings.languageCode,
             generation: generation,
+            sessionToken: _placeSessionToken,
           );
       if (!mounted || generation != _generation) {
         return;
@@ -249,17 +270,24 @@ class _LocationPickerScreenState extends ConsumerState<LocationPickerScreen> {
   }
 
   Future<void> _selectSuggestion(PlaceSuggestion hit) async {
+    if (!ref.read(mapRuntimeConfigProvider).placesLookupEnabled) {
+      return;
+    }
     final generation = ++_generation;
     _search.text = hit.text;
     setState(() {
       _suggestions = const [];
       _searchBusy = true;
-      _searchMessage = null;
+      _searchMessage = AppStrings.locationSearchLoading;
     });
     try {
       final details = await ref
           .read(geoClientProvider)
-          .placeDetails(placeId: hit.placeId);
+          .placeDetails(
+            placeId: hit.placeId,
+            language: AppStrings.languageCode,
+            sessionToken: _placeSessionToken,
+          );
       if (!mounted || generation != _generation) {
         return;
       }
@@ -271,12 +299,18 @@ class _LocationPickerScreenState extends ConsumerState<LocationPickerScreen> {
         return;
       }
       final target = LatLng(details.latitude, details.longitude);
-      _mapController.move(target, CustomerMapConfig.confirmedZoom);
+      await _map?.moveTo(
+        target.latitude,
+        target.longitude,
+        CustomerMapConfig.confirmedZoom,
+      );
       setState(() {
         _center = target;
         _selectionReady = true;
         _searchBusy = false;
         _searchMessage = null;
+        _placeFormatted = details.formattedAddress;
+        _movedSincePlaceSelect = false;
       });
       if (details.formattedAddress != null &&
           details.formattedAddress!.isNotEmpty) {
@@ -298,6 +332,8 @@ class _LocationPickerScreenState extends ConsumerState<LocationPickerScreen> {
         _searchBusy = false;
         _searchMessage = AppStrings.locationSearchFailed;
       });
+    } finally {
+      _placeSessionToken = PlaceSessionToken.create();
     }
   }
 
@@ -310,29 +346,15 @@ class _LocationPickerScreenState extends ConsumerState<LocationPickerScreen> {
     if (!AddressPolicy.isUsablePoint(lat, lng)) {
       return;
     }
-    final generation = _generation;
-    String? formatted;
-    try {
-      formatted = await ref
-          .read(geoClientProvider)
-          .reverseGeocode(
-            latitude: lat,
-            longitude: lng,
-            language: AppStrings.languageCode,
-          );
-    } on GeocodingNotConfiguredException {
-      formatted = null;
-    } catch (_) {
-      formatted = null;
-    }
-    if (!mounted || generation != _generation) {
-      return;
-    }
+    final fromPlace =
+        !_movedSincePlaceSelect &&
+        (_placeFormatted?.trim().isNotEmpty ?? false);
     Navigator.of(context).pop(
       LocationPickResult(
         latitude: lat,
         longitude: lng,
-        formattedAddress: formatted,
+        formattedAddress: fromPlace ? _placeFormatted!.trim() : null,
+        fromPlaceSelection: fromPlace,
       ),
     );
   }
@@ -340,6 +362,14 @@ class _LocationPickerScreenState extends ConsumerState<LocationPickerScreen> {
   @override
   Widget build(BuildContext context) {
     final hint = (widget.addressHint ?? '').trim();
+    final runtime = ref.watch(mapRuntimeConfigProvider);
+    final lookups = runtime.placesLookupEnabled;
+    final mode = runtime.mode;
+    final searchMessage = !lookups
+        ? (mode == MapRenderMode.osmDev
+              ? AppStrings.locationSearchDisabledOnDevMap
+              : AppStrings.locationMapUnavailable)
+        : _searchMessage;
     return Scaffold(
       key: const Key('customer-location-picker'),
       backgroundColor: AppColors.surface,
@@ -374,6 +404,7 @@ class _LocationPickerScreenState extends ConsumerState<LocationPickerScreen> {
                     child: TextField(
                       key: const Key('customer-location-search'),
                       controller: _search,
+                      enabled: lookups,
                       onChanged: _onSearchChanged,
                       onTapOutside: (_) => _unfocusSearch(),
                       decoration: InputDecoration(
@@ -394,19 +425,37 @@ class _LocationPickerScreenState extends ConsumerState<LocationPickerScreen> {
                       ),
                     ),
                   ),
-                  if (_searchMessage != null)
+                  if (searchMessage != null)
                     Padding(
                       padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
-                      child: Text(
-                        _searchMessage!,
-                        key: const Key('customer-location-search-message'),
-                        maxLines: 3,
-                        overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.bodySmall
-                            ?.copyWith(color: AppColors.onSurfaceVariant),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Text(
+                            searchMessage,
+                            key: const Key('customer-location-search-message'),
+                            maxLines: 3,
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context).textTheme.bodySmall
+                                ?.copyWith(color: AppColors.onSurfaceVariant),
+                          ),
+                          if (_searchCanRetry)
+                            Align(
+                              alignment: AlignmentDirectional.centerStart,
+                              child: TextButton(
+                                key: const Key('customer-location-search-retry'),
+                                onPressed: _searchBusy
+                                    ? null
+                                    : () => unawaited(
+                                        _runSearch(_lastQuery, _generation),
+                                      ),
+                                child: Text(AppStrings.retry),
+                              ),
+                            ),
+                        ],
                       ),
                     ),
-                  if (_suggestions.isNotEmpty)
+                  if (lookups && _suggestions.isNotEmpty)
                     ConstrainedBox(
                       constraints: const BoxConstraints(maxHeight: 120),
                       child: ListView.builder(
@@ -436,117 +485,64 @@ class _LocationPickerScreenState extends ConsumerState<LocationPickerScreen> {
                   return Column(
                     children: [
                       Expanded(
-                        child: Stack(
-                          children: [
-                            FlutterMap(
-                              key: const Key('customer-location-map'),
-                              mapController: _mapController,
-                              options: MapOptions(
-                                initialCenter: _center,
-                                initialZoom: _hadConfirmedInitial
-                                    ? CustomerMapConfig.confirmedZoom
-                                    : CustomerMapConfig.explorationZoom,
-                                minZoom: 5,
-                                maxZoom: 19,
-                                onMapReady: () =>
-                                    setState(() => _mapReady = true),
-                                onMapEvent: _onMapEvent,
-                                onTap: (tapPosition, point) => _unfocusSearch(),
-                                interactionOptions: const InteractionOptions(
-                                  flags:
-                                      InteractiveFlag.all &
-                                      ~InteractiveFlag.rotate,
-                                ),
-                              ),
-                              children: [
-                                TileLayer(
-                                  urlTemplate:
-                                      CustomerMapConfig.tileUrlTemplate,
-                                  userAgentPackageName:
-                                      CustomerMapConfig.userAgentPackageName,
-                                  maxNativeZoom: 19,
-                                  tileProvider: NetworkTileProvider(
-                                    cachingProvider:
-                                        const DisabledMapCachingProvider(),
+                        child: mode == MapRenderMode.unavailable
+                            ? const ColoredBox(
+                                key: Key('customer-location-map-unavailable'),
+                                color: Color(0xFFE8EEF4),
+                                child: SizedBox.expand(),
+                              )
+                            : Stack(
+                                children: [
+                                  LocationMapSurface(
+                                    key: const Key('customer-location-map'),
+                                    mode: mode,
+                                    useStub: ref.watch(locationMapStubProvider),
+                                    initialLatitude: _center.latitude,
+                                    initialLongitude: _center.longitude,
+                                    initialZoom: _hadConfirmedInitial
+                                        ? CustomerMapConfig.confirmedZoom
+                                        : CustomerMapConfig.explorationZoom,
+                                    onReady: () =>
+                                        setState(() => _mapReady = true),
+                                    onCameraIdle: _onCameraIdle,
+                                    onInteraction: _unfocusSearch,
+                                    onCreated: (controller) =>
+                                        _map = controller,
                                   ),
-                                ),
-                                const RichAttributionWidget(
-                                  attributions: [
-                                    TextSourceAttribution(
-                                      CustomerMapConfig.osmAttribution,
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            IgnorePointer(
-                              child: Center(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(bottom: 36),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Container(
-                                        padding: const EdgeInsets.all(10),
-                                        decoration: BoxDecoration(
-                                          color: AppColors.primary,
-                                          borderRadius:
-                                              const BorderRadius.only(
-                                                topLeft: Radius.circular(20),
-                                                topRight: Radius.circular(20),
-                                                bottomRight: Radius.circular(
-                                                  20,
-                                                ),
+                                  const LocationFixedPin(),
+                                  Positioned(
+                                    right: 12,
+                                    bottom: 12,
+                                    child: Material(
+                                      color: AppColors.surface,
+                                      elevation: 4,
+                                      borderRadius: BorderRadius.circular(12),
+                                      child: IconButton(
+                                        key: const Key(
+                                          'customer-location-use-gps',
+                                        ),
+                                        tooltip: AppStrings.useMyLocation,
+                                        onPressed: _gpsBusy
+                                            ? null
+                                            : _useMyLocation,
+                                        icon: _gpsBusy
+                                            ? const SizedBox(
+                                                width: 22,
+                                                height: 22,
+                                                child:
+                                                    CircularProgressIndicator(
+                                                      strokeWidth: 2,
+                                                    ),
+                                              )
+                                            : const Icon(
+                                                Icons.my_location,
+                                                color: AppColors.primary,
                                               ),
-                                          border: Border.all(
-                                            color: Colors.white,
-                                            width: 2,
-                                          ),
-                                        ),
-                                        child: const Icon(
-                                          Icons.place,
-                                          color: Colors.white,
-                                          size: 22,
-                                        ),
                                       ),
-                                      Container(
-                                        width: 3,
-                                        height: 14,
-                                        color: AppColors.primary,
-                                      ),
-                                    ],
+                                    ),
                                   ),
-                                ),
+                                ],
                               ),
-                            ),
-                            Positioned(
-                              right: 12,
-                              bottom: 12,
-                              child: Material(
-                                color: AppColors.surface,
-                                elevation: 4,
-                                borderRadius: BorderRadius.circular(12),
-                                child: IconButton(
-                                  key: const Key('customer-location-use-gps'),
-                                  tooltip: AppStrings.useMyLocation,
-                                  onPressed: _gpsBusy ? null : _useMyLocation,
-                                  icon: _gpsBusy
-                                      ? const SizedBox(
-                                          width: 22,
-                                          height: 22,
-                                          child: CircularProgressIndicator(
-                                            strokeWidth: 2,
-                                          ),
-                                        )
-                                      : const Icon(
-                                          Icons.my_location,
-                                          color: AppColors.primary,
-                                        ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
                       ),
                       ConstrainedBox(
                         constraints: BoxConstraints(maxHeight: sheetMax),
@@ -590,7 +586,30 @@ class _LocationPickerScreenState extends ConsumerState<LocationPickerScreen> {
                                           color: AppColors.onSurfaceVariant,
                                         ),
                                   ),
-                                if (CustomerMapConfig.usingDefaultOsmTiles)
+                                if (mode == MapRenderMode.unavailable)
+                                  Text(
+                                    AppStrings.locationMapUnavailable,
+                                    textAlign: TextAlign.center,
+                                    maxLines: 3,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: Theme.of(context).textTheme.bodySmall
+                                        ?.copyWith(
+                                          color: AppColors.onSurfaceVariant,
+                                        ),
+                                  ),
+                                if (mode == MapRenderMode.google)
+                                  const Text(
+                                    'Google Maps',
+                                    textAlign: TextAlign.center,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 12,
+                                      color: Color(0xFF5E5E5E),
+                                    ),
+                                  ),
+                                if (mode == MapRenderMode.osmDev)
                                   Text(
                                     AppStrings.locationMapTilesDev,
                                     textAlign: TextAlign.center,
@@ -615,7 +634,10 @@ class _LocationPickerScreenState extends ConsumerState<LocationPickerScreen> {
                             key: const Key('customer-location-confirm'),
                             label: AppStrings.locationPickerConfirm,
                             icon: Icons.check_circle_outline,
-                            onPressed: _selectionReady && _mapReady
+                            onPressed:
+                                mode != MapRenderMode.unavailable &&
+                                    _selectionReady &&
+                                    _mapReady
                                 ? _confirm
                                 : null,
                           ),

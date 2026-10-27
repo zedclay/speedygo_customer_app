@@ -81,6 +81,23 @@ bool isPlausibleSourceId(String? sourceId) {
   return _uuidPattern.hasMatch(sourceId);
 }
 
+NotificationDestination resolveNotificationDestinationFromParts({
+  required String type,
+  required String sourceId,
+}) {
+  return resolveNotificationDestination(
+    NotificationItem(
+      id: 'push',
+      type: type,
+      sourceId: sourceId,
+      title: '',
+      body: '',
+      read: false,
+      createdAt: '',
+    ),
+  );
+}
+
 NotificationDestination resolveNotificationDestination(
   NotificationItem item,
 ) {
