@@ -181,24 +181,60 @@ String orderMoney(Map<String, dynamic> json, String key) {
   return value;
 }
 
+String orderMoneyOrZero(Map<String, dynamic> json, String key) {
+  if (!json.containsKey(key) || json[key] == null) {
+    return '0';
+  }
+  return orderMoney(json, key);
+}
+
 class OrderFinancial {
   const OrderFinancial({
     required this.currency,
     required this.merchandiseSubtotalMinor,
     required this.deliveryFeeMinor,
     required this.customerTotalMinor,
+    this.discountMinor = '0',
+    this.discountFieldPresent = false,
   });
 
   final String currency;
   final String merchandiseSubtotalMinor;
   final String deliveryFeeMinor;
   final String customerTotalMinor;
+  final String discountMinor;
+  final bool discountFieldPresent;
+
+  bool get hasDiscount => discountFieldPresent && discountMinor != '0';
+
+  bool get breakdownReconciles {
+    try {
+      return BigInt.parse(merchandiseSubtotalMinor) -
+              BigInt.parse(discountMinor) +
+              BigInt.parse(deliveryFeeMinor) ==
+          BigInt.parse(customerTotalMinor);
+    } catch (_) {
+      return false;
+    }
+  }
+
+  /// Merchandise / fee / discount rows are shown only when they reconstruct
+  /// the authoritative payable. Otherwise the UI is total-only.
+  bool get showBreakdown => breakdownReconciles;
+
+  bool get showDiscountRow => hasDiscount && breakdownReconciles;
 
   factory OrderFinancial.fromJson(Map<String, dynamic> json) {
+    final discountPresent =
+        json.containsKey('discountMinor') && json['discountMinor'] != null;
     return OrderFinancial(
       currency: orderReqString(json, 'currency'),
       merchandiseSubtotalMinor: orderMoney(json, 'merchandiseSubtotalMinor'),
       deliveryFeeMinor: orderMoney(json, 'deliveryFeeMinor'),
+      discountMinor: discountPresent
+          ? orderMoney(json, 'discountMinor')
+          : '0',
+      discountFieldPresent: discountPresent,
       customerTotalMinor: orderMoney(json, 'customerTotalMinor'),
     );
   }
@@ -318,6 +354,8 @@ class OrderDetail {
 
   bool get isCancelled => status == 'CANCELLED';
 
+  bool get isCompleted => status == 'COMPLETED';
+
   bool get canCustomerCancel => awaitingMerchantAcceptance;
 
   factory OrderDetail.fromJson(Map<String, dynamic> json) {
@@ -406,18 +444,36 @@ class OrderReconfirmationCurrent {
     required this.merchandiseSubtotalMinor,
     required this.deliveryFeeMinor,
     required this.customerTotalMinor,
+    this.discountMinor = '0',
+    this.promoCode,
   });
 
   final String merchandiseSubtotalMinor;
   final String deliveryFeeMinor;
   final String customerTotalMinor;
+  final String discountMinor;
+  final String? promoCode;
 
   factory OrderReconfirmationCurrent.fromJson(Map<String, dynamic> json) {
+    final rawPromo = json['promoCode']?.toString().trim();
     return OrderReconfirmationCurrent(
       merchandiseSubtotalMinor: orderMoney(json, 'merchandiseSubtotalMinor'),
       deliveryFeeMinor: orderMoney(json, 'deliveryFeeMinor'),
+      discountMinor: orderMoneyOrZero(json, 'discountMinor'),
       customerTotalMinor: orderMoney(json, 'customerTotalMinor'),
+      promoCode: rawPromo == null || rawPromo.isEmpty ? null : rawPromo,
     );
+  }
+
+  bool get totalsReconcile {
+    try {
+      return BigInt.parse(merchandiseSubtotalMinor) -
+              BigInt.parse(discountMinor) +
+              BigInt.parse(deliveryFeeMinor) ==
+          BigInt.parse(customerTotalMinor);
+    } catch (_) {
+      return false;
+    }
   }
 
   CheckoutPreview applyTo(CheckoutPreview preview) {
@@ -430,8 +486,8 @@ class OrderReconfirmationCurrent {
       pricing: preview.pricing,
       merchandiseSubtotalMinor: merchandiseSubtotalMinor,
       deliveryFeeMinor: deliveryFeeMinor,
-      discountMinor: preview.discountMinor,
-      promoCode: preview.promoCode,
+      discountMinor: discountMinor,
+      promoCode: promoCode,
       customerTotalMinor: customerTotalMinor,
     );
   }

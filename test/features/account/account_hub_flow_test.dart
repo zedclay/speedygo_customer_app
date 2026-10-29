@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:speedygo_customer_app/core/constants/app_strings.dart';
+import 'package:speedygo_customer_app/core/navigation/app_locale.dart';
 import 'package:speedygo_customer_app/core/navigation/app_routes.dart';
+import 'package:speedygo_customer_app/core/storage/session_store.dart';
 import 'package:speedygo_customer_app/features/cart/data/cart_models.dart';
 import 'package:speedygo_customer_app/features/checkout/presentation/checkout_payment_method_screen.dart';
 import 'package:speedygo_customer_app/features/home/presentation/home_screen.dart';
@@ -12,6 +14,41 @@ import '../../helpers/fakes.dart';
 import '../customer_navigation_test.dart';
 
 void main() {
+  testWidgets('account hub language subtitle follows the active locale', (
+    tester,
+  ) async {
+    Future<void> openHub(String locale) async {
+      await tester.pumpWidget(
+        readyApp(
+          launch: MemoryLaunchStore(
+            onboardingSeen: true,
+            languageSeen: true,
+            locale: locale,
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+      await tester.tap(find.byIcon(Icons.person_outline));
+      await tester.pumpAndSettle();
+      await tester.scrollUntilVisible(
+        find.text(AppStrings.accountLanguageLabel),
+        120,
+        scrollable: find.byType(Scrollable).first,
+      );
+    }
+
+    await openHub(AppLocale.french);
+    expect(find.text(AppStrings.languageFrench), findsWidgets);
+    expect(find.text(AppStrings.languageArabic), findsNothing);
+
+    await tester.pumpWidget(const SizedBox.shrink());
+    await tester.pumpAndSettle();
+
+    await openHub(AppLocale.arabic);
+    expect(find.text(AppStrings.languageArabic), findsWidgets);
+    expect(find.text(AppStrings.languageFrench), findsNothing);
+  });
+
   testWidgets('profile payment methods do not open checkout method', (
     tester,
   ) async {
@@ -36,7 +73,8 @@ void main() {
     expect(find.byKey(const Key('checkout-method-cod')), findsNothing);
     await tester.tap(find.byTooltip(AppStrings.back));
     await tester.pumpAndSettle();
-    expect(find.text(AppStrings.tabProfile), findsOneWidget);
+    expect(find.byKey(const Key('account-hub')), findsOneWidget);
+    expect(find.text(AppStrings.tabProfile), findsWidgets);
   });
 
   testWidgets('account delete has no password field and does not call API', (

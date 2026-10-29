@@ -7,6 +7,7 @@ import 'package:speedygo_customer_app/features/cart/application/cart_controller.
 import 'package:speedygo_customer_app/features/checkout/application/checkout_controller.dart';
 import 'package:speedygo_customer_app/features/checkout/application/checkout_payment_method.dart';
 import 'package:speedygo_customer_app/features/checkout/application/electronic_payment_availability.dart';
+import 'package:speedygo_customer_app/features/checkout/data/checkout_models.dart';
 import 'package:speedygo_customer_app/features/orders/application/active_order.dart';
 import 'package:speedygo_customer_app/features/orders/data/order_api.dart';
 import 'package:speedygo_customer_app/features/orders/data/order_models.dart';
@@ -121,6 +122,10 @@ class OrderSubmissionController extends Notifier<OrderSubmissionState> {
       return null;
     }
 
+    final heldPreview = checkout.preview;
+    final reconfirming =
+        state.phase == OrderSubmissionPhase.reconfirmationRequired;
+
     _inFlight = true;
     final priorFingerprint = _displayedFingerprint;
     state = state.copyWith(
@@ -134,6 +139,20 @@ class OrderSubmissionController extends Notifier<OrderSubmissionState> {
       if (!refreshed.hasCurrentTotals ||
           refreshed.addressId == null ||
           refreshed.preview == null) {
+        if (reconfirming &&
+            heldPreview != null &&
+            !isPromotionCheckoutError(refreshed.errorCode)) {
+          ref.read(checkoutControllerProvider.notifier).applyPreview(
+            heldPreview,
+            syncPromo: true,
+          );
+          _displayedFingerprint = checkoutPreviewFingerprint(heldPreview);
+          state = OrderSubmissionState(
+            phase: OrderSubmissionPhase.reconfirmationRequired,
+            reconfirmationMessage: AppStrings.orderReconfirmationRequired,
+          );
+          return null;
+        }
         state = OrderSubmissionState(
           phase: OrderSubmissionPhase.failed,
           error: refreshed.error ?? AppStrings.unexpected,
@@ -169,7 +188,7 @@ class OrderSubmissionController extends Notifier<OrderSubmissionState> {
       state = const OrderSubmissionState();
       return order;
     } on OrderReconfirmationException catch (error) {
-      _applyReconfirmation(error);
+      await _applyReconfirmation(error);
       return null;
     } on AppException catch (error) {
       if (isOrderSubmissionUncertain(error)) {
@@ -235,18 +254,38 @@ class OrderSubmissionController extends Notifier<OrderSubmissionState> {
     }
   }
 
-  void _applyReconfirmation(OrderReconfirmationException error) {
+  Future<void> _applyReconfirmation(OrderReconfirmationException error) async {
     final checkout = ref.read(checkoutControllerProvider);
     final preview = checkout.preview;
-    if (preview != null) {
-      final updated = error.current.applyTo(preview);
-      ref.read(checkoutControllerProvider.notifier).applyPreview(updated);
-      _displayedFingerprint = checkoutPreviewFingerprint(updated);
+    CheckoutPreview? authoritative;
+    if (preview != null && error.current.totalsReconcile) {
+      authoritative = error.current.applyTo(preview);
+      ref.read(checkoutControllerProvider.notifier).applyPreview(
+        authoritative,
+        syncPromo: true,
+      );
+      _displayedFingerprint = checkoutPreviewFingerprint(authoritative);
     }
     state = OrderSubmissionState(
       phase: OrderSubmissionPhase.reconfirmationRequired,
       reconfirmationMessage: AppStrings.orderReconfirmationRequired,
     );
+    await ref.read(checkoutControllerProvider.notifier).refresh();
+    final next = ref.read(checkoutControllerProvider);
+    if (next.hasCurrentTotals) {
+      _displayedFingerprint = checkoutPreviewFingerprint(next.preview!);
+      return;
+    }
+    if (isPromotionCheckoutError(next.errorCode)) {
+      return;
+    }
+    if (authoritative != null) {
+      ref.read(checkoutControllerProvider.notifier).applyPreview(
+        authoritative,
+        syncPromo: true,
+      );
+      _displayedFingerprint = checkoutPreviewFingerprint(authoritative);
+    }
   }
 
   Future<OrderDetail?> _reconcileUncertain() async {

@@ -10,8 +10,10 @@ import 'package:speedygo_customer_app/core/navigation/app_routes.dart';
 import 'package:speedygo_customer_app/core/navigation/nav_actions.dart';
 import 'package:speedygo_customer_app/features/cart/data/cart_models.dart';
 import 'package:speedygo_customer_app/features/catalog/presentation/widgets/authenticated_cover_image.dart';
+import 'package:speedygo_customer_app/features/checkout/application/electronic_payment_availability.dart';
 import 'package:speedygo_customer_app/features/orders/application/order_cancellation_controller.dart';
 import 'package:speedygo_customer_app/features/orders/application/order_detail_controller.dart';
+import 'package:speedygo_customer_app/features/orders/application/order_payment_snapshot.dart';
 import 'package:speedygo_customer_app/features/orders/data/order_models.dart';
 
 /// Soft lift from Stitch `d_tails_de_la_commande_speedygo`.
@@ -492,15 +494,25 @@ class _TotalsCard extends StatelessWidget {
               height: 24,
               color: AppColors.outlineVariant.withValues(alpha: 0.2),
             ),
-            _MoneyRow(
-              label: AppStrings.checkoutMerchandise,
-              amountMinor: order.financial.merchandiseSubtotalMinor,
-            ),
-            const SizedBox(height: 8),
-            _MoneyRow(
-              label: AppStrings.checkoutDeliveryFee,
-              amountMinor: order.financial.deliveryFeeMinor,
-            ),
+            if (order.financial.showBreakdown) ...[
+              _MoneyRow(
+                label: AppStrings.checkoutMerchandise,
+                amountMinor: order.financial.merchandiseSubtotalMinor,
+              ),
+              const SizedBox(height: 8),
+              _MoneyRow(
+                label: AppStrings.checkoutDeliveryFee,
+                amountMinor: order.financial.deliveryFeeMinor,
+              ),
+              if (order.financial.showDiscountRow) ...[
+                const SizedBox(height: 8),
+                _MoneyRow(
+                  label: AppStrings.checkoutDiscount,
+                  amountMinor: order.financial.discountMinor,
+                  negative: true,
+                ),
+              ],
+            ],
             Divider(
               height: 32,
               color: AppColors.outlineVariant.withValues(alpha: 0.4),
@@ -534,13 +546,19 @@ class _TotalsCard extends StatelessWidget {
 }
 
 class _MoneyRow extends StatelessWidget {
-  const _MoneyRow({required this.label, required this.amountMinor});
+  const _MoneyRow({
+    required this.label,
+    required this.amountMinor,
+    this.negative = false,
+  });
 
   final String label;
   final String amountMinor;
+  final bool negative;
 
   @override
   Widget build(BuildContext context) {
+    final amount = MoneyFormat.dzd(amountMinor);
     return Row(
       children: [
         Expanded(
@@ -551,10 +569,12 @@ class _MoneyRow extends StatelessWidget {
             ),
           ),
         ),
-        MoneyText(
-          amountMinor,
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-            color: AppColors.onSurfaceVariant,
+        BidiLtr(
+          child: Text(
+            negative ? '−$amount' : amount,
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              color: AppColors.onSurfaceVariant,
+            ),
           ),
         ),
       ],
@@ -682,14 +702,28 @@ class _CancellationOutcome extends StatelessWidget {
   }
 }
 
-class _StickyActions extends StatelessWidget {
+class _StickyActions extends ConsumerWidget {
   const _StickyActions({required this.order, required this.orderId});
 
   final OrderDetail order;
   final String orderId;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final paymentEnabled = ref
+        .watch(electronicPaymentAvailabilityProvider)
+        .enabledForCheckout;
+    final paymentAsync = ref.watch(orderPaymentSnapshotProvider(orderId));
+    final paymentEligible = paymentAsync.maybeWhen(
+      data: (payment) => payment != null && payment.canInitiate,
+      orElse: () => false,
+    );
+    final showPayCta =
+        paymentEnabled &&
+        !order.isCancelled &&
+        !order.isCompleted &&
+        order.paymentMethod == 'ELECTRONIC' &&
+        paymentEligible;
     final secondary = <Widget>[];
     if (order.status == 'COMPLETED') {
       secondary.add(
@@ -730,8 +764,7 @@ class _StickyActions extends StatelessWidget {
         ),
       );
     }
-    if (!order.isCancelled &&
-        order.paymentMethod == 'ELECTRONIC') {
+    if (showPayCta) {
       if (secondary.isNotEmpty) secondary.add(const SizedBox(width: 12));
       secondary.add(
         Expanded(

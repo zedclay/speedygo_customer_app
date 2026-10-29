@@ -44,7 +44,7 @@ OrderDetail sampleOrderDetail({
   String merchandiseSubtotalMinor = '1400',
   String deliveryFeeMinor = '500',
   String customerTotalMinor = '1900',
-  String? promoCode,
+  String discountMinor = '0',
   String createdAt = '2026-09-09T21:00:00.000Z',
 }) {
   return OrderDetail(
@@ -59,6 +59,8 @@ OrderDetail sampleOrderDetail({
       currency: 'DZD',
       merchandiseSubtotalMinor: merchandiseSubtotalMinor,
       deliveryFeeMinor: deliveryFeeMinor,
+      discountMinor: discountMinor,
+      discountFieldPresent: true,
       customerTotalMinor: customerTotalMinor,
     ),
     items: const [

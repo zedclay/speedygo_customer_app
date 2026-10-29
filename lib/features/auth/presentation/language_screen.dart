@@ -6,6 +6,7 @@ import 'package:speedygo_customer_app/app/theme/app_theme.dart';
 import 'package:speedygo_customer_app/core/constants/app_strings.dart';
 import 'package:speedygo_customer_app/core/navigation/app_locale.dart';
 import 'package:speedygo_customer_app/core/navigation/app_routes.dart';
+import 'package:speedygo_customer_app/core/navigation/nav_actions.dart';
 import 'package:speedygo_customer_app/core/widgets/sg_primary_button.dart';
 import 'package:speedygo_customer_app/features/auth/application/session_controller.dart';
 
@@ -48,8 +49,8 @@ class _LanguageScreenState extends ConsumerState<LanguageScreen> {
     await ref
         .read(sessionControllerProvider.notifier)
         .markLanguageSeen(locale: _selected);
-    if (widget.settings && mounted && context.canPop()) {
-      context.pop();
+    if (widget.settings && mounted) {
+      popOrParent(context);
     }
   }
 
@@ -233,7 +234,7 @@ class _SettingsLanguageBody extends ConsumerWidget {
         centerTitle: false,
         leading: IconButton(
           tooltip: AppStrings.back,
-          onPressed: () => context.pop(),
+          onPressed: () => popOrParent(context),
           icon: const Icon(Icons.arrow_back, color: AppColors.primary),
         ),
         title: Text(

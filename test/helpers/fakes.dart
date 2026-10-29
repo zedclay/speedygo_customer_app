@@ -281,6 +281,7 @@ class FakeCatalogClient implements CatalogClient {
   Completer<void>? gateList;
   int listCount = 0;
   CatalogQuery? lastStorefrontQuery;
+  CatalogPage<StorefrontSummary> Function(CatalogQuery query)? storefrontsFor;
   int searchCount = 0;
   int productListCount = 0;
   int getProductCount = 0;
@@ -325,6 +326,9 @@ class FakeCatalogClient implements CatalogClient {
     }
     if (listError != null) {
       throw listError!;
+    }
+    if (storefrontsFor != null) {
+      return storefrontsFor!(query);
     }
     var source = storefronts.items;
     if (query.openNow) {

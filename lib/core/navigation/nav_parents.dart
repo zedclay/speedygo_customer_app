@@ -28,11 +28,15 @@ class NavParents {
     }
     if (normalized == AppRoutes.accountLanguage ||
         normalized == AppRoutes.accountLegal ||
+        normalized == AppRoutes.accountLegalPrivacy ||
+        normalized == AppRoutes.accountLegalTerms ||
         normalized == AppRoutes.accountSecurity ||
         normalized == AppRoutes.accountNotifications ||
         normalized == AppRoutes.accountPaymentMethods ||
         normalized == AppRoutes.accountAddresses ||
-        normalized == AppRoutes.accountDelete) {
+        normalized == AppRoutes.accountDelete ||
+        normalized == AppRoutes.accountSupport ||
+        normalized == AppRoutes.accountSupportNew) {
       return AppRoutes.account;
     }
     if (normalized == AppRoutes.addressForm ||
@@ -66,12 +70,13 @@ class NavParents {
     }
     if (normalized == AppRoutes.legalTerms ||
         normalized == AppRoutes.legalPrivacy) {
-      return AppRoutes.accountLegal;
+      return AppRoutes.account;
     }
     if (normalized == AppRoutes.supportNew) {
       return AppRoutes.supportList;
     }
-    if (normalized == AppRoutes.supportList) {
+    if (normalized == AppRoutes.supportList ||
+        normalized == AppRoutes.accountSupport) {
       return AppRoutes.account;
     }
     if (normalized.startsWith('/support/')) {

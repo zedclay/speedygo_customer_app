@@ -19,11 +19,15 @@ class AppRoutes {
   static const account = '/account';
   static const accountLanguage = '/account/language';
   static const accountLegal = '/account/legal';
+  static const accountLegalPrivacy = '/account/legal/privacy';
+  static const accountLegalTerms = '/account/legal/terms';
   static const accountSecurity = '/account/security';
   static const accountNotifications = '/account/notifications';
   static const accountPaymentMethods = '/account/payment-methods';
   static const accountAddresses = '/account/addresses';
   static const accountDelete = '/account/delete';
+  static const accountSupport = '/account/support';
+  static const accountSupportNew = '/account/support/new';
   static const addressForm = '/addresses/form';
   static const addressConfirm = '/addresses/confirm-location';
   static const locationPermission = '/location-permission';
