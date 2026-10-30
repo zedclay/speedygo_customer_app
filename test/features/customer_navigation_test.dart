@@ -36,6 +36,7 @@ Widget readyApp({
   FakeAuthClient? auth,
   FakeNotificationsClient? notifications,
   FakeSupportClient? support,
+  FakeFavoritesClient? favorites,
   Future<Uint8List?> Function(String path)? coverImageBytes,
 }) {
   final store = MemorySessionStore()
@@ -71,6 +72,7 @@ Widget readyApp({
     location: location,
     notifications: notifications,
     support: support,
+    favorites: favorites,
     coverImageBytes: coverImageBytes,
   );
 }

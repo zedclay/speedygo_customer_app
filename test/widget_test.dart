@@ -14,6 +14,9 @@ import 'package:speedygo_customer_app/features/auth/application/session_provider
 import 'package:speedygo_customer_app/features/auth/data/models.dart';
 import 'package:speedygo_customer_app/features/cart/application/cart_controller.dart';
 import 'package:speedygo_customer_app/features/catalog/application/catalog_providers.dart';
+import 'package:speedygo_customer_app/features/catalog/application/search_controller.dart';
+import 'package:speedygo_customer_app/features/catalog/data/search_history_store.dart';
+import 'package:speedygo_customer_app/features/favorites/application/favorites_controller.dart';
 import 'package:speedygo_customer_app/features/catalog/presentation/widgets/authenticated_cover_image.dart';
 import 'package:speedygo_customer_app/features/checkout/application/checkout_controller.dart';
 import 'package:speedygo_customer_app/features/notifications/application/notification_inbox_controller.dart';
@@ -44,6 +47,7 @@ Widget app({
   FakeLocationClient? location,
   FakeNotificationsClient? notifications,
   FakeSupportClient? support,
+  FakeFavoritesClient? favorites,
   Future<Uint8List?> Function(String path)? coverImageBytes,
 }) {
   return ProviderScope(
@@ -65,6 +69,10 @@ Widget app({
       authApiProvider.overrideWithValue(auth),
       customerApiProvider.overrideWithValue(customer),
       catalogApiProvider.overrideWithValue(catalog ?? FakeCatalogClient()),
+      searchHistoryStoreProvider.overrideWithValue(MemorySearchHistoryStore()),
+      favoritesApiProvider.overrideWithValue(
+        favorites ?? FakeFavoritesClient(),
+      ),
       ordersApiProvider.overrideWithValue(orders ?? FakeOrdersClient()),
       ratingsApiProvider.overrideWithValue(ratings ?? FakeRatingsClient()),
       promotionsApiProvider.overrideWithValue(

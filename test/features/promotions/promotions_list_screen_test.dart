@@ -48,12 +48,14 @@ void main() {
     expect(find.byType(HomeScreen), findsOneWidget);
     GoRouter.of(
       tester.element(find.byType(HomeScreen)),
-    ).push(AppRoutes.promotions);
+    ).go(AppRoutes.promotions);
     await tester.pumpAndSettle();
     expect(find.byType(PromotionsListScreen), findsOneWidget);
     expect(find.text(AppStrings.promotionsTitle), findsOneWidget);
     expect(find.text('DEMO150'), findsOneWidget);
     expect(find.text(AppStrings.promotionsCheckoutHint), findsOneWidget);
     expect(find.text(AppStrings.promotionsUnavailable), findsNothing);
+    expect(find.text(AppStrings.tabHome), findsWidgets);
+    expect(find.text('Dar El Bahia'), findsNothing);
   });
 }

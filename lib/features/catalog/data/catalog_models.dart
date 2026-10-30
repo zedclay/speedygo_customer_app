@@ -77,6 +77,11 @@ class DeliveryCoverage {
 
   bool get isOutside => reason == 'OUTSIDE' || reason == 'AMBIGUOUS';
 
+  bool get isInside => reason == 'INSIDE';
+
+  /// Favorites presentation: UNFILTERED/AMBIGUOUS cannot be claimed inside or out.
+  bool get isUnknown => !isInside && reason != 'OUTSIDE';
+
   factory DeliveryCoverage.fromJson(Map<String, dynamic> json) {
     return DeliveryCoverage(
       inCoverage: json['inCoverage'] == true,
@@ -198,6 +203,7 @@ class StorefrontSummary {
     required this.merchantPublicReference,
     required this.hours,
     this.coverImageUrl,
+    this.coverage,
   });
 
   final String branchId;
@@ -210,9 +216,11 @@ class StorefrontSummary {
   final String merchantPublicReference;
   final StorefrontHours hours;
   final String? coverImageUrl;
+  final DeliveryCoverage? coverage;
 
   factory StorefrontSummary.fromJson(Map<String, dynamic> json) {
     final rawCover = json['coverImageUrl']?.toString().trim();
+    final rawCoverage = json['coverage'];
     return StorefrontSummary(
       branchId: _reqString(json, 'branchId'),
       branchName: _reqString(json, 'branchName'),
@@ -225,6 +233,9 @@ class StorefrontSummary {
           json['merchantPublicReference']?.toString() ?? '',
       hours: StorefrontHours.fromJson(json),
       coverImageUrl: rawCover == null || rawCover.isEmpty ? null : rawCover,
+      coverage: rawCoverage is Map
+          ? DeliveryCoverage.fromJson(Map<String, dynamic>.from(rawCoverage))
+          : null,
     );
   }
 }
@@ -241,6 +252,7 @@ class StorefrontDetail extends StorefrontSummary {
     required super.merchantPublicReference,
     required super.hours,
     super.coverImageUrl,
+    super.coverage,
     required this.days,
   });
 
@@ -266,6 +278,7 @@ class StorefrontDetail extends StorefrontSummary {
       merchantPublicReference: summary.merchantPublicReference,
       hours: summary.hours,
       coverImageUrl: summary.coverImageUrl,
+      coverage: summary.coverage,
       days: days,
     );
   }

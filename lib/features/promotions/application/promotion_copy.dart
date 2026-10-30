@@ -25,6 +25,41 @@ class PromotionCopy {
     }
   }
 
+  static bool isExpired(DiscoverablePromotion promotion, [DateTime? now]) {
+    final end = DateTime.tryParse(promotion.endsAt);
+    if (end == null) {
+      return false;
+    }
+    return !end.toUtc().isAfter((now ?? DateTime.now()).toUtc());
+  }
+
+  /// Africa/Algiers wall date (UTC+1, no DST). Empty when the timestamp is unusable.
+  static String expiryDate(DiscoverablePromotion promotion) {
+    final end = DateTime.tryParse(promotion.endsAt);
+    if (end == null) {
+      return '';
+    }
+    final zoned = end.toUtc().add(const Duration(hours: 1));
+    if (AppStrings.isArabic) {
+      return '${zoned.day}/${zoned.month}/${zoned.year}';
+    }
+    const months = <String>[
+      'janv.',
+      'févr.',
+      'mars',
+      'avr.',
+      'mai',
+      'juin',
+      'juil.',
+      'août',
+      'sept.',
+      'oct.',
+      'nov.',
+      'déc.',
+    ];
+    return '${zoned.day} ${months[zoned.month - 1]} ${zoned.year}';
+  }
+
   /// Basis points → display percent without float money math.
   /// 1000 → `10 %`; 1250 → `12,50 %`.
   static String percentFromBps(int bps) {

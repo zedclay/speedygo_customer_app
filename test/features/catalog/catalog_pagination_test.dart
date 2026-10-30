@@ -4,10 +4,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:speedygo_customer_app/core/constants/app_strings.dart';
 import 'package:speedygo_customer_app/core/errors/app_exception.dart';
+import 'package:speedygo_customer_app/features/addresses/application/address_controller.dart';
+import 'package:speedygo_customer_app/features/addresses/data/address_selection_store.dart';
 import 'package:speedygo_customer_app/features/catalog/application/catalog_feed.dart';
 import 'package:speedygo_customer_app/features/catalog/application/catalog_providers.dart';
 import 'package:speedygo_customer_app/features/catalog/application/search_controller.dart';
 import 'package:speedygo_customer_app/features/catalog/data/catalog_models.dart';
+import 'package:speedygo_customer_app/features/catalog/data/search_history_store.dart';
+import 'package:speedygo_customer_app/features/favorites/application/favorites_controller.dart';
 
 import '../../helpers/catalog_fixtures.dart';
 import '../../helpers/fakes.dart';
@@ -17,6 +21,12 @@ ProviderContainer _container(FakeCatalogClient catalog) {
     overrides: [
       catalogApiProvider.overrideWithValue(catalog),
       catalogScopeProvider.overrideWithValue('1:p'),
+      searchHistoryStoreProvider.overrideWithValue(MemorySearchHistoryStore()),
+      addressApiProvider.overrideWithValue(FakeAddressClient()),
+      favoritesApiProvider.overrideWithValue(FakeFavoritesClient()),
+      addressSelectionStoreProvider.overrideWithValue(
+        MemoryAddressSelectionStore(),
+      ),
     ],
   );
   addTearDown(container.dispose);
@@ -233,6 +243,7 @@ void main() {
     );
     final container = _container(catalog);
     final notifier = container.read(catalogSearchControllerProvider.notifier);
+    notifier.setTab(SearchHitTab.products);
     notifier.setQuery('ab');
     await tester.pump(const Duration(milliseconds: 350));
     await tester.pump();

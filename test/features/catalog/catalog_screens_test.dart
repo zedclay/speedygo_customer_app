@@ -45,9 +45,10 @@ void main() {
     final catalog = FakeCatalogClient();
     await tester.pumpWidget(readyApp(catalog: catalog));
     await tester.pumpAndSettle();
-    expect(find.text(AppStrings.storefrontsEmpty), findsOneWidget);
-    expect(find.text(AppStrings.refresh), findsOneWidget);
-    expect(find.byIcon(Icons.storefront_outlined), findsWidgets);
+    expect(find.text(AppStrings.homeNeedAddress), findsOneWidget);
+    expect(find.text(AppStrings.addAddress), findsOneWidget);
+    expect(find.text(AppStrings.storefrontsEmpty), findsNothing);
+    expect(find.byIcon(Icons.add_location_alt_outlined), findsOneWidget);
     expect(find.text(AppStrings.nearbyMerchants), findsNothing);
     expect(find.text(AppStrings.specialOffer), findsNothing);
     expect(find.text(AppStrings.categories), findsNothing);
@@ -127,8 +128,10 @@ void main() {
     await tester.enterText(find.byType(TextField), 'esp');
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 350));
-    expect(find.text(AppStrings.searchProducts), findsOneWidget);
-    expect(find.text(AppStrings.searchStorefronts), findsOneWidget);
+    expect(find.text(AppStrings.searchMerchantsTab), findsOneWidget);
+    expect(find.text(AppStrings.searchProductsTab), findsOneWidget);
+    await tester.tap(find.text(AppStrings.searchProductsTab));
+    await tester.pumpAndSettle();
     expect(find.text('Espresso'), findsOneWidget);
     expect(find.text(MoneyFormat.dzd('1200')), findsWidgets);
 
@@ -209,6 +212,11 @@ void main() {
     expect(find.text(AppStrings.loadMore), findsOneWidget);
     await tester.tap(find.widgetWithText(OutlinedButton, AppStrings.loadMore));
     await tester.pumpAndSettle();
+    await tester.scrollUntilVisible(
+      find.text('Alpha Cafe'),
+      -80,
+      scrollable: find.byType(Scrollable).first,
+    );
     expect(find.text('Alpha Cafe'), findsOneWidget);
     expect(find.text('Gamma Cafe'), findsOneWidget);
     expect(find.text(AppStrings.loadMore), findsNothing);

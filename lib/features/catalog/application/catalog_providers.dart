@@ -88,6 +88,20 @@ class StorefrontListController
       }
       unawaited(refresh());
     });
+    ref.listen<AddressUiState>(addressBookProvider, (previous, next) {
+      final selection = ref.read(addressSelectionProvider);
+      final before = previous == null
+          ? null
+          : effectiveCatalogAddressId(book: previous, selection: selection);
+      final after = effectiveCatalogAddressId(
+        book: next,
+        selection: selection,
+      );
+      if (before == after) {
+        return;
+      }
+      unawaited(refresh());
+    });
     ref.listen<String>(launchWilayaCodeProvider, (previous, next) {
       if (previous == next) {
         return;
@@ -105,7 +119,10 @@ class StorefrontListController
   }
 
   CatalogQuery _query({int offset = 0}) {
-    final addressId = ref.read(addressSelectionProvider).addressId;
+    final addressId = effectiveCatalogAddressId(
+      book: ref.read(addressBookProvider),
+      selection: ref.read(addressSelectionProvider),
+    );
     return CatalogQuery(
       offset: offset,
       verticalId: ref.read(selectedCommerceVerticalIdProvider),
@@ -227,6 +244,20 @@ class StorefrontResultsController
       }
       unawaited(refresh());
     });
+    ref.listen<AddressUiState>(addressBookProvider, (previous, next) {
+      final selection = ref.read(addressSelectionProvider);
+      final before = previous == null
+          ? null
+          : effectiveCatalogAddressId(book: previous, selection: selection);
+      final after = effectiveCatalogAddressId(
+        book: next,
+        selection: selection,
+      );
+      if (before == after) {
+        return;
+      }
+      unawaited(refresh());
+    });
     ref.listen<String>(launchWilayaCodeProvider, (previous, next) {
       if (previous == next) {
         return;
@@ -245,7 +276,10 @@ class StorefrontResultsController
 
   CatalogQuery _query({int offset = 0}) {
     final id = verticalId.trim();
-    final addressId = ref.read(addressSelectionProvider).addressId;
+    final addressId = effectiveCatalogAddressId(
+      book: ref.read(addressBookProvider),
+      selection: ref.read(addressSelectionProvider),
+    );
     return CatalogQuery(
       offset: offset,
       verticalId: id.isEmpty ? null : id,

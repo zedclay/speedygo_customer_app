@@ -191,4 +191,28 @@ void main() {
     expect(page.coverage?.isOutside, isTrue);
     expect(page.items, isEmpty);
   });
+
+  test('parses optional favorite coverage on a storefront', () {
+    final inside = StorefrontSummary.fromJson(
+      storefrontJson()
+        ..['coverage'] = {
+          'inCoverage': true,
+          'zoneCount': 1,
+          'reason': 'INSIDE',
+        },
+    );
+    expect(inside.coverage?.isInside, isTrue);
+    expect(inside.coverage?.isUnknown, isFalse);
+
+    final unknown = StorefrontSummary.fromJson(
+      storefrontJson()
+        ..['coverage'] = {
+          'inCoverage': true,
+          'zoneCount': 0,
+          'reason': 'UNFILTERED',
+        },
+    );
+    expect(unknown.coverage?.isUnknown, isTrue);
+    expect(unknown.coverage?.reason, 'UNFILTERED');
+  });
 }

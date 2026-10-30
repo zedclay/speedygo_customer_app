@@ -506,3 +506,16 @@ String homeAddressLabel({
   }
   return AppStrings.deliverToUnset;
 }
+
+/// Catalog pin: same selected-else-default policy as [homeAddressLabel].
+/// Temporary Home selection never writes the server default.
+String? effectiveCatalogAddressId({
+  required AddressUiState book,
+  required AddressSelectionState selection,
+}) {
+  final selected = book.byId(selection.addressId);
+  if (selected != null) {
+    return selected.id;
+  }
+  return book.defaultAddress?.id;
+}

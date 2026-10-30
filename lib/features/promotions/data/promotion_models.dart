@@ -18,6 +18,11 @@ class DiscoverablePromotion {
     required this.startsAt,
     required this.endsAt,
     this.customerLabel,
+    this.merchantId,
+    this.branchId,
+    this.merchantName,
+    this.coverImageUrl,
+    this.minSpendMinor,
   });
 
   final String id;
@@ -27,6 +32,17 @@ class DiscoverablePromotion {
   final String startsAt;
   final String endsAt;
   final String? customerLabel;
+  final String? merchantId;
+  final String? branchId;
+  final String? merchantName;
+  final String? coverImageUrl;
+  final String? minSpendMinor;
+
+  bool get hasMerchantAssociation =>
+      merchantName != null &&
+      merchantName!.isNotEmpty &&
+      branchId != null &&
+      branchId!.isNotEmpty;
 
   factory DiscoverablePromotion.fromJson(Map<String, dynamic> json) {
     final kind = json['discountKind']?.toString();
@@ -53,6 +69,14 @@ class DiscoverablePromotion {
       throw const PromotionParseException('window timestamps are required');
     }
     final rawLabel = json['customerLabel']?.toString().trim();
+    String? optionalText(String key) {
+      final raw = json[key]?.toString().trim();
+      if (raw == null || raw.isEmpty || raw == 'null') {
+        return null;
+      }
+      return raw;
+    }
+
     return DiscoverablePromotion(
       id: id,
       code: code,
@@ -61,6 +85,11 @@ class DiscoverablePromotion {
       startsAt: startsAt,
       endsAt: endsAt,
       customerLabel: rawLabel == null || rawLabel.isEmpty ? null : rawLabel,
+      merchantId: optionalText('merchantId'),
+      branchId: optionalText('branchId'),
+      merchantName: optionalText('merchantName'),
+      coverImageUrl: optionalText('coverImageUrl'),
+      minSpendMinor: optionalText('minSpendMinor'),
     );
   }
 }

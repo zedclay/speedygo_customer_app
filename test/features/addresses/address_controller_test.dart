@@ -271,6 +271,42 @@ void main() {
       ),
       'Bureau édité',
     );
+    expect(
+      effectiveCatalogAddressId(
+        book: container.read(addressBookProvider),
+        selection: container.read(addressSelectionProvider),
+      ),
+      'addr-work',
+    );
+  });
+
+  test('catalog pin follows selected address else server default', () {
+    const empty = AddressUiState();
+    const book = AddressUiState(addresses: [_home, _work]);
+    expect(
+      effectiveCatalogAddressId(
+        book: empty,
+        selection: const AddressSelectionState(),
+      ),
+      isNull,
+    );
+    expect(
+      effectiveCatalogAddressId(
+        book: book,
+        selection: const AddressSelectionState(),
+      ),
+      'addr-home',
+    );
+    expect(
+      effectiveCatalogAddressId(
+        book: book,
+        selection: const AddressSelectionState(
+          profileId: 'p1',
+          addressId: 'addr-work',
+        ),
+      ),
+      'addr-work',
+    );
   });
 
   test(
