@@ -36,7 +36,8 @@ void openNavLink(BuildContext context, NavLink link) {
       location == AppRoutes.search ||
       location == AppRoutes.orders ||
       location == AppRoutes.alerts ||
-      location == AppRoutes.account) {
+      location == AppRoutes.account ||
+      location == AppRoutes.promotions) {
     context.go(location);
     return;
   }

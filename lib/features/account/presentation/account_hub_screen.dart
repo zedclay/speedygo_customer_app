@@ -47,6 +47,12 @@ class AccountHubScreen extends ConsumerWidget {
               title: AppStrings.accountSectionAccount,
               children: [
                 _Row(
+                  key: const Key('account-favorites'),
+                  icon: Icons.favorite_border,
+                  label: AppStrings.favoritesTitle,
+                  onTap: () => context.push(AppRoutes.accountFavorites),
+                ),
+                _Row(
                   key: const Key('account-addresses'),
                   icon: Icons.location_on_outlined,
                   label: AppStrings.accountAddressesLabel,

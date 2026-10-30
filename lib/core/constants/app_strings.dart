@@ -366,7 +366,7 @@ class AppStrings {
 
   static String get deliverToSaved => isArabic ? 'عنوان محفوظ' : 'Adresse enregistrée';
 
-  static String get searchHint => isArabic ? 'ابحث عن متجر أو منتج' : 'Rechercher un commerce ou produit';
+  static String get searchHint => isArabic ? 'ابحث عن مطعم أو منتج' : 'Rechercher un restaurant ou un produit';
 
   static String get categories => isArabic ? 'الفئات' : 'Catégories';
 
@@ -391,6 +391,10 @@ class AppStrings {
   static String get storefrontsTitle => isArabic ? 'المتاجر' : 'Commerces';
 
   static String get storefrontsEmpty => isArabic ? 'لا يوجد متجر ظاهر.' : 'Aucun commerce visible.';
+
+  static String get homeNeedAddress => isArabic
+      ? 'أضف عنوانًا لعرض المتاجر التي توصل إلى موقعك.'
+      : 'Ajoutez une adresse pour voir les commerces qui livrent chez vous.';
 
   static String get storefrontsOpenNow => isArabic ? 'مفتوحة الآن' : 'Ouverts maintenant';
 
@@ -1087,6 +1091,84 @@ class AppStrings {
   static String get promotionsCheckoutHint => isArabic ? 'يُطبَّق الرمز عند المراجعة. يحسب الخادم الأهلية.' : 'Le code s’applique à la vérification. L’éligibilité est calculée par le serveur.';
 
   static String get promotionsUnavailable => isArabic ? 'لم يُطبَّق هذا العرض. استخدم الرمز عند المراجعة.' : 'Cette offre n’a pas été appliquée. Utilisez le code à la vérification.';
+
+  static String get promotionsAll => isArabic ? 'الكل' : 'Tout';
+
+  static String get promotionsFixedChip => isArabic ? 'مبلغ' : 'Montant';
+
+  static String get promotionsPercentChip => isArabic ? 'نسبة' : 'Pourcentage';
+
+  static String get promotionsSeeCommerces => isArabic ? 'عرض المتاجر' : 'Voir les commerces';
+
+  static String get promotionsExpired => isArabic ? 'انتهى هذا العرض.' : 'Cette offre est expirée.';
+
+  static String promotionsExpiresOn(String date) =>
+      isArabic ? 'ينتهي في $date' : 'Expire le $date';
+
+  static String get searchRecent => isArabic ? 'عمليات البحث الأخيرة' : 'Recherches récentes';
+
+  static String get searchClearAll => isArabic ? 'مسح الكل' : 'Tout effacer';
+
+  static String get searchSuggestions => isArabic ? 'اقتراحات لك' : 'Suggestions pour vous';
+
+  static String get searchPopularCategories => isArabic ? 'فئات شائعة' : 'Catégories populaires';
+
+  static String get searchOfferOfDay => isArabic ? 'عرض اليوم' : 'Offre du jour';
+
+  static String get searchMerchantsTab => isArabic ? 'تجّار' : 'Commerçants';
+
+  static String get searchProductsTab => isArabic ? 'منتجات' : 'Produits';
+
+  static String get searchSortName => isArabic ? 'الاسم' : 'Nom';
+
+  static String get searchFilters => isArabic ? 'تصفية' : 'Filtres';
+
+  static String searchMerchantCount(int count) => isArabic
+      ? '$count تاجرًا'
+      : count == 1
+          ? '1 commerçant trouvé'
+          : '$count commerçants trouvés';
+
+  static String searchProductCount(int count) => isArabic
+      ? '$count منتجًا'
+      : count == 1
+          ? '1 produit trouvé'
+          : '$count produits trouvés';
+
+  static String get favoritesTitle => isArabic ? 'المفضّلة' : 'Favoris';
+
+  static String get favoritesEmpty => isArabic ? 'لا توجد عناصر محفوظة.' : 'Aucun favori enregistré.';
+
+  static String get favoritesDiscover => isArabic ? 'اكتشاف متاجر' : 'Découvrir des commerçants';
+
+  static String get favoritesMoreTitle => isArabic ? 'المزيد من المفضّلة؟' : 'Plus de favoris ?';
+
+  static String get favoritesDiscoverHint => isArabic
+      ? 'استكشف المتاجر القريبة واحفظ ما تفضّله.'
+      : 'Explorez les meilleurs commerçants d’Alger et enregistrez vos préférés.';
+
+  static String get favoritesSaveError => isArabic ? 'تعذّر حفظ المفضّلة.' : 'Impossible d’enregistrer le favori.';
+
+  static String get favoritesOutOfZone => isArabic ? 'خارج منطقة التوصيل الحالية' : 'Hors zone de livraison actuelle';
+
+  static String get favoritesCoverageUnknown => isArabic
+      ? 'تعذّر تحديد تغطية التوصيل لهذا العنوان.'
+      : 'Couverture de livraison indéterminée pour cette adresse.';
+
+  static String promotionsMinSpend(String amount) =>
+      isArabic ? 'ابتداءً من $amount' : 'Dès $amount d’achats';
+
+  static String get promotionsSeeMenu => isArabic ? 'عرض القائمة' : 'Voir le menu';
+
+  static String get moreCategories => isArabic ? 'المزيد' : 'Plus';
+
+  static String get promoCodeHeading => isArabic ? 'رمز العرض' : 'CODE PROMO';
+
+  static String get copyAction => isArabic ? 'نسخ' : 'Copier';
+
+  static String get searchExplore => isArabic ? 'استكشف' : 'Explorer';
+
+  static String get searchClearQuery => isArabic ? 'مسح البحث' : 'Effacer la recherche';
 
   static String get notificationPrefsUnavailable => isArabic ? 'لا يوجد تخزين لتفضيلات الإشعارات. لم يُحفظ شيء.' : 'Aucun stockage de préférences de notification. Rien n’a été enregistré.';
 

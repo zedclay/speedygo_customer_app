@@ -17,6 +17,7 @@ class CatalogQuery {
     this.openNow = false,
     this.addressId,
     this.wilayaCode,
+    this.hitType,
   });
 
   final int limit;
@@ -26,6 +27,8 @@ class CatalogQuery {
   final bool openNow;
   final String? addressId;
   final String? wilayaCode;
+  /// STOREFRONT | PRODUCT when the search tab requests a single hit type.
+  final String? hitType;
 
   Map<String, dynamic> toParams() {
     final safeLimit = limit < 1 ? 1 : (limit > maxLimit ? maxLimit : limit);
@@ -44,6 +47,7 @@ class CatalogQuery {
       if (addressId != null && addressId!.isNotEmpty) 'addressId': addressId,
       if (wilayaCode != null && wilayaCode!.isNotEmpty)
         'wilayaCode': wilayaCode,
+      if (hitType != null && hitType!.isNotEmpty) 'hitType': hitType,
     };
   }
 }

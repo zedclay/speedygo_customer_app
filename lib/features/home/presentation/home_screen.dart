@@ -79,6 +79,12 @@ class HomeScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final session = ref.watch(sessionControllerProvider);
     final name = session.customer?.displayName ?? AppStrings.appName;
+    final book = ref.watch(addressBookProvider);
+    final selection = ref.watch(addressSelectionProvider);
+    final catalogAddressId = effectiveCatalogAddressId(
+      book: book,
+      selection: selection,
+    );
     final feed = ref.watch(storefrontListControllerProvider);
     final catalog = ref.read(storefrontListControllerProvider.notifier);
     final openNow = ref.watch(openNowFilterProvider);
@@ -110,9 +116,9 @@ class HomeScreen extends ConsumerWidget {
               child: ListView(
                 physics: const AlwaysScrollableScrollPhysics(),
                 padding: EdgeInsets.only(
-                  bottom: activeOrder == null
-                      ? HomeLayout.listBottomGap
-                      : HomeLayout.listBottomGapWithOrder,
+                  bottom: catalogAddressId == null || activeOrder != null
+                      ? HomeLayout.listBottomGapWithOrder
+                      : HomeLayout.listBottomGap,
                 ),
                 children: [
                   HomeHeader(
@@ -142,7 +148,10 @@ class HomeScreen extends ConsumerWidget {
                   if (featuredPromotion != null) ...[
                     // Stitch promo section `mt-8`.
                     const SizedBox(height: 32),
-                    HomePromoBanner(promotion: featuredPromotion),
+                    HomePromoBanner(
+                      promotion: featuredPromotion,
+                      onOpen: () => context.push(AppRoutes.promotions),
+                    ),
                   ],
                   // Stitch merchant section `mt-8` (honest title — no proximity).
                   const SizedBox(height: 32),
@@ -181,20 +190,28 @@ class HomeScreen extends ConsumerWidget {
                   else if (feed.isEmpty)
                     CatalogStatusView(
                       key: ValueKey(
-                        'home-empty-${feed.coverage?.reason ?? 'none'}',
+                        'home-empty-${catalogAddressId == null ? 'need-address' : feed.coverage?.reason ?? 'none'}',
                       ),
-                      icon: Icons.storefront_outlined,
-                      message: feed.coverage?.isOutside == true
+                      icon: catalogAddressId == null
+                          ? Icons.add_location_alt_outlined
+                          : Icons.storefront_outlined,
+                      message: catalogAddressId == null
+                          ? AppStrings.homeNeedAddress
+                          : feed.coverage?.isOutside == true
                           ? AppStrings.locationCoverageOutside
                           : openNow
                           ? AppStrings.storefrontsOpenNowEmpty
                           : AppStrings.storefrontsEmpty,
-                      retryLabel: feed.coverage?.isOutside == true
+                      retryLabel: catalogAddressId == null
+                          ? AppStrings.addAddress
+                          : feed.coverage?.isOutside == true
                           ? AppStrings.checkoutChangeAddress
                           : openNow
                           ? AppStrings.storefrontsShowAll
                           : AppStrings.refresh,
-                      onRetry: feed.coverage?.isOutside == true
+                      onRetry: catalogAddressId == null
+                          ? () => context.push(AppRoutes.addressForm)
+                          : feed.coverage?.isOutside == true
                           ? () => context.push(AppRoutes.checkoutAddressPicker)
                           : openNow
                           ? () => ref

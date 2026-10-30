@@ -21,6 +21,7 @@ StorefrontSummary cafeStorefront({
   String branchName = 'Café Central',
   StorefrontHours hours = openHours,
   String? coverImageUrl,
+  DeliveryCoverage? coverage,
 }) {
   return StorefrontSummary(
     branchId: branchId,
@@ -33,6 +34,7 @@ StorefrontSummary cafeStorefront({
     merchantPublicReference: 'SG-M-1001',
     hours: hours,
     coverImageUrl: coverImageUrl,
+    coverage: coverage,
   );
 }
 

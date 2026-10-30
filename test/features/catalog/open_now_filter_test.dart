@@ -6,8 +6,10 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:speedygo_customer_app/app/theme/app_theme.dart';
 import 'package:speedygo_customer_app/core/constants/app_strings.dart';
 import 'package:speedygo_customer_app/core/errors/app_exception.dart';
+import 'package:speedygo_customer_app/features/addresses/application/address_controller.dart';
 import 'package:speedygo_customer_app/features/catalog/application/catalog_providers.dart';
 import 'package:speedygo_customer_app/features/catalog/data/catalog_models.dart';
+import 'package:speedygo_customer_app/features/favorites/application/favorites_controller.dart';
 import 'package:speedygo_customer_app/features/catalog/presentation/storefront_list_screen.dart';
 import 'package:speedygo_customer_app/features/catalog/presentation/widgets/open_now_filter_chip.dart';
 
@@ -34,6 +36,8 @@ ProviderContainer _container(
     overrides: [
       catalogApiProvider.overrideWithValue(catalog),
       catalogScopeProvider.overrideWithValue(scope),
+      addressApiProvider.overrideWithValue(FakeAddressClient()),
+      favoritesApiProvider.overrideWithValue(FakeFavoritesClient()),
     ],
   );
   addTearDown(container.dispose);

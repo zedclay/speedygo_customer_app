@@ -51,6 +51,7 @@ import 'package:speedygo_customer_app/features/home/presentation/commerce_vertic
 import 'package:speedygo_customer_app/features/home/presentation/home_design_preview_screen.dart';
 import 'package:speedygo_customer_app/features/home/presentation/home_screen.dart';
 import 'package:speedygo_customer_app/features/promotions/presentation/promotions_list_screen.dart';
+import 'package:speedygo_customer_app/features/favorites/presentation/favorites_screen.dart';
 import 'package:speedygo_customer_app/features/home/presentation/home_shell.dart';
 import 'package:speedygo_customer_app/features/nav/presentation/nav_scaffold.dart';
 
@@ -164,6 +165,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                     ],
                   ),
                 ],
+              ),
+              GoRoute(
+                path: AppRoutes.promotions,
+                builder: (_, _) => const PromotionsListScreen(),
               ),
             ],
           ),
@@ -279,6 +284,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                       return SupportCreateScreen(orderId: orderId);
                     },
                   ),
+                  GoRoute(
+                    path: 'favorites',
+                    builder: (_, _) => const FavoritesScreen(),
+                  ),
                 ],
               ),
             ],
@@ -317,10 +326,6 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: AppRoutes.favorites,
         builder: (_, _) => NavScaffold(entry: NavCatalog.byId('favorites')!),
-      ),
-      GoRoute(
-        path: AppRoutes.promotions,
-        builder: (_, _) => const PromotionsListScreen(),
       ),
       GoRoute(path: AppRoutes.cart, builder: (_, _) => const CartScreen()),
       GoRoute(

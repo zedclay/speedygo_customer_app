@@ -40,7 +40,17 @@ void main() {
     expect(AppStrings.continueLabel, 'متابعة');
     AppStrings.bind('fr');
     expect(AppStrings.tabHome, 'Accueil');
-    expect(AppStrings.searchHint, 'Rechercher un commerce ou produit');
+    expect(AppStrings.searchHint, 'Rechercher un restaurant ou un produit');
+    expect(
+      AppStrings.homeNeedAddress,
+      'Ajoutez une adresse pour voir les commerces qui livrent chez vous.',
+    );
+    AppStrings.bind('ar');
+    expect(
+      AppStrings.homeNeedAddress,
+      'أضف عنوانًا لعرض المتاجر التي توصل إلى موقعك.',
+    );
+    AppStrings.bind('fr');
   });
 
   test('DZD formatting stays locale-invariant', () {

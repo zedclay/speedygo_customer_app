@@ -36,7 +36,8 @@ class NavParents {
         normalized == AppRoutes.accountAddresses ||
         normalized == AppRoutes.accountDelete ||
         normalized == AppRoutes.accountSupport ||
-        normalized == AppRoutes.accountSupportNew) {
+        normalized == AppRoutes.accountSupportNew ||
+        normalized == AppRoutes.accountFavorites) {
       return AppRoutes.account;
     }
     if (normalized == AppRoutes.addressForm ||

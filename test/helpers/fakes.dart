@@ -14,6 +14,7 @@ import 'package:speedygo_customer_app/features/checkout/data/checkout_api.dart';
 import 'package:speedygo_customer_app/features/checkout/data/checkout_models.dart';
 import 'package:speedygo_customer_app/features/catalog/data/catalog_api.dart';
 import 'package:speedygo_customer_app/features/catalog/data/catalog_models.dart';
+import 'package:speedygo_customer_app/features/favorites/data/favorites_api.dart';
 import 'package:speedygo_customer_app/features/orders/data/order_api.dart';
 import 'package:speedygo_customer_app/features/orders/data/order_models.dart';
 import 'package:speedygo_customer_app/features/orders/data/payment_models.dart';
@@ -286,6 +287,7 @@ class FakeCatalogClient implements CatalogClient {
   int productListCount = 0;
   int getProductCount = 0;
   String? lastSearchQ;
+  CatalogQuery? lastSearchQuery;
 
   CatalogPage<T> _slice<T>(List<T> all, int total, CatalogQuery query) {
     final params = query.toParams();
@@ -428,6 +430,7 @@ class FakeCatalogClient implements CatalogClient {
   }) async {
     searchCount += 1;
     lastSearchQ = q;
+    lastSearchQuery = query;
     final delay = searchDelay;
     if (delay != null) {
       await Future<void>.delayed(delay);
@@ -439,7 +442,121 @@ class FakeCatalogClient implements CatalogClient {
       throw loadMoreError!;
     }
     final page = searchResultFor?.call(q) ?? searchHits;
-    return _slice(page.items, page.total, query);
+    var items = page.items;
+    if (query.hitType == 'STOREFRONT') {
+      items = [
+        for (final item in items)
+          if (item.type == CatalogHitType.storefront) item,
+      ];
+    } else if (query.hitType == 'PRODUCT') {
+      items = [
+        for (final item in items)
+          if (item.type == CatalogHitType.product) item,
+      ];
+    }
+    if (query.openNow) {
+      items = [
+        for (final item in items)
+          if (item.storefront?.hours.isOpenNow == true) item,
+      ];
+    }
+    return _slice(items, items.length, query);
+  }
+}
+
+class FakeFavoritesClient implements FavoritesClient {
+  FakeFavoritesClient({
+    Set<String>? branchIds,
+    Set<String>? productIds,
+    List<StorefrontSummary>? branches,
+    List<FavoriteProduct>? products,
+    this.listError,
+    this.writeError,
+  }) : branchIds = {...?branchIds},
+       productIds = {...?productIds},
+       branches = List<StorefrontSummary>.from(branches ?? const []),
+       products = List<FavoriteProduct>.from(products ?? const []);
+
+  Set<String> branchIds;
+  Set<String> productIds;
+  List<StorefrontSummary> branches;
+  List<FavoriteProduct> products;
+  Object? listError;
+  Object? writeError;
+  int listCount = 0;
+  int writeCount = 0;
+  String? lastAddressId;
+
+  @override
+  Future<FavoriteIds> listIds() async {
+    if (listError != null) {
+      throw listError!;
+    }
+    return FavoriteIds(
+      branchIds: {...branchIds},
+      productIds: {...productIds},
+    );
+  }
+
+  @override
+  Future<FavoriteList> list({required String kind, String? addressId}) async {
+    listCount += 1;
+    lastAddressId = addressId;
+    if (listError != null) {
+      throw listError!;
+    }
+    if (kind == 'PRODUCT') {
+      return FavoriteList(
+        kind: kind,
+        products: [
+          for (final item in products)
+            if (productIds.contains(item.product.productId)) item,
+        ],
+      );
+    }
+    return FavoriteList(
+      kind: kind,
+      branches: [
+        for (final item in branches)
+          if (branchIds.contains(item.branchId)) item,
+      ],
+    );
+  }
+
+  @override
+  Future<void> addBranch(String branchId) async {
+    writeCount += 1;
+    if (writeError != null) {
+      throw writeError!;
+    }
+    branchIds.add(branchId);
+  }
+
+  @override
+  Future<void> removeBranch(String branchId) async {
+    writeCount += 1;
+    if (writeError != null) {
+      throw writeError!;
+    }
+    branchIds.remove(branchId);
+  }
+
+  @override
+  Future<void> addProduct(String productId) async {
+    writeCount += 1;
+    if (writeError != null) {
+      throw writeError!;
+    }
+    productIds.add(productId);
+  }
+
+  @override
+  Future<void> removeProduct(String productId) async {
+    writeCount += 1;
+    if (writeError != null) {
+      throw writeError!;
+    }
+    productIds.remove(productId);
   }
 }
 

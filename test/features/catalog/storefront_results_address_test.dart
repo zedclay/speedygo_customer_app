@@ -3,8 +3,10 @@ import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:speedygo_customer_app/features/addresses/application/address_controller.dart';
+import 'package:speedygo_customer_app/features/auth/data/models.dart';
 import 'package:speedygo_customer_app/features/catalog/application/catalog_providers.dart';
 import 'package:speedygo_customer_app/features/catalog/data/catalog_models.dart';
+import 'package:speedygo_customer_app/features/favorites/application/favorites_controller.dart';
 
 import '../../helpers/catalog_fixtures.dart';
 import '../../helpers/fakes.dart';
@@ -26,6 +28,41 @@ class _TestAddressSelection extends AddressSelectionController {
   }
 }
 
+const _ownedPins = [
+  CustomerAddress(
+    id: _addrA,
+    label: 'Hydra',
+    addressText: 'Hydra',
+    isDefault: true,
+    latitude: 36.75,
+    longitude: 3.05,
+  ),
+  CustomerAddress(
+    id: _addrB,
+    label: 'SBA',
+    addressText: 'SBA',
+    isDefault: false,
+    latitude: 35.19,
+    longitude: -0.64,
+  ),
+];
+
+// Typed as a helper returning provider overrides; inference avoids importing
+// riverpod's Override symbol which is not a public test-file type here.
+_overrides({
+  required FakeCatalogClient catalog,
+  required _TestAddressSelection selection,
+  List<CustomerAddress> addresses = _ownedPins,
+}) {
+  return [
+    catalogApiProvider.overrideWithValue(catalog),
+    catalogScopeProvider.overrideWithValue('1:p'),
+    addressSelectionProvider.overrideWith(() => selection),
+    addressApiProvider.overrideWithValue(FakeAddressClient(addresses: addresses)),
+    favoritesApiProvider.overrideWithValue(FakeFavoritesClient()),
+  ];
+}
+
 void main() {
   testWidgets('vertical results refresh when the selected address changes', (
     tester,
@@ -42,11 +79,7 @@ void main() {
       const AddressSelectionState(profileId: 'p', addressId: _addrA),
     );
     final container = ProviderContainer(
-      overrides: [
-        catalogApiProvider.overrideWithValue(catalog),
-        catalogScopeProvider.overrideWithValue('1:p'),
-        addressSelectionProvider.overrideWith(() => selection),
-      ],
+      overrides: _overrides(catalog: catalog, selection: selection),
     );
     addTearDown(container.dispose);
 
@@ -80,11 +113,7 @@ void main() {
       const AddressSelectionState(profileId: 'p', addressId: _addrA),
     );
     final container = ProviderContainer(
-      overrides: [
-        catalogApiProvider.overrideWithValue(catalog),
-        catalogScopeProvider.overrideWithValue('1:p'),
-        addressSelectionProvider.overrideWith(() => selection),
-      ],
+      overrides: _overrides(catalog: catalog, selection: selection),
     );
     addTearDown(container.dispose);
 
@@ -129,11 +158,11 @@ void main() {
       const AddressSelectionState(profileId: 'p'),
     );
     final container = ProviderContainer(
-      overrides: [
-        catalogApiProvider.overrideWithValue(catalog),
-        catalogScopeProvider.overrideWithValue('1:p'),
-        addressSelectionProvider.overrideWith(() => selection),
-      ],
+      overrides: _overrides(
+        catalog: catalog,
+        selection: selection,
+        addresses: const [],
+      ),
     );
     addTearDown(container.dispose);
 

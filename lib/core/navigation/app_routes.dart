@@ -28,6 +28,7 @@ class AppRoutes {
   static const accountDelete = '/account/delete';
   static const accountSupport = '/account/support';
   static const accountSupportNew = '/account/support/new';
+  static const accountFavorites = '/account/favorites';
   static const addressForm = '/addresses/form';
   static const addressConfirm = '/addresses/confirm-location';
   static const locationPermission = '/location-permission';
