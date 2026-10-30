@@ -218,6 +218,21 @@ class StorefrontResultsController
       }
       unawaited(refresh());
     });
+    ref.listen<AddressSelectionState>(addressSelectionProvider, (
+      previous,
+      next,
+    ) {
+      if (previous?.addressId == next.addressId) {
+        return;
+      }
+      unawaited(refresh());
+    });
+    ref.listen<String>(launchWilayaCodeProvider, (previous, next) {
+      if (previous == next) {
+        return;
+      }
+      unawaited(refresh());
+    });
     _loadMoreInFlight = false;
     Future<void>.microtask(() {
       if (!ref.mounted) {

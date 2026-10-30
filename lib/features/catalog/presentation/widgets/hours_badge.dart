@@ -42,13 +42,13 @@ String hoursLabel(StorefrontHours hours) {
   if (hours.isOpenNow) {
     final closes = hours.currentClosesAt;
     if (closes != null) {
-      return '${AppStrings.hoursOpen} · ${AppStrings.hoursClosesAt} ${_hm(closes)}';
+      return '${AppStrings.hoursOpen} · ${AppStrings.hoursClosesAt} ${formatStorefrontClock(closes, hours.timezone)}';
     }
     return AppStrings.hoursOpen;
   }
   final next = hours.nextOpenAt;
   if (next != null) {
-    return '${AppStrings.hoursClosed} · ${AppStrings.hoursOpensAt} ${_hm(next)}';
+    return '${AppStrings.hoursClosed} · ${AppStrings.hoursOpensAt} ${formatStorefrontClock(next, hours.timezone)}';
   }
   return AppStrings.hoursClosed;
 }
@@ -74,9 +74,21 @@ String weekdayLabel(int isoDay) {
   }
 }
 
-String _hm(DateTime value) {
-  final local = value.toLocal();
-  final h = local.hour.toString().padLeft(2, '0');
-  final m = local.minute.toString().padLeft(2, '0');
+/// Storefront hours are Africa/Algiers (UTC+1, no DST). Never use device TZ.
+Duration storefrontUtcOffset(String timezone) {
+  final zone = timezone.trim().isEmpty ? 'Africa/Algiers' : timezone.trim();
+  switch (zone) {
+    case 'Africa/Algiers':
+      return const Duration(hours: 1);
+    default:
+      return const Duration(hours: 1);
+  }
+}
+
+String formatStorefrontClock(DateTime value, String timezone) {
+  final utc = value.toUtc();
+  final zoned = utc.add(storefrontUtcOffset(timezone));
+  final h = zoned.hour.toString().padLeft(2, '0');
+  final m = zoned.minute.toString().padLeft(2, '0');
   return '$h:$m';
 }

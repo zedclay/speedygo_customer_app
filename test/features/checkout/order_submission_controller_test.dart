@@ -151,10 +151,17 @@ void main() {
         current: const OrderReconfirmationCurrent(
           merchandiseSubtotalMinor: '1400',
           deliveryFeeMinor: '500',
+          discountMinor: '0',
           customerTotalMinor: '2000',
         ),
       ),
     );
+    checkout.builder = (request) {
+      if (orders.createCount >= 1) {
+        return espressoCheckoutPreview(customerTotalMinor: '2000');
+      }
+      return espressoCheckoutPreview();
+    };
     final container = await _ready(checkout: checkout, orders: orders);
 
     final order = await container
@@ -162,10 +169,166 @@ void main() {
         .submit();
 
     expect(order, isNull);
+    expect(orders.createCount, 1);
     expect(
       container.read(checkoutControllerProvider).preview?.customerTotalMinor,
       '2000',
     );
+    expect(
+      container.read(checkoutControllerProvider).preview?.discountMinor,
+      '0',
+    );
+    container.dispose();
+  });
+
+  test('reconfirmation replaces stale promo discount from 409 current', () async {
+    final checkout = FakeCheckoutClient(
+      result: espressoCheckoutPreview(
+        promoCode: 'OLDCODE',
+        discountMinor: '1400',
+        customerTotalMinor: '500',
+      ),
+    );
+    final orders = FakeOrdersClient(
+      createError: OrderReconfirmationException(
+        message: AppStrings.orderReconfirmationRequired,
+        changes: const ['CUSTOMER_TOTAL'],
+        current: const OrderReconfirmationCurrent(
+          merchandiseSubtotalMinor: '1400',
+          deliveryFeeMinor: '500',
+          discountMinor: '0',
+          customerTotalMinor: '1900',
+        ),
+      ),
+    );
+    checkout.builder = (request) {
+      if (orders.createCount >= 1) {
+        return espressoCheckoutPreview();
+      }
+      return espressoCheckoutPreview(
+        promoCode: 'OLDCODE',
+        discountMinor: '1400',
+        customerTotalMinor: '500',
+      );
+    };
+    final container = await _ready(checkout: checkout, orders: orders);
+
+    final order = await container
+        .read(orderSubmissionControllerProvider.notifier)
+        .submit();
+
+    expect(order, isNull);
+    expect(orders.createCount, 1);
+    final preview = container.read(checkoutControllerProvider).preview;
+    expect(preview?.discountMinor, '0');
+    expect(preview?.promoCode, isNull);
+    expect(preview?.customerTotalMinor, '1900');
+    container.dispose();
+  });
+
+  test('preview failure after 409 keeps authoritative amounts, not stale promo', () async {
+    final checkout = FakeCheckoutClient(
+      result: espressoCheckoutPreview(
+        promoCode: 'OLDCODE',
+        discountMinor: '1400',
+        customerTotalMinor: '500',
+      ),
+    );
+    final orders = FakeOrdersClient(
+      createError: OrderReconfirmationException(
+        message: AppStrings.orderReconfirmationRequired,
+        changes: const ['CUSTOMER_TOTAL'],
+        current: const OrderReconfirmationCurrent(
+          merchandiseSubtotalMinor: '1500',
+          deliveryFeeMinor: '500',
+          discountMinor: '200',
+          customerTotalMinor: '1800',
+          promoCode: 'NEWCODE',
+        ),
+      ),
+    );
+    checkout.builder = (request) {
+      if (orders.createCount >= 1) {
+        throw ApiException(AppStrings.offline, code: 'NETWORK');
+      }
+      return espressoCheckoutPreview(
+        promoCode: 'OLDCODE',
+        discountMinor: '1400',
+        customerTotalMinor: '500',
+      );
+    };
+    final container = await _ready(checkout: checkout, orders: orders);
+
+    final order = await container
+        .read(orderSubmissionControllerProvider.notifier)
+        .submit();
+
+    expect(order, isNull);
+    expect(orders.createCount, 1);
+    final preview = container.read(checkoutControllerProvider).preview;
+    expect(preview?.customerTotalMinor, '1800');
+    expect(preview?.discountMinor, '200');
+    expect(preview?.promoCode, 'NEWCODE');
+    await container.read(orderSubmissionControllerProvider.notifier).submit();
+    expect(orders.createCount, 1);
+    final after = container.read(checkoutControllerProvider).preview;
+    expect(after?.customerTotalMinor, '1800');
+    expect(after?.discountMinor, '200');
+    expect(after?.promoCode, 'NEWCODE');
+    expect(
+      container.read(orderSubmissionControllerProvider).phase,
+      OrderSubmissionPhase.reconfirmationRequired,
+    );
+    container.dispose();
+  });
+
+  test('removed promo after 409 does not keep stale discount as current', () async {
+    final checkout = FakeCheckoutClient(
+      result: espressoCheckoutPreview(
+        promoCode: 'OLDCODE',
+        discountMinor: '1400',
+        customerTotalMinor: '500',
+      ),
+    );
+    final orders = FakeOrdersClient(
+      createError: OrderReconfirmationException(
+        message: AppStrings.orderReconfirmationRequired,
+        changes: const ['CUSTOMER_TOTAL'],
+        current: const OrderReconfirmationCurrent(
+          merchandiseSubtotalMinor: '1400',
+          deliveryFeeMinor: '500',
+          discountMinor: '0',
+          customerTotalMinor: '1900',
+        ),
+      ),
+    );
+    checkout.builder = (request) {
+      if (orders.createCount >= 1) {
+        throw ApiException(
+          'Promotion is no longer eligible',
+          code: 'PROMOTION_NOT_ELIGIBLE',
+        );
+      }
+      return espressoCheckoutPreview(
+        promoCode: 'OLDCODE',
+        discountMinor: '1400',
+        customerTotalMinor: '500',
+      );
+    };
+    final container = await _ready(checkout: checkout, orders: orders);
+
+    final order = await container
+        .read(orderSubmissionControllerProvider.notifier)
+        .submit();
+
+    expect(order, isNull);
+    expect(orders.createCount, 1);
+    final checkoutState = container.read(checkoutControllerProvider);
+    expect(checkoutState.preview, isNull);
+    expect(checkoutState.errorCode, 'PROMOTION_NOT_ELIGIBLE');
+    expect(checkoutState.requestedPromoCode, isNull);
+    await container.read(orderSubmissionControllerProvider.notifier).submit();
+    expect(orders.createCount, 1);
     container.dispose();
   });
 

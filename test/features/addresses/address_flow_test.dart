@@ -5,6 +5,7 @@ import 'package:speedygo_customer_app/core/errors/app_exception.dart';
 import 'package:speedygo_customer_app/features/addresses/data/address_selection_store.dart';
 import 'package:speedygo_customer_app/features/addresses/data/location_client.dart';
 import 'package:speedygo_customer_app/features/addresses/presentation/address_form_screen.dart';
+import 'package:speedygo_customer_app/features/addresses/presentation/address_list_screen.dart';
 import 'package:speedygo_customer_app/features/auth/data/models.dart';
 import 'package:speedygo_customer_app/features/home/presentation/home_screen.dart';
 
@@ -48,6 +49,22 @@ FakeCustomerClient _customer({List<CustomerAddress> addresses = const []}) {
 }
 
 Finder _key(String value) => find.byKey(Key(value), skipOffstage: false);
+
+Finder _addressListScrollable() => find
+    .descendant(
+      of: find.byType(AddressListScreen),
+      matching: find.byType(Scrollable),
+    )
+    .first;
+
+Future<void> _revealInAddressList(WidgetTester tester, Finder item) async {
+  await tester.scrollUntilVisible(
+    item,
+    200,
+    scrollable: _addressListScrollable(),
+  );
+  await tester.pumpAndSettle();
+}
 
 void main() {
   testWidgets(
@@ -175,9 +192,13 @@ void main() {
       api.addresses.map((address) => address.label),
       contains('Revue test Hydra'),
     );
+    await _revealInAddressList(
+      tester,
+      find.text('Revue test Hydra', skipOffstage: false),
+    );
     expect(find.text('Revue test Hydra'), findsOneWidget);
 
-    await tester.tap(find.byIcon(Icons.edit_outlined).last);
+    await tester.tap(find.byKey(const Key('edit-address-addr-created-1')));
     await tester.pumpAndSettle();
     await tester.enterText(
       find.byKey(const Key('address-label-field')),
@@ -185,8 +206,16 @@ void main() {
     );
     await tester.tap(find.byKey(const Key('address-save-button')));
     await tester.pumpAndSettle();
+    await _revealInAddressList(
+      tester,
+      find.text('Revue test Hydra edit', skipOffstage: false),
+    );
     expect(find.text('Revue test Hydra edit'), findsOneWidget);
 
+    await _revealInAddressList(
+      tester,
+      find.byKey(const Key('delete-address-addr-work'), skipOffstage: false),
+    );
     await tester.tap(find.byKey(const Key('delete-address-addr-work')));
     await tester.pumpAndSettle();
     await tester.tap(find.byKey(const Key('confirm-delete-address')));

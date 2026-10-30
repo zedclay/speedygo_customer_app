@@ -388,18 +388,11 @@ class _StorefrontIdentityCard extends StatelessWidget {
     if (hours.isOpenNow) {
       final closes = hours.currentClosesAt;
       if (closes != null) {
-        return '${AppStrings.hoursOpenUntil} ${_formatHm(closes)}';
+        return '${AppStrings.hoursOpenUntil} ${formatStorefrontClock(closes, hours.timezone)}';
       }
       return hoursLabel(hours);
     }
     return hoursLabel(hours);
-  }
-
-  String _formatHm(DateTime value) {
-    final local = value.toLocal();
-    final h = local.hour.toString().padLeft(2, '0');
-    final m = local.minute.toString().padLeft(2, '0');
-    return '$h:$m';
   }
 }
 

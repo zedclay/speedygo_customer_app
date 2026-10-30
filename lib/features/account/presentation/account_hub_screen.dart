@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:speedygo_customer_app/app/theme/app_theme.dart';
 import 'package:speedygo_customer_app/core/constants/app_strings.dart';
+import 'package:speedygo_customer_app/core/navigation/app_locale.dart';
 import 'package:speedygo_customer_app/core/navigation/app_routes.dart';
 import 'package:speedygo_customer_app/core/utils/phone_input.dart';
 import 'package:speedygo_customer_app/features/account/presentation/logout_sheet.dart';
@@ -27,6 +28,7 @@ class AccountHubScreen extends ConsumerWidget {
     final phone = session.signedInPhone;
 
     return Scaffold(
+      key: const Key('account-hub'),
       backgroundColor: AppColors.surface,
       body: SafeArea(
         child: ListView(
@@ -45,11 +47,13 @@ class AccountHubScreen extends ConsumerWidget {
               title: AppStrings.accountSectionAccount,
               children: [
                 _Row(
+                  key: const Key('account-addresses'),
                   icon: Icons.location_on_outlined,
                   label: AppStrings.accountAddressesLabel,
                   onTap: () => context.push(AppRoutes.accountAddresses),
                 ),
                 _Row(
+                  key: const Key('account-payment-methods'),
                   icon: Icons.payments_outlined,
                   label: AppStrings.accountPaymentMethodsTitle,
                   onTap: () => context.push(AppRoutes.accountPaymentMethods),
@@ -61,14 +65,18 @@ class AccountHubScreen extends ConsumerWidget {
               title: AppStrings.accountSectionPreferences,
               children: [
                 _Row(
+                  key: const Key('account-notifications'),
                   icon: Icons.notifications_outlined,
                   label: AppStrings.accountNotificationsSettingsTitle,
                   onTap: () => context.push(AppRoutes.accountNotifications),
                 ),
                 _Row(
+                  key: const Key('account-language'),
                   icon: Icons.language,
                   label: AppStrings.accountLanguageLabel,
-                  subtitle: AppStrings.languageFrench,
+                  subtitle: AppLocale.isArabic(session.locale)
+                      ? AppStrings.languageArabic
+                      : AppStrings.languageFrench,
                   onTap: () => context.push(AppRoutes.accountLanguage),
                   showDivider: false,
                 ),
@@ -78,14 +86,16 @@ class AccountHubScreen extends ConsumerWidget {
               title: AppStrings.accountSectionSupport,
               children: [
                 _Row(
+                  key: const Key('account-support-new'),
                   icon: Icons.help_outline,
                   label: AppStrings.supportCentreAide,
-                  onTap: () => context.push(AppRoutes.supportNew),
+                  onTap: () => context.push(AppRoutes.accountSupportNew),
                 ),
                 _Row(
+                  key: const Key('account-support'),
                   icon: Icons.confirmation_number_outlined,
                   label: AppStrings.supportTicketsLabel,
-                  onTap: () => context.push(AppRoutes.supportList),
+                  onTap: () => context.push(AppRoutes.accountSupport),
                   showDivider: false,
                 ),
               ],
@@ -94,16 +104,19 @@ class AccountHubScreen extends ConsumerWidget {
               title: AppStrings.accountSectionLegal,
               children: [
                 _Row(
+                  key: const Key('account-legal-privacy'),
                   icon: Icons.privacy_tip_outlined,
                   label: AppStrings.legalPrivacyTitle,
-                  onTap: () => context.push(AppRoutes.legalPrivacy),
+                  onTap: () => context.push(AppRoutes.accountLegalPrivacy),
                 ),
                 _Row(
+                  key: const Key('account-legal-terms'),
                   icon: Icons.gavel,
                   label: AppStrings.legalTermsTitle,
-                  onTap: () => context.push(AppRoutes.legalTerms),
+                  onTap: () => context.push(AppRoutes.accountLegalTerms),
                 ),
                 _Row(
+                  key: const Key('account-security'),
                   icon: Icons.security,
                   label: AppStrings.accountSecurityLabel,
                   onTap: () => context.push(AppRoutes.accountSecurity),
@@ -141,6 +154,7 @@ class AccountHubScreen extends ConsumerWidget {
             SizedBox(
               height: 48,
               child: TextButton.icon(
+                key: const Key('account-delete'),
                 onPressed: () => context.push(AppRoutes.accountDelete),
                 icon: const Icon(Icons.delete_forever, size: 18),
                 label: Text(AppStrings.accountDeleteTitle),
@@ -275,6 +289,7 @@ class _Section extends StatelessWidget {
 
 class _Row extends StatelessWidget {
   const _Row({
+    super.key,
     required this.icon,
     required this.label,
     required this.onTap,

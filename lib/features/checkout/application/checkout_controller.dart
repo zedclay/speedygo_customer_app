@@ -175,7 +175,11 @@ class CheckoutController extends Notifier<CheckoutUiState> {
     return refresh();
   }
 
-  void applyPreview(CheckoutPreview preview) {
+  void applyPreview(CheckoutPreview preview, {bool syncPromo = false}) {
+    if (syncPromo) {
+      final code = preview.promoCode?.trim();
+      _requestedPromoCode = (code == null || code.isEmpty) ? null : code;
+    }
     final cart = ref.read(cartControllerProvider);
     state = CheckoutUiState(
       preview: preview,

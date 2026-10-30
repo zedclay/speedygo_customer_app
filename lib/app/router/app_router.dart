@@ -201,6 +201,85 @@ final appRouterProvider = Provider<GoRouter>((ref) {
               GoRoute(
                 path: AppRoutes.account,
                 builder: (_, _) => const AccountHubScreen(),
+                routes: [
+                  GoRoute(
+                    path: 'addresses',
+                    builder: (_, _) => const AddressListScreen(),
+                  ),
+                  GoRoute(
+                    path: 'language',
+                    builder: (_, _) => const LanguageScreen(settings: true),
+                  ),
+                  GoRoute(
+                    path: 'notifications',
+                    builder: (context, _) => AccountStatusScreen(
+                      title: AppStrings.accountNotificationsSettingsTitle,
+                      body: AppStrings.accountNotificationsSettingsBody,
+                      icon: Icons.notifications_outlined,
+                      secondaryLabel: AppStrings.accountNotificationsOpenInbox,
+                      secondaryKey: const Key('account-notifications-inbox'),
+                      onSecondary: () => context.go(AppRoutes.alerts),
+                    ),
+                  ),
+                  GoRoute(
+                    path: 'payment-methods',
+                    builder: (_, _) => AccountStatusScreen(
+                      title: AppStrings.accountPaymentMethodsTitle,
+                      body: AppStrings.accountPaymentMethodsBody,
+                      icon: Icons.payments_outlined,
+                    ),
+                  ),
+                  GoRoute(
+                    path: 'security',
+                    builder: (_, _) => const ActiveSessionsScreen(),
+                  ),
+                  GoRoute(
+                    path: 'legal',
+                    builder: (_, _) => AccountStatusScreen(
+                      title: AppStrings.accountSectionLegal,
+                      body: AppStrings.legalUnavailableBody,
+                      icon: Icons.policy_outlined,
+                    ),
+                  ),
+                  GoRoute(
+                    path: 'legal/privacy',
+                    builder: (_, _) => AccountStatusScreen(
+                      title: AppStrings.legalPrivacyTitle,
+                      body: AppStrings.legalUnavailableBody,
+                      icon: Icons.privacy_tip_outlined,
+                    ),
+                  ),
+                  GoRoute(
+                    path: 'legal/terms',
+                    builder: (_, _) => AccountStatusScreen(
+                      title: AppStrings.legalTermsTitle,
+                      body: AppStrings.legalUnavailableBody,
+                      icon: Icons.gavel,
+                    ),
+                  ),
+                  GoRoute(
+                    path: 'delete',
+                    builder: (_, _) => AccountStatusScreen(
+                      title: AppStrings.accountDeleteTitle,
+                      body: AppStrings.accountDeleteBody,
+                      icon: Icons.delete_forever_outlined,
+                      actionLabel: AppStrings.accountDeleteAction,
+                      actionMessage: AppStrings.deleteUnavailable,
+                      actionKey: const Key('account-delete-confirm'),
+                    ),
+                  ),
+                  GoRoute(
+                    path: 'support',
+                    builder: (_, _) => const SupportListScreen(),
+                  ),
+                  GoRoute(
+                    path: 'support/new',
+                    builder: (context, state) {
+                      final orderId = state.uri.queryParameters['orderId'];
+                      return SupportCreateScreen(orderId: orderId);
+                    },
+                  ),
+                ],
               ),
             ],
           ),
@@ -302,10 +381,6 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             NavScaffold(entry: NavCatalog.byId('checkout-submit')!),
       ),
       GoRoute(
-        path: AppRoutes.accountAddresses,
-        builder: (_, _) => const AddressListScreen(),
-      ),
-      GoRoute(
         path: AppRoutes.addressForm,
         builder: (context, state) => AddressFormScreen(
           addressId: state.uri.queryParameters['addressId'],
@@ -323,52 +398,6 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: AppRoutes.locationPermission,
         builder: (_, _) => const LocationPermissionScreen(),
-      ),
-      GoRoute(
-        path: AppRoutes.accountLanguage,
-        builder: (_, _) => const LanguageScreen(settings: true),
-      ),
-      GoRoute(
-        path: AppRoutes.accountNotifications,
-        builder: (context, _) => AccountStatusScreen(
-          title: AppStrings.accountNotificationsSettingsTitle,
-          body: AppStrings.accountNotificationsSettingsBody,
-          icon: Icons.notifications_outlined,
-          secondaryLabel: AppStrings.accountNotificationsOpenInbox,
-          secondaryKey: const Key('account-notifications-inbox'),
-          onSecondary: () => context.go(AppRoutes.alerts),
-        ),
-      ),
-      GoRoute(
-        path: AppRoutes.accountPaymentMethods,
-        builder: (_, _) => AccountStatusScreen(
-          title: AppStrings.accountPaymentMethodsTitle,
-          body: AppStrings.accountPaymentMethodsBody,
-          icon: Icons.payments_outlined,
-        ),
-      ),
-      GoRoute(
-        path: AppRoutes.accountSecurity,
-        builder: (_, _) => const ActiveSessionsScreen(),
-      ),
-      GoRoute(
-        path: AppRoutes.accountLegal,
-        builder: (_, _) => AccountStatusScreen(
-          title: AppStrings.accountSectionLegal,
-          body: AppStrings.legalUnavailableBody,
-          icon: Icons.policy_outlined,
-        ),
-      ),
-      GoRoute(
-        path: AppRoutes.accountDelete,
-        builder: (_, _) => AccountStatusScreen(
-          title: AppStrings.accountDeleteTitle,
-          body: AppStrings.accountDeleteBody,
-          icon: Icons.delete_forever_outlined,
-          actionLabel: AppStrings.accountDeleteAction,
-          actionMessage: AppStrings.deleteUnavailable,
-          actionKey: Key('account-delete-confirm'),
-        ),
       ),
       GoRoute(
         path: AppRoutes.alertsPermission,
